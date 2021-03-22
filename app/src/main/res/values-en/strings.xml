@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">TrazinsDroidPre</string>
+    <string name="welcome">Welcome to Trazins</string>
+    <string name="read_code">Read your identification code</string>
+    <string name="aut_result">Pending authentication</string>
+    <string name="correct_user">Succesfully autentication</string>
+</resources>

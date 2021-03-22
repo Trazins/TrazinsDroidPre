@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">TrazinsDroidPre</string>
     <string name="welcome">Bienvenido a Trazins</string>
+    <string name="read_code">Proceda a leer su identificación</string>
+    <string name="aut_result">Pendiente autenticación</string>
+    <string name="correct_user">Autenticación correcta</string>
 </resources>
