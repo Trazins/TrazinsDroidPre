@@ -5,4 +5,5 @@
     <string name="read_code">Read your identification code</string>
     <string name="aut_result">Pending authentication</string>
     <string name="correct_user">Succesfully autentication</string>
+    <string name="Incorrect_user"><font fgcolor='#FFFF3B30'>Incorrect user</font></string>
 </resources>
