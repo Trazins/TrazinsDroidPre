@@ -32,20 +32,11 @@
         android:id="@+id/textViewAutResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="64dp"
         android:text="@string/aut_result"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonAction" />
-
-    <Button
-        android:id="@+id/buttonAction"
-        android:layout_width="75dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="20dp"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewReadCode" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
