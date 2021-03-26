@@ -10,12 +10,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.threepin.fireexit_wcf.Configurator;
 import com.threepin.fireexit_wcf.FireExitClient;
+import com.trazins.trazinsdroidpre.models.usermodel.UserInputModel;
+import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 
 public class MainActivity extends AppCompatActivity {
 

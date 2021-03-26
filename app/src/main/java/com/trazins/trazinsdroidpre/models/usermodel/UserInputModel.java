@@ -1,4 +1,4 @@
-package com.trazins.trazinsdroidpre;
+package com.trazins.trazinsdroidpre.models.usermodel;
 
 import java.io.Serializable;
 
