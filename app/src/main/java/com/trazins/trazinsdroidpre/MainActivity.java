@@ -2,10 +2,13 @@ package com.trazins.trazinsdroidpre;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.threepin.fireexit_wcf.Configurator;
@@ -14,7 +17,12 @@ import com.threepin.fireexit_wcf.FireExitClient;
 public class MainActivity extends AppCompatActivity {
 
     TextView textViewAutResult;
+    Button buttonAction;
     Handler handler;
+    //Variable que almacena el código leído por el lector.
+    String readCode = "";
+    //Variable que nos indica el resultado de la autenticación.
+    Boolean result= false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,16 +31,24 @@ public class MainActivity extends AppCompatActivity {
 
         handler = new Handler(Looper.getMainLooper());
         textViewAutResult = findViewById(R.id.textViewAutResult);
+        buttonAction = findViewById(R.id.buttonAction);
+        buttonAction.setOnClickListener(view -> {
+            new MyAsyncClass().execute();
+            if(result){
+                Intent switchActivity = new Intent(getApplicationContext(), SecondActivity.class);
+                startActivity(switchActivity);
+            }
 
-        new MyAsyncClass().execute();
+        });
     }
 
+    //Clase que gestiona la conexión con el web service
     class MyAsyncClass extends AsyncTask{
         @Override
         protected Object doInBackground(Object[] objects) {
             //Usamos los mismos nombres en las clases para que la serialización se realice correctamente
             UserInputModel userInputModelData = new UserInputModel();
-            userInputModelData.SignatureCode = "123";
+            userInputModelData.SignatureCode = readCode;
 
             //Desplegar el servicio:
             //Usamos la librería Fireexit para la gestión de la serialización.
@@ -68,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         private void setInformationMessage(UserOutputModel userLogged) {
             if(userLogged!=null){
                 textViewAutResult.setText(((UserOutputModel) userLogged).UserName);
+                result = true;
             }
             else{
                 textViewAutResult.setText(R.string.Incorrect_user);
