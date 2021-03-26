@@ -2,7 +2,10 @@ package com.trazins.trazinsdroidpre;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     TextView textViewAutResult;
     Button buttonAction;
     Handler handler;
+
     //Variable que almacena el código leído por el lector.
     String readCode = "";
     //Variable que nos indica el resultado de la autenticación.
@@ -32,13 +36,18 @@ public class MainActivity extends AppCompatActivity {
         handler = new Handler(Looper.getMainLooper());
         textViewAutResult = findViewById(R.id.textViewAutResult);
         buttonAction = findViewById(R.id.buttonAction);
+
+        IntentFilter filter = new IntentFilter();
+        filter.addCategory(Intent.CATEGORY_DEFAULT);
+        filter.addAction("com.trazinsdroid.main.ACTION");
+        registerReceiver(myBroadCastReceiver, filter);
+
         buttonAction.setOnClickListener(view -> {
             new MyAsyncClass().execute();
             if(result){
                 Intent switchActivity = new Intent(getApplicationContext(), SecondActivity.class);
                 startActivity(switchActivity);
             }
-
         });
     }
 
@@ -92,5 +101,29 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private BroadcastReceiver myBroadCastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
 
+            String action = intent.getAction();
+            Bundle b = intent.getExtras();
+
+            if(action.equals("com.trazinsdroid.main.ACTION")){
+                //Recibimos el barcode leido
+                try {
+                    displayScanResult(intent, "via Broadcast");
+                }catch (Exception e){
+
+                }
+            }
+        }
+    };
+
+    private void displayScanResult(Intent initiatingIntent, String howDataRecibed){
+        String decodedSource = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_source));
+        String decodedData = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_data));
+        String decodedLabelType = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_label_type));
+
+        textViewAutResult.setText("1: "+decodedSource+ " 2: " + decodedData+ " 3: "+ decodedLabelType);
+    };
 }
