@@ -6,9 +6,10 @@
     <string name="aut_result">Pending authentication</string>
     <string name="correct_user">Succesfully autentication</string>
     <string name="Incorrect_user"><font fgcolor='#FFFF3B30'>Incorrect user</font></string>
-    //Barcode scanner section
-    <string name="activity_intent_filter_action">com.trazinsdroid.main.ACTION</string>
-    <string name="datawedge_intent_key_source">com.symbol.datawedge.source</string>
+    <string name="location_title">Location</string>
+    <string name="change_location">Change location</string>
+    <string name="materials_title">Material to locate</string>
+    <string name="materials_counter">elements</string>
+    //Scanner values
     <string name="datawedge_intent_key_data">com.symbol.datawedge.data_string</string>
-    <string name="datawedge_intent_key_label_type">com.symbol.datawedge.label_type</string>
 </resources>

@@ -53,14 +53,14 @@ public class MainActivity extends AppCompatActivity {
         filter.addCategory(Intent.CATEGORY_DEFAULT);
         filter.addAction(DataWedgeInterface.ACTIVITY_INTENT_FILTER_ACTION);
 
-        // Create Profile 1 for MainActivity: Enable Code128, Disable EAN13
+        // Create Profile 1 for MainActivity:
         String Code128Value = "true";
         String EAN13Value = "false";
         CreateProfile(PROFILE1, Code128Value, EAN13Value);
 
-        // Create Profile 2 for SecondActivity: Disable Code128, Enable EAN13
-        Code128Value = "false";
-        EAN13Value = "true";
+        // Create Profile 2 for SecondActivity:
+        Code128Value = "true";
+        EAN13Value = "false";
         CreateProfile(PROFILE2, Code128Value, EAN13Value);
     }
     @Override
@@ -166,9 +166,9 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void displayScanResult(Intent initiatingIntent, String howDataRecibed){
-        String decodedSource = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_source));
+        //String decodedSource = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_source));
         String decodedData = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_data));
-        String decodedLabelType = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_label_type));
+        //String decodedLabelType = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_label_type));
         readCode = decodedData;
         new MyAsyncClass().execute();
     };
