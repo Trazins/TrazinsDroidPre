@@ -8,6 +8,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationMenu;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +17,7 @@ public class SecondActivity extends AppCompatActivity {
 
     ListView ListViewContacto;
     List<Contacto> lst;
+    View bottomNavigationMenu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +27,8 @@ public class SecondActivity extends AppCompatActivity {
 
         CustomAdapter adapter = new CustomAdapter(this, GetData());
         ListViewContacto.setAdapter(adapter);
+
+        bottomNavigationMenu = findViewById(R.id.bottomNavigationMenu);
 
         ListViewContacto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -1,4 +1,8 @@
 <resources>
+    //Scanner resources
+    <string name="datawedge_intent_key_data">com.symbol.datawedge.data_string</string>
+
+    //App resources
     <string name="app_name">TrazinsDroidPre</string>
     <string name="welcome">Bienvenido a Trazins</string>
     <string name="read_code">Proceda a leer su identificación</string>
@@ -9,6 +13,6 @@
     <string name="change_location">Cambiar ubicación</string>
     <string name="materials_title">Material a ubicar</string>
     <string name="materials_counter">elementos</string>
-    //Scanner values
-    <string name="datawedge_intent_key_data">com.symbol.datawedge.data_string</string>
+    <string name="delete">Borrar</string>
+    <string name="add_location">Ubicar material</string>
 </resources>
