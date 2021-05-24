@@ -16,4 +16,8 @@
     <string name="materials_counter">elements</string>
     <string name="delete">Delete</string>
     <string name="add_location">Locate material</string>
+
+    //Selection Activity
+    <string name="selection_activity_title">Select a Process</string>
+    <string name="identified_user">User: </string>
 </resources>

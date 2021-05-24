@@ -15,4 +15,8 @@
     <string name="materials_counter">elementos</string>
     <string name="delete">Borrar</string>
     <string name="add_location">Ubicar material</string>
+
+    //Selection Activity
+    <string name="selection_activity_title">Seleccione un proceso</string>
+    <string name="identified_user">Usuario: </string>
 </resources>
