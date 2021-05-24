@@ -8,12 +8,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.android.material.bottomnavigation.BottomNavigationMenu;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class SecondActivity extends AppCompatActivity {
+public class LocateActivity extends AppCompatActivity {
 
     ListView ListViewContacto;
     List<Contacto> lst;
@@ -21,7 +19,7 @@ public class SecondActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_second);
+        setContentView(R.layout.activity_locate);
 
         ListViewContacto = findViewById(R.id.listViewMaterials);
 

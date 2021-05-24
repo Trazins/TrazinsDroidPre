@@ -10,23 +10,18 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.threepin.fireexit_wcf.Configurator;
 import com.threepin.fireexit_wcf.FireExitClient;
 import com.trazins.trazinsdroidpre.models.usermodel.UserInputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 import com.trazins.trazinsdroidpre.scanner.DataWedgeInterface;
-import com.trazins.trazinsdroidpre.scanner.MyReceiver;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.text.BreakIterator;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -58,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         String EAN13Value = "false";
         CreateProfile(PROFILE1, Code128Value, EAN13Value);
 
-        // Create Profile 2 for SecondActivity:
+        // Create Profile 2 for LocateActivity:
         Code128Value = "true";
         EAN13Value = "false";
         CreateProfile(PROFILE2, Code128Value, EAN13Value);
@@ -131,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         private void setInformationMessage(UserOutputModel userLogged) {
             if(userLogged!=null){
                 textViewAutResult.setText(((UserOutputModel) userLogged).UserName);
-                Intent switchActivity = new Intent(getApplicationContext(), SecondActivity.class);
+                Intent switchActivity = new Intent(getApplicationContext(), LocateActivity.class);
                 startActivity(switchActivity);
             }
             else{
@@ -205,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
             activityName = MainActivity.class.getSimpleName();
         }
         else {
-            activityName = SecondActivity.class.getSimpleName();
+            activityName = LocateActivity.class.getSimpleName();
         }
         String activityPackageName = getPackageName() + "." + activityName;
         appConfig.putStringArray("ACTIVITY_LIST", new String[] {activityPackageName});
