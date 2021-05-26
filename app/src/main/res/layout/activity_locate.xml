@@ -65,6 +65,7 @@
             android:layout_gravity="right"
             android:gravity="right"
             android:text="@string/change_location"
+            android:textColor="@color/white"
             android:textSize="12sp"
             app:backgroundTint="@color/buttonTrazins" />
 
