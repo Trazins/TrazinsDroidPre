@@ -9,7 +9,7 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
-        android:layout_height="62dp"
+        android:layout_height="70dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -19,10 +19,10 @@
         <TextView
             android:id="@+id/textViewSelectionTitle"
             android:layout_width="match_parent"
-            android:layout_height="37dp"
+            android:layout_height="45dp"
             android:text="@string/selection_activity_title"
-            android:textAlignment="center"
-            android:textSize="18sp" />
+            android:gravity="center_vertical|center_horizontal"
+            android:textSize="20sp" />
 
         <ImageView
             android:id="@+id/imageView"
@@ -60,50 +60,49 @@
     <androidx.gridlayout.widget.GridLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:padding="10dp"
         app:columnCount="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        android:padding="10dp"
-        android:layout_gravity="center">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <Button
             android:id="@+id/buttonLocateMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:background="@color/white"
             android:drawableTop="@drawable/ic_menu_location_48"
             android:onClick="openSelectedActivity"
             android:text="@string/add_location"
             android:textColor="@color/buttonTrazins"
-            app:layout_columnWeight="1"
-            android:layout_margin="5dp"/>
+            app:layout_columnWeight="1" />
 
         <Button
             android:id="@+id/buttonShipmentMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:background="@color/white"
             android:drawableTop="@drawable/ic_menu_send_48"
             android:onClick="openSelectedActivity"
             android:text="@string/add_shipment"
             android:textColor="@color/buttonTrazins"
-            app:layout_columnWeight="1"
-            android:layout_margin="5dp"/>
+            app:layout_columnWeight="1" />
 
         <Button
             android:id="@+id/buttonOtherMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:background="@color/white"
             android:drawableTop="@drawable/ic_menu_otheroption_48"
             android:onClick="openSelectedActivity"
             android:text="@string/other_mode"
             android:textColor="@color/buttonTrazins"
-            app:layout_columnWeight="1"
-            android:layout_margin="5dp"/>
-
+            app:layout_columnWeight="1" />
 
 
     </androidx.gridlayout.widget.GridLayout>
