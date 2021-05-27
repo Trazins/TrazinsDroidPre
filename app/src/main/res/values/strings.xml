@@ -15,8 +15,11 @@
     <string name="materials_counter">elementos</string>
     <string name="delete">Borrar</string>
     <string name="add_location">Ubicar material</string>
+    <string name="add_shipment">Enviar material</string>
+
 
     //Selection Activity
     <string name="selection_activity_title">Seleccione un proceso</string>
     <string name="identified_user">Usuario: </string>
+    <string name="other_mode">Otra opción</string>
 </resources>
