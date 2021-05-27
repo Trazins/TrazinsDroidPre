@@ -66,20 +66,15 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <Button
-            android:id="@+id/button10"
+            android:id="@+id/buttonLocateMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ubicar Material"
-            android:drawableTop="@drawable/ic_add_location"/>
+            android:background="@color/white"
+            android:drawableTop="@drawable/ic_menu_location_48"
+            android:text="@string/add_location"
+            android:textColor="@color/buttonTrazins" />
 
-        <ImageButton
-            android:id="@+id/imageButtonLocate"
-            android:layout_width="118dp"
-            android:layout_height="107dp"
-            android:contentDescription="Locate"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_add_location"
-            android:background="@color/white"/>
+
 
     </androidx.gridlayout.widget.GridLayout>
 
