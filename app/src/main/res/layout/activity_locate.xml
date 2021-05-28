@@ -27,12 +27,13 @@
             android:id="@+id/textViewUserName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="@string/identified_user" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/medium_grey"
+            android:contentDescription="@string/global_image_description"
             android:paddingLeft="5dp"
             android:paddingTop="1dp"
             android:paddingRight="5dp"
@@ -52,8 +53,9 @@
             android:id="@+id/textViewLocationResult"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="@string/locate_empty"
             android:paddingStart="35dp"
-            android:text="TextView"
+            android:paddingEnd="0dp"
             android:textAlignment="textStart"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -62,8 +64,8 @@
             android:id="@+id/buttonSetLocation"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
-            android:layout_gravity="right"
-            android:gravity="right"
+            android:layout_gravity="end"
+            android:gravity="end"
             android:text="@string/change_location"
             android:textColor="@color/white"
             android:textSize="12sp"
@@ -73,6 +75,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/medium_grey"
+            android:contentDescription="@string/global_image_description"
             android:paddingLeft="5dp"
             android:paddingTop="1dp"
             android:paddingRight="5dp"
@@ -96,7 +99,7 @@
                 android:id="@+id/textViewMaterialCounter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="elementos"
+                android:text="@string/materials_counter"
                 android:textAlignment="textEnd"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="14sp" />
@@ -106,6 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/medium_grey"
+            android:contentDescription="@string/global_image_description"
             android:paddingLeft="5dp"
             android:paddingTop="1dp"
             android:paddingRight="5dp"

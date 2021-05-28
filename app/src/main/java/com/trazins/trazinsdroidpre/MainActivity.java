@@ -170,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
         new MyAsyncClass().execute();
     };
 
+    //Crea los archivos para la aplicación Datawedge de Zebra
     private void CreateProfile (String profileName, String code128Value, String ean13Value){
 
         // Configure profile to apply to this app

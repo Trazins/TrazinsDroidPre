@@ -29,6 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/medium_grey"
+            android:contentDescription="@string/global_image_description"
             android:paddingLeft="5dp"
             android:paddingTop="1dp"
             android:paddingRight="5dp"
@@ -41,13 +42,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/identified_user"
-            android:paddingLeft="5dp"/>
+            android:paddingLeft="5dp"
+            android:paddingRight="0dp"/>
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/medium_grey"
+            android:contentDescription="@string/global_image_description"
             android:paddingLeft="5dp"
             android:paddingTop="1dp"
             android:paddingRight="5dp"

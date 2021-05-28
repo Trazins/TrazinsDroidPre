@@ -2,21 +2,28 @@
     //Scanner resources
     <string name="datawedge_intent_key_data">com.symbol.datawedge.data_string</string>
 
-    //App resources
+    //General resources
+    <string name="global_image_description" translatable="false">separtorLine</string>
+
+    //Main Activity
     <string name="app_name">TrazinsDroidPre</string>
     <string name="welcome">Bienvenido a Trazins</string>
     <string name="read_code">Proceda a leer su identificación</string>
     <string name="aut_result">Pendiente autenticación</string>
     <string name="correct_user">Autenticación correcta</string>
     <string name="Incorrect_user"><font fgcolor='#FFFF3B30'>Usuario incorrecto</font></string>
+
+    //Locate Activity
     <string name="location_title">Ubicación</string>
     <string name="change_location">Cambiar ubicación</string>
     <string name="materials_title">Material a ubicar</string>
     <string name="materials_counter">elementos</string>
     <string name="delete">Borrar</string>
     <string name="add_location">Ubicar material</string>
-    <string name="add_shipment">Enviar material</string>
+    <string name="locate_empty">Lea la etiqueta de ubicación</string>
 
+    //Shipment Activity
+    <string name="add_shipment">Enviar material</string>
 
     //Selection Activity
     <string name="selection_activity_title">Seleccione un proceso</string>
