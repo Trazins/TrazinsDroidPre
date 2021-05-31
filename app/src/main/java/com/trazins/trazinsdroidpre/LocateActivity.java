@@ -109,6 +109,9 @@ public class LocateActivity extends AppCompatActivity {
     class LocateMyAsyncClass extends AsyncTask {
         @Override
         protected Object doInBackground(Object[] objects) {
+            String methodName;
+            String parameterName;
+            Object resultModel = null;
             //Desplegar el servicio:
             //Usamos la librería Fireexit para la gestión de la serialización.
             FireExitClient client = new FireExitClient(
@@ -116,32 +119,30 @@ public class LocateActivity extends AppCompatActivity {
 
             //Determinamos que tipo de objeto es el código leido
             if(readCode.substring(0,1).equals("U")){
+                methodName = "GetLocation";
+                parameterName = "locationCode";
+
                 LocateInputModel locateInputModelData = new LocateInputModel();
                 locateInputModelData.StorageCode = readCode;
 
                 //Según el código hay que usar una clase de web service o otra;
                 client.configure(new Configurator(
-                        "http://tempuri.org/", "ITrazinsDroidService", "GetLocation"));
+                        "http://tempuri.org/", "ITrazinsDroidService", methodName));
 
-                client.addParameter("locationCode", locateInputModelData);
-
-                LocateOutputModel locateOutputModelResult = new LocateOutputModel();
-                try {
-                    //Realizamos la llamada al web service para obtener los datos
-                    locateOutputModelResult = client.call(locateOutputModelResult);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                return locateOutputModelResult;
-
+                client.addParameter(parameterName, locateInputModelData);
+            }else{
+                
             }
 
-            return  null;
-
-        }
-
-        private Object GetDataFromService(){
-            return null;
+            resultModel = new LocateOutputModel();
+            //LocateOutputModel locateOutputModelResult = new LocateOutputModel();
+            try {
+                //Realizamos la llamada al web service para obtener los datos
+                resultModel = client.call(resultModel);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return resultModel;
         }
 
         @Override
