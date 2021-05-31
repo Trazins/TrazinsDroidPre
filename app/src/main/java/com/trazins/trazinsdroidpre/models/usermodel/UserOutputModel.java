@@ -1,6 +1,8 @@
 package com.trazins.trazinsdroidpre.models.usermodel;
 
-public class UserOutputModel {
+import java.io.Serializable;
+
+public class UserOutputModel implements Serializable {
     public String SignatureCode;
     public String UserName;
     public String Login;

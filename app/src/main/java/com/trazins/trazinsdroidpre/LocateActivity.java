@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.threepin.fireexit_wcf.Configurator;
 import com.threepin.fireexit_wcf.FireExitClient;
+import com.trazins.trazinsdroidpre.models.locatemodel.LocateInputModel;
+import com.trazins.trazinsdroidpre.models.locatemodel.LocateOutputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserInputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 import com.trazins.trazinsdroidpre.scanner.DataWedgeInterface;
@@ -35,7 +37,8 @@ public class LocateActivity extends AppCompatActivity {
     ListView ListViewContacto;
     List<Contacto> lst;
     View bottomNavigationMenu;
-    TextView textViewResult;
+    TextView textViewLocationResult, textViewUserName;
+    UserOutputModel userLogged;
 
     MyReceiver Receiver = new MyReceiver();
     IntentFilter filter = new IntentFilter();
@@ -51,7 +54,12 @@ public class LocateActivity extends AppCompatActivity {
         handler = new Handler(Looper.getMainLooper());
 
         ListViewContacto = findViewById(R.id.listViewMaterials);
-        textViewResult = findViewById(R.id.textViewLocationResult);
+        textViewLocationResult = findViewById(R.id.textViewLocationResult);
+
+        //Usuario loggeado
+        this.userLogged = (UserOutputModel)getIntent().getSerializableExtra("userLogged");
+        textViewUserName = findViewById(R.id.textViewUserName);
+        textViewUserName.setText(getString(R.string.identified_user) + " " + userLogged.UserName);
 
         filter.addAction(DataWedgeInterface.ACTION_RESULT_DATAWEDGE);
         filter.addCategory(Intent.CATEGORY_DEFAULT);
@@ -101,52 +109,55 @@ public class LocateActivity extends AppCompatActivity {
     class LocateMyAsyncClass extends AsyncTask {
         @Override
         protected Object doInBackground(Object[] objects) {
-            //Usamos los mismos nombres en las clases para que la serialización se realice correctamente
-            UserInputModel userInputModelData = new UserInputModel();
-            userInputModelData.SignatureCode = readCode;
-
             //Desplegar el servicio:
             //Usamos la librería Fireexit para la gestión de la serialización.
-            //Pendiente crear identificación lectura según material
             FireExitClient client = new FireExitClient(
                     "http://188.165.209.37:8009/Android/TrazinsDroidService.svc");
-            client.configure(new Configurator(
-                    "http://tempuri.org/", "ITrazinsDroidService", "GetLocation"));
 
-            client.addParameter("locationCode", userInputModelData);
+            //Determinamos que tipo de objeto es el código leido
+            if(readCode.substring(0,1).equals("U")){
+                LocateInputModel locateInputModelData = new LocateInputModel();
+                locateInputModelData.StorageCode = readCode;
 
-            UserOutputModel userOutputModelLogged = new UserOutputModel();
+                //Según el código hay que usar una clase de web service o otra;
+                client.configure(new Configurator(
+                        "http://tempuri.org/", "ITrazinsDroidService", "GetLocation"));
 
-            try {
-                //Realizamos la llamada al web service para obtener los datos
-                userOutputModelLogged = client.call(userOutputModelLogged);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return userOutputModelLogged;
+                client.addParameter("locationCode", locateInputModelData);
+
+                LocateOutputModel locateOutputModelResult = new LocateOutputModel();
+                try {
+                    //Realizamos la llamada al web service para obtener los datos
+                    locateOutputModelResult = client.call(locateOutputModelResult);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return locateOutputModelResult;
+
+            }            
+
+            return  null;
+
         }
 
         @Override
-        protected void onPostExecute(Object userLogged) {
-            super.onPostExecute(userLogged);
+        protected void onPostExecute(Object locateOutputModelResult) {
+            super.onPostExecute(locateOutputModelResult);
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    setInformationMessage((UserOutputModel) userLogged);
+                    setInformationMessage((LocateOutputModel) locateOutputModelResult);
                 }
             });
         }
 
-        private void setInformationMessage(UserOutputModel userLogged) {
+        private void setInformationMessage(LocateOutputModel locateResult) {
             if(userLogged!=null){
-                textViewResult.setText(((UserOutputModel) userLogged).UserName);
+                textViewLocationResult.setText(((LocateOutputModel) locateResult).StorageDescription);
 
-                /*Intent switchActivity = new Intent(getApplicationContext(), SelectionActivity.class);
-                switchActivity.putExtra("userName",((UserOutputModel) userLogged).UserName);
-                startActivity(switchActivity);*/
             }
             else{
-                textViewResult.setText(R.string.Incorrect_user);
+                textViewLocationResult.setText(R.string.locate_error);
             }
         }
     }
@@ -181,6 +192,7 @@ public class LocateActivity extends AppCompatActivity {
         String decodedData = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_data));
         //String decodedLabelType = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_label_type));
         readCode = decodedData;
+
         new LocateMyAsyncClass().execute();
     };
 

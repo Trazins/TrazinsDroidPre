@@ -19,6 +19,7 @@
     <string name="delete">Delete</string>
     <string name="add_location">Locate material</string>
     <string name="locate_empty">Read location label</string>
+    <string name="locate_error">Incorrect location</string>
 
     //Shipment Activity
     <string name="add_shipment">Send material</string>

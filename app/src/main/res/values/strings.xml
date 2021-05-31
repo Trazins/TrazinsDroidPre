@@ -21,6 +21,7 @@
     <string name="delete">Borrar</string>
     <string name="add_location">Ubicar material</string>
     <string name="locate_empty">Lea la etiqueta de ubicación</string>
+    <string name="locate_error">Ubicación incorrecta</string>
 
     //Shipment Activity
     <string name="add_shipment">Enviar material</string>

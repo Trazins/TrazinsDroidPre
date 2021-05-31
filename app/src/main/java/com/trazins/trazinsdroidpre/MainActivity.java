@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                 //textViewAutResult.setText(((UserOutputModel) userLogged).UserName);
 
                 Intent switchActivity = new Intent(getApplicationContext(), SelectionActivity.class);
-                switchActivity.putExtra("userName",((UserOutputModel) userLogged).UserName);
+                switchActivity.putExtra("userLogged",((UserOutputModel) userLogged));
                 startActivity(switchActivity);
             }
             else{
