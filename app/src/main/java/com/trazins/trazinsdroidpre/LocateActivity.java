@@ -111,9 +111,9 @@ public class LocateActivity extends AppCompatActivity {
             FireExitClient client = new FireExitClient(
                     "http://188.165.209.37:8009/Android/TrazinsDroidService.svc");
             client.configure(new Configurator(
-                    "http://tempuri.org/", "ITrazinsDroidService", "GetUser"));
+                    "http://tempuri.org/", "ITrazinsDroidService", "GetLocation"));
 
-            client.addParameter("signature", userInputModelData);
+            client.addParameter("locationCode", userInputModelData);
 
             UserOutputModel userOutputModelLogged = new UserOutputModel();
 
