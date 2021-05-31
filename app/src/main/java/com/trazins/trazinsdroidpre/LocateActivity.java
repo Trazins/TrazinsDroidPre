@@ -134,10 +134,14 @@ public class LocateActivity extends AppCompatActivity {
                 }
                 return locateOutputModelResult;
 
-            }            
+            }
 
             return  null;
 
+        }
+
+        private Object GetDataFromService(){
+            return null;
         }
 
         @Override
