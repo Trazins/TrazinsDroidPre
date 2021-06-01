@@ -112,6 +112,7 @@ public class LocateActivity extends AppCompatActivity {
             String methodName;
             String parameterName;
             Object resultModel = null;
+
             //Desplegar el servicio:
             //Usamos la librería Fireexit para la gestión de la serialización.
             FireExitClient client = new FireExitClient(
@@ -130,11 +131,16 @@ public class LocateActivity extends AppCompatActivity {
                         "http://tempuri.org/", "ITrazinsDroidService", methodName));
 
                 client.addParameter(parameterName, locateInputModelData);
+                resultModel = new LocateOutputModel();
             }else{
-                
+                //Modelo Carro
+                if(readCode.substring(0,1).equals("C")){
+                    //resultModel = new TrolleyOutpuModel();
+                }else{
+                    //resultModel = new MaterialOutpuModel();
+                }
             }
 
-            resultModel = new LocateOutputModel();
             //LocateOutputModel locateOutputModelResult = new LocateOutputModel();
             try {
                 //Realizamos la llamada al web service para obtener los datos
