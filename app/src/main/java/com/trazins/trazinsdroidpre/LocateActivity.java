@@ -235,7 +235,22 @@ public class LocateActivity extends AppCompatActivity {
 
     private List<MaterialOutputModel> GetData(MaterialOutputModel material) {
 
-        lstMaterial.add(new MaterialOutputModel(material.Id,R.drawable.ic_launcher_background,material.MaterialDescription));
+        int materialImageType=0;
+        switch (material.MaterialType){
+            case "C":
+                materialImageType = R.drawable.ic_set_icon;
+                break;
+            case "A":
+                materialImageType = R.drawable.ic_instrument_icon;
+                break;
+            case "G":
+                materialImageType = R.drawable.ic_generic_icon;
+                break;
+            default:
+                materialImageType = 0;
+                break;
+        }
+        lstMaterial.add(new MaterialOutputModel(material.Id, materialImageType,material.MaterialDescription));
 
         return lstMaterial;
 
