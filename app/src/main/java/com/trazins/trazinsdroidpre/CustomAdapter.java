@@ -8,13 +8,15 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.trazins.trazinsdroidpre.models.materialmodel.MaterialOutputModel;
+
 import java.util.List;
 
 public class CustomAdapter extends BaseAdapter {
     Context context;
-    List<Contacto> lst;
+    List<MaterialOutputModel> lst;
 
-    public CustomAdapter(Context context, List<Contacto> lst) {
+    public CustomAdapter(Context context, List<MaterialOutputModel> lst) {
         this.context = context;
         this.lst = lst;
     }
@@ -40,16 +42,16 @@ public class CustomAdapter extends BaseAdapter {
         TextView TextViewNombre;
         TextView TextViewDes;
 
-        Contacto c = lst.get(position);
+        MaterialOutputModel c = lst.get(position);
         if(convertView == null)
             convertView = LayoutInflater.from(context).inflate(R.layout.listview_materials_item, null);
         ImageViewContacto = convertView.findViewById(R.id.imageViewMaterialType);
         TextViewNombre = convertView.findViewById(R.id.textViewDescription);
         TextViewDes = convertView.findViewById(R.id.textViewId);
 
-        ImageViewContacto.setImageResource(c.imagen);
-        TextViewNombre.setText(c.nombre);
-        TextViewDes.setText(c.Des);
+        ImageViewContacto.setImageResource(c.Image);
+        TextViewNombre.setText(c.MaterialDescription);
+        TextViewDes.setText(c.Id);
 
         return convertView;
     }

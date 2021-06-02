@@ -20,6 +20,8 @@ import com.threepin.fireexit_wcf.Configurator;
 import com.threepin.fireexit_wcf.FireExitClient;
 import com.trazins.trazinsdroidpre.models.locatemodel.LocateInputModel;
 import com.trazins.trazinsdroidpre.models.locatemodel.LocateOutputModel;
+import com.trazins.trazinsdroidpre.models.materialmodel.MaterialInputModel;
+import com.trazins.trazinsdroidpre.models.materialmodel.MaterialOutputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserInputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 import com.trazins.trazinsdroidpre.scanner.DataWedgeInterface;
@@ -34,8 +36,10 @@ import java.util.List;
 
 public class LocateActivity extends AppCompatActivity {
 
-    ListView ListViewContacto;
-    List<Contacto> lst;
+    ListView ListViewMaterials;
+
+    List<MaterialOutputModel> lstMaterial= new ArrayList<>();
+
     View bottomNavigationMenu;
     TextView textViewLocationResult, textViewUserName;
     UserOutputModel userLogged;
@@ -53,7 +57,7 @@ public class LocateActivity extends AppCompatActivity {
 
         handler = new Handler(Looper.getMainLooper());
 
-        ListViewContacto = findViewById(R.id.listViewMaterials);
+        ListViewMaterials = findViewById(R.id.listViewMaterials);
         textViewLocationResult = findViewById(R.id.textViewLocationResult);
 
         //Usuario loggeado
@@ -65,18 +69,19 @@ public class LocateActivity extends AppCompatActivity {
         filter.addCategory(Intent.CATEGORY_DEFAULT);
         filter.addAction(DataWedgeInterface.ACTIVITY_INTENT_FILTER_ACTION);
 
-        CustomAdapter adapter = new CustomAdapter(this, GetData());
-        ListViewContacto.setAdapter(adapter);
+        //cargar info al inicio.
+        //CustomAdapter adapter = new CustomAdapter(this, GetData());
+        //ListViewContacto.setAdapter(adapter);
 
         bottomNavigationMenu = findViewById(R.id.bottomNavigationMenu);
 
-        ListViewContacto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*ListViewContacto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Contacto c = lst.get(position);
                 Toast.makeText(getBaseContext(),c.nombre,Toast.LENGTH_LONG ).show();
             }
-        });
+        });*/
     }
 
     @Override
@@ -111,6 +116,7 @@ public class LocateActivity extends AppCompatActivity {
         protected Object doInBackground(Object[] objects) {
             String methodName;
             String parameterName;
+            //Variable para almacenar el resultado de la petición
             Object resultModel = null;
 
             //Desplegar el servicio:
@@ -137,7 +143,17 @@ public class LocateActivity extends AppCompatActivity {
                 if(readCode.substring(0,1).equals("C")){
                     //resultModel = new TrolleyOutpuModel();
                 }else{
-                    //resultModel = new MaterialOutpuModel();
+                    methodName = "GetMaterialData";
+                    parameterName = "materialCode";
+
+                    MaterialInputModel materialInputModel = new MaterialInputModel();
+                    materialInputModel.MaterialCode = readCode;
+
+                    client.configure(new Configurator(
+                            "http://tempuri.org/", "ITrazinsDroidService", methodName));
+                    client.addParameter(parameterName, materialInputModel);
+
+                    resultModel = new MaterialOutputModel();
                 }
             }
 
@@ -152,25 +168,35 @@ public class LocateActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(Object locateOutputModelResult) {
-            super.onPostExecute(locateOutputModelResult);
+        protected void onPostExecute(Object modelResult) {
+            super.onPostExecute(modelResult);
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    setInformationMessage((LocateOutputModel) locateOutputModelResult);
+                    setInformationMessage(modelResult);
                 }
             });
         }
 
-        private void setInformationMessage(LocateOutputModel locateResult) {
-            if(userLogged!=null){
-                textViewLocationResult.setText(((LocateOutputModel) locateResult).StorageDescription);
+        private void setInformationMessage(Object modelResult) {
+            String modelType = modelResult.getClass().getSimpleName();
+            switch(modelType){
+                case "LocateOutputModel":
+                    textViewLocationResult.setText(((LocateOutputModel) modelResult).StorageDescription);
+                    break;
+                case "MaterialOutputModel":
+                    addMaterialToList((MaterialOutputModel)modelResult);
+                    break;
+                default:
+                    Toast.makeText(getBaseContext(),"No reconocido",Toast.LENGTH_LONG).show();
+            }
 
-            }
-            else{
-                textViewLocationResult.setText(R.string.locate_error);
-            }
         }
+    }
+
+    private void addMaterialToList(MaterialOutputModel modelResult) {
+        CustomAdapter adapter = new CustomAdapter(this, GetData(modelResult));
+        ListViewMaterials.setAdapter(adapter);
     }
 
     private BroadcastReceiver myBroadCastReceiver = new BroadcastReceiver() {
@@ -207,20 +233,11 @@ public class LocateActivity extends AppCompatActivity {
         new LocateMyAsyncClass().execute();
     };
 
+    private List<MaterialOutputModel> GetData(MaterialOutputModel material) {
 
-    private List<Contacto> GetData() {
-        lst = new ArrayList<>();
+        lstMaterial.add(new MaterialOutputModel(material.Id,R.drawable.ic_launcher_background,material.MaterialDescription));
 
-        lst.add(new Contacto(1,R.drawable.ic_launcher_background, "caja1", "trauma"));
-        lst.add(new Contacto(1,R.drawable.ic_launcher_background, "caja2", "trauma2"));
-        lst.add(new Contacto(1,R.drawable.ic_launcher_background, "caja1", "trauma"));
-        lst.add(new Contacto(1,R.drawable.ic_launcher_background, "caja1", "trauma"));
-        lst.add(new Contacto(1,R.drawable.ic_launcher_background, "caja1", "trauma"));
-        lst.add(new Contacto(1,R.drawable.ic_launcher_background, "caja1", "trauma"));
-        lst.add(new Contacto(1,R.drawable.ic_launcher_background, "caja1", "trauma"));
-        lst.add(new Contacto(1,R.drawable.ic_launcher_background, "caja1", "trauma"));
-
-        return lst;
+        return lstMaterial;
 
     }
 }

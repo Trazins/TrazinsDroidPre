@@ -1,10 +1,10 @@
 package com.trazins.trazinsdroidpre;
 
 public class Contacto {
-    public int id;
-    public int imagen;
-    public String nombre;
-    public String Des;
+    private int id;
+    private int imagen;
+    private String nombre;
+    private String Des;
 
     public Contacto(int id, int imagen, String nombre, String des) {
         this.id = id;
