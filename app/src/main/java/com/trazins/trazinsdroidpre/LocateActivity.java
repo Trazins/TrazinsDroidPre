@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -85,9 +86,10 @@ public class LocateActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if(item.getItemId()==R.id.add_location){
-                    //ubicar elmentos
+                    //ubicar elementos
                 }else {
-                    //borrar elementos
+                    //Borrar elementos
+                    removeSelectedMaterial();
                 }
                 return false;
             }
@@ -95,6 +97,15 @@ public class LocateActivity extends AppCompatActivity {
 
     }
 
+    private void removeSelectedMaterial() {
+        CustomAdapter adapter = new CustomAdapter(this, removeData( materialSelected));
+        ListViewMaterials.setAdapter(adapter);
+    }
+
+    private List<MaterialOutputModel> removeData(MaterialOutputModel material){
+        lstMaterial.remove(material);
+        return lstMaterial;
+    }
     @Override
     public void onStart() {
         super.onStart();
@@ -205,8 +216,13 @@ public class LocateActivity extends AppCompatActivity {
     }
 
     private void addMaterialToList(MaterialOutputModel modelResult) {
-        CustomAdapter adapter = new CustomAdapter(this, GetData(modelResult));
-        ListViewMaterials.setAdapter(adapter);
+        try{
+            CustomAdapter adapter = new CustomAdapter(this, GetData(modelResult));
+            ListViewMaterials.setAdapter(adapter);
+        }catch(Exception e){
+            Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+        }
+
     }
 
     private BroadcastReceiver myBroadCastReceiver = new BroadcastReceiver() {
