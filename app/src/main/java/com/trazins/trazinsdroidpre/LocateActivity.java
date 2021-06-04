@@ -66,7 +66,9 @@ public class LocateActivity extends AppCompatActivity {
         ListViewMaterials.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+
                 materialSelected = lstMaterial.get(position);
+                ListViewMaterials.requestLayout();
             }
         });
         textViewLocationResult = findViewById(R.id.textViewLocationResult);
@@ -224,6 +226,7 @@ public class LocateActivity extends AppCompatActivity {
         try{
             CustomAdapter adapter = new CustomAdapter(this, GetData(modelResult));
             ListViewMaterials.setAdapter(adapter);
+
         }catch(Exception e){
             Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_LONG).show();
         }
