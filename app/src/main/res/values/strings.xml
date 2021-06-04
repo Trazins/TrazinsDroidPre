@@ -4,6 +4,7 @@
 
     //General resources
     <string name="global_image_description" translatable="false">separtorLine</string>
+    <string name="material_exists_list">El material ya está en la lista</string>
 
     //Main Activity
     <string name="app_name">TrazinsDroidPre</string>

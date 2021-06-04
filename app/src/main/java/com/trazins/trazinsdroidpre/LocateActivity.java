@@ -1,5 +1,6 @@
 package com.trazins.trazinsdroidpre;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.BroadcastReceiver;
@@ -10,12 +11,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.threepin.fireexit_wcf.Configurator;
 import com.threepin.fireexit_wcf.FireExitClient;
 import com.trazins.trazinsdroidpre.models.locatemodel.LocateInputModel;
@@ -37,10 +40,11 @@ import java.util.List;
 public class LocateActivity extends AppCompatActivity {
 
     ListView ListViewMaterials;
-
     List<MaterialOutputModel> lstMaterial= new ArrayList<>();
 
+    MaterialOutputModel materialSelected = new MaterialOutputModel();
     View bottomNavigationMenu;
+    BottomNavigationView btm;
     TextView textViewLocationResult, textViewUserName;
     UserOutputModel userLogged;
 
@@ -58,6 +62,12 @@ public class LocateActivity extends AppCompatActivity {
         handler = new Handler(Looper.getMainLooper());
 
         ListViewMaterials = findViewById(R.id.listViewMaterials);
+        ListViewMaterials.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+                materialSelected = lstMaterial.get(position);
+            }
+        });
         textViewLocationResult = findViewById(R.id.textViewLocationResult);
 
         //Usuario loggeado
@@ -69,19 +79,20 @@ public class LocateActivity extends AppCompatActivity {
         filter.addCategory(Intent.CATEGORY_DEFAULT);
         filter.addAction(DataWedgeInterface.ACTIVITY_INTENT_FILTER_ACTION);
 
-        //cargar info al inicio.
-        //CustomAdapter adapter = new CustomAdapter(this, GetData());
-        //ListViewContacto.setAdapter(adapter);
-
-        bottomNavigationMenu = findViewById(R.id.bottomNavigationMenu);
-
-        /*ListViewContacto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //bottomNavigationMenu = findViewById(R.id.bottomNavigationMenu);
+        btm = findViewById(R.id.bottomNavigationMenu);
+        btm.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Contacto c = lst.get(position);
-                Toast.makeText(getBaseContext(),c.nombre,Toast.LENGTH_LONG ).show();
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if(item.getItemId()==R.id.add_location){
+                    //ubicar elmentos
+                }else {
+                    //borrar elementos
+                }
+                return false;
             }
-        });*/
+        });
+
     }
 
     @Override
@@ -139,7 +150,7 @@ public class LocateActivity extends AppCompatActivity {
                 client.addParameter(parameterName, locateInputModelData);
                 resultModel = new LocateOutputModel();
             }else{
-                //Modelo Carro
+                //Modelo Carro pdte desarrollo
                 if(readCode.substring(0,1).equals("C")){
                     //resultModel = new TrolleyOutpuModel();
                 }else{
@@ -157,7 +168,6 @@ public class LocateActivity extends AppCompatActivity {
                 }
             }
 
-            //LocateOutputModel locateOutputModelResult = new LocateOutputModel();
             try {
                 //Realizamos la llamada al web service para obtener los datos
                 resultModel = client.call(resultModel);
@@ -234,25 +244,49 @@ public class LocateActivity extends AppCompatActivity {
     };
 
     private List<MaterialOutputModel> GetData(MaterialOutputModel material) {
+        try {
+            int materialImageType=0;
+            switch (material.MaterialType){
+                case "C":
+                    materialImageType = R.drawable.ic_set_icon;
+                    break;
+                case "A":
+                    materialImageType = R.drawable.ic_instrument_icon;
+                    break;
+                case "G":
+                    materialImageType = R.drawable.ic_generic_icon;
+                    break;
+                default:
+                    materialImageType = 0;
+                    break;
+            }
 
-        int materialImageType=0;
-        switch (material.MaterialType){
-            case "C":
-                materialImageType = R.drawable.ic_set_icon;
-                break;
-            case "A":
-                materialImageType = R.drawable.ic_instrument_icon;
-                break;
-            case "G":
-                materialImageType = R.drawable.ic_generic_icon;
-                break;
-            default:
-                materialImageType = 0;
-                break;
+            //Hay que insertar el primer elemento
+            if(lstMaterial.size()==0){
+                lstMaterial.add(new MaterialOutputModel(material.Id, materialImageType,material.MaterialDescription));
+            }else {
+                if(existsInList(material.Id)){
+                    Toast.makeText(getBaseContext(), R.string.material_exists_list, Toast.LENGTH_LONG).show();
+                }else{
+                    lstMaterial.add(new MaterialOutputModel(material.Id, materialImageType,material.MaterialDescription));
+                }
+            }
+
+
+        }catch (Exception e){
+            Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_LONG).show();
         }
-        lstMaterial.add(new MaterialOutputModel(material.Id, materialImageType,material.MaterialDescription));
-
         return lstMaterial;
-
     }
+
+    //Comprobamos que el material no exista en la lista
+    private boolean existsInList(String materialId){
+        for(MaterialOutputModel m : lstMaterial){
+            if(m.getId().equals(materialId)){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
