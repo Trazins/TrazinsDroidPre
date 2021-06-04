@@ -87,6 +87,7 @@ public class LocateActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if(item.getItemId()==R.id.add_location){
                     //ubicar elementos
+                    setLocate();
                 }else {
                     //Borrar elementos
                     removeSelectedMaterial();
@@ -95,6 +96,10 @@ public class LocateActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void setLocate() {
+        
     }
 
     private void removeSelectedMaterial() {
@@ -222,7 +227,6 @@ public class LocateActivity extends AppCompatActivity {
         }catch(Exception e){
             Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_LONG).show();
         }
-
     }
 
     private BroadcastReceiver myBroadCastReceiver = new BroadcastReceiver() {
