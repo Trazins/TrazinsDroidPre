@@ -66,8 +66,9 @@ public class LocateActivity extends AppCompatActivity {
         ListViewMaterials.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
-
                 materialSelected = lstMaterial.get(position);
+                //Habilitamos el selector de item en el listado.
+                ListViewMaterials.setSelector(R.color.selection);
                 ListViewMaterials.requestLayout();
             }
         });
@@ -226,6 +227,9 @@ public class LocateActivity extends AppCompatActivity {
         try{
             CustomAdapter adapter = new CustomAdapter(this, GetData(modelResult));
             ListViewMaterials.setAdapter(adapter);
+            //Ponemos el color del selector igual que el del fondo para que no parezca que selecciona el primer
+            //elemento
+            ListViewMaterials.setSelector(R.color.white);
 
         }catch(Exception e){
             Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_LONG).show();

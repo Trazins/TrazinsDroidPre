@@ -10,4 +10,5 @@
     <color name="red">#FF3300</color>
     <color name="buttonTrazins">#2e74c3</color>
     <color name="medium_grey">#d5e3f3</color>
+    <color name="selection">#BDDAFF</color>
 </resources>
