@@ -290,12 +290,14 @@ public class LocateActivity extends AppCompatActivity {
 
             //Hay que insertar el primer elemento
             if(lstMaterial.size()==0){
-                lstMaterial.add(new MaterialOutputModel(material.Id, materialImageType,material.MaterialDescription));
+                lstMaterial.add(
+                        new MaterialOutputModel(material.Id, materialImageType,material.MaterialDescription,material.MaterialType));
             }else {
                 if(existsInList(material.Id)){
                     Toast.makeText(getBaseContext(), R.string.material_exists_list, Toast.LENGTH_LONG).show();
                 }else{
-                    lstMaterial.add(new MaterialOutputModel(material.Id, materialImageType,material.MaterialDescription));
+                    lstMaterial.add(
+                            new MaterialOutputModel(material.Id, materialImageType,material.MaterialDescription, material.MaterialType));
                 }
             }
 

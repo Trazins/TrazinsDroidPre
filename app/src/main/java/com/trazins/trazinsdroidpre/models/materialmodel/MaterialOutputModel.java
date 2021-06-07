@@ -57,10 +57,11 @@ public class MaterialOutputModel {
         this.Image = image;
     }
 
-    public MaterialOutputModel(String id, int image, String materialDescription) {
+    public MaterialOutputModel(String id, int image, String materialDescription, String materialType) {
         this.Id = id;
         this.MaterialDescription = materialDescription;
         this.Image = image;
+        this.MaterialType = materialType;
     }
 
     public MaterialOutputModel() {
