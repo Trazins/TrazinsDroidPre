@@ -195,7 +195,11 @@ public class LocateActivity extends AppCompatActivity {
                 storageInputModel.LocationId = String.valueOf(finalLocation.LocateId);
                 storageInputModel.EntryUser = userLogged.Login;
                 for(MaterialOutputModel m : lstMaterial){
-                    storageInputModel.MatList.add(m);
+                    //Serializamos los materiales.
+                    MaterialInputModel serializableMaterial = new MaterialInputModel();
+                    serializableMaterial.MaterialCode = m.Id;
+                    serializableMaterial.MaterialType = m.MaterialType;
+                    storageInputModel.MatList.add(serializableMaterial);
                 }
 
                 //Según el código hay que usar una clase de web service o otra;
@@ -275,8 +279,10 @@ public class LocateActivity extends AppCompatActivity {
                     if(modelResult != null){
                         Toast.makeText(getBaseContext(),"Ubicado",Toast.LENGTH_LONG).show();
                     }
+                    break;
                 default:
                     Toast.makeText(getBaseContext(),"No reconocido",Toast.LENGTH_LONG).show();
+                    break;
             }
 
         }
