@@ -193,8 +193,9 @@ public class LocateActivity extends AppCompatActivity {
                     return null;
                 }
                 storageInputModel.LocationId = String.valueOf(finalLocation.LocateId);
+                storageInputModel.EntryUser = userLogged.Login;
                 for(MaterialOutputModel m : lstMaterial){
-                    storageInputModel.MatLis.add(m);
+                    storageInputModel.MatList.add(m);
                 }
 
                 //Según el código hay que usar una clase de web service o otra;

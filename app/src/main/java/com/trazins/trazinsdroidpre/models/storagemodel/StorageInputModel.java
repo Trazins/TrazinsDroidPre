@@ -8,6 +8,6 @@ import java.util.List;
 
 public class StorageInputModel implements Serializable {
     public String LocationId;
-    public List<String> MaterialList;
-    public List<MaterialOutputModel> MatLis = new ArrayList<MaterialOutputModel>();
+    public List<MaterialOutputModel> MatList = new ArrayList<MaterialOutputModel>();
+    public String EntryUser;
 }
