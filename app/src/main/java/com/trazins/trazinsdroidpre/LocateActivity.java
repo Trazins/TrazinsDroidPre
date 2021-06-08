@@ -26,6 +26,8 @@ import com.trazins.trazinsdroidpre.models.locatemodel.LocateInputModel;
 import com.trazins.trazinsdroidpre.models.locatemodel.LocateOutputModel;
 import com.trazins.trazinsdroidpre.models.materialmodel.MaterialInputModel;
 import com.trazins.trazinsdroidpre.models.materialmodel.MaterialOutputModel;
+import com.trazins.trazinsdroidpre.models.storagemodel.StorageInputModel;
+import com.trazins.trazinsdroidpre.models.storagemodel.StorageOutputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserInputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 import com.trazins.trazinsdroidpre.scanner.DataWedgeInterface;
@@ -40,20 +42,38 @@ import java.util.List;
 
 public class LocateActivity extends AppCompatActivity {
 
+    //Lista que muestra los resultados por pantalla
     ListView ListViewMaterials;
+
+    //Lista que gestiona los materiales internamente.
     List<MaterialOutputModel> lstMaterial= new ArrayList<>();
 
+    //Variable para gestionar el funcionamiento de la clase que gestiona la conexión webservice
+    boolean setLocation = false;
+
+    //Ubicación de destino
+    LocateOutputModel finalLocation = new LocateOutputModel();
+
+    //Material seleccionado en la lista
     MaterialOutputModel materialSelected = new MaterialOutputModel();
+
+    //Lectura obtenida en el scanner
+    String readCode;
+
+    //Usuario logeado
+    UserOutputModel userLogged;
+
+    //Controles
     View bottomNavigationMenu;
     BottomNavigationView btm;
     TextView textViewLocationResult, textViewUserName;
-    UserOutputModel userLogged;
+
 
     MyReceiver Receiver = new MyReceiver();
     IntentFilter filter = new IntentFilter();
 
     Handler handler;
-    String readCode;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +122,13 @@ public class LocateActivity extends AppCompatActivity {
     }
 
     private void setLocate() {
-        
+        try{
+            setLocation = true;
+            new LocateMyAsyncClass().execute();
+
+        }catch (Exception e){
+            Toast.makeText(getBaseContext(),"Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
     private void removeSelectedMaterial() {
@@ -154,37 +180,64 @@ public class LocateActivity extends AppCompatActivity {
             FireExitClient client = new FireExitClient(
                     "http://188.165.209.37:8009/Android/TrazinsDroidService.svc");
 
-            //Determinamos que tipo de objeto es el código leido
-            if(readCode.substring(0,1).equals("U")){
-                methodName = "GetLocation";
-                parameterName = "locationCode";
+            //Si recibimos la orden de ubicar o de leer etiquetas.
+            if(setLocation){
+                //Usamos esta variable indicar que vamos a insertar los registros.
+                setLocation = false;
+                methodName = "SetStorageData";
+                parameterName = "dataToInsert";
 
-                LocateInputModel locateInputModelData = new LocateInputModel();
-                locateInputModelData.StorageCode = readCode;
+                StorageInputModel storageInputModel = new StorageInputModel();
+                if(finalLocation== null){
+                    Toast.makeText(getBaseContext(), "Ubicacion vacia",Toast.LENGTH_LONG).show();
+                    return null;
+                }
+                storageInputModel.LocationId = String.valueOf(finalLocation.LocateId);
+                for(MaterialOutputModel m : lstMaterial){
+                    storageInputModel.MatLis.add(m);
+                }
 
                 //Según el código hay que usar una clase de web service o otra;
                 client.configure(new Configurator(
                         "http://tempuri.org/", "ITrazinsDroidService", methodName));
 
-                client.addParameter(parameterName, locateInputModelData);
-                resultModel = new LocateOutputModel();
+                client.addParameter(parameterName, storageInputModel);
+                resultModel = new StorageOutputModel();
+
             }else{
-                //Modelo Carro pdte desarrollo
-                if(readCode.substring(0,1).equals("C")){
-                    //resultModel = new TrolleyOutpuModel();
-                }else{
-                    methodName = "GetMaterialData";
-                    parameterName = "materialCode";
+                //Determinamos que tipo de objeto es el código leido
+                if(readCode.substring(0,1).equals("U")){
+                    methodName = "GetLocation";
+                    parameterName = "locationCode";
 
-                    MaterialInputModel materialInputModel = new MaterialInputModel();
-                    materialInputModel.MaterialCode = readCode;
+                    LocateInputModel locateInputModelData = new LocateInputModel();
+                    locateInputModelData.StorageCode = readCode;
 
+                    //Según el código hay que usar una clase de web service o otra;
                     client.configure(new Configurator(
                             "http://tempuri.org/", "ITrazinsDroidService", methodName));
-                    client.addParameter(parameterName, materialInputModel);
 
-                    resultModel = new MaterialOutputModel();
+                    client.addParameter(parameterName, locateInputModelData);
+                    resultModel = new LocateOutputModel();
+                }else{
+                    //Modelo Carro pdte desarrollo
+                    if(readCode.substring(0,1).equals("C")){
+                        //resultModel = new TrolleyOutpuModel();
+                    }else{
+                        methodName = "GetMaterialData";
+                        parameterName = "materialCode";
+
+                        MaterialInputModel materialInputModel = new MaterialInputModel();
+                        materialInputModel.MaterialCode = readCode;
+
+                        client.configure(new Configurator(
+                                "http://tempuri.org/", "ITrazinsDroidService", methodName));
+                        client.addParameter(parameterName, materialInputModel);
+
+                        resultModel = new MaterialOutputModel();
+                    }
                 }
+
             }
 
             try {
@@ -211,11 +264,16 @@ public class LocateActivity extends AppCompatActivity {
             String modelType = modelResult.getClass().getSimpleName();
             switch(modelType){
                 case "LocateOutputModel":
+                    finalLocation = (LocateOutputModel)modelResult;
                     textViewLocationResult.setText(((LocateOutputModel) modelResult).StorageDescription);
                     break;
                 case "MaterialOutputModel":
                     addMaterialToList((MaterialOutputModel)modelResult);
                     break;
+                case "StorageOutputModel":
+                    if(modelResult != null){
+                        Toast.makeText(getBaseContext(),"Ubicado",Toast.LENGTH_LONG).show();
+                    }
                 default:
                     Toast.makeText(getBaseContext(),"No reconocido",Toast.LENGTH_LONG).show();
             }
