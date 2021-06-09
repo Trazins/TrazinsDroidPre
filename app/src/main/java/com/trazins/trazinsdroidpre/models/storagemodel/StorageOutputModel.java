@@ -6,5 +6,9 @@ import java.util.List;
 
 public class StorageOutputModel {
     public int LocateId;
-    public List<MaterialOutputModel> MaterialId;
+    public int RegId;
+    public String MaterialId;
+    public String MaterialType;
+    public String EntryUser;
+    public boolean Result;
 }

@@ -66,14 +66,13 @@ public class LocateActivity extends AppCompatActivity {
     //Controles
     View bottomNavigationMenu;
     BottomNavigationView btm;
-    TextView textViewLocationResult, textViewUserName;
+    TextView textViewLocationResult, textViewUserName, textViewElements;
 
 
     MyReceiver Receiver = new MyReceiver();
     IntentFilter filter = new IntentFilter();
 
     Handler handler;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +91,9 @@ public class LocateActivity extends AppCompatActivity {
                 ListViewMaterials.requestLayout();
             }
         });
+
         textViewLocationResult = findViewById(R.id.textViewLocationResult);
+        textViewElements = findViewById(R.id.textViewMaterialCounter);
 
         //Usuario loggeado
         this.userLogged = (UserOutputModel)getIntent().getSerializableExtra("userLogged");
@@ -123,6 +124,10 @@ public class LocateActivity extends AppCompatActivity {
 
     private void setLocate() {
         try{
+            if(finalLocation.LocateId == 0){
+                Toast.makeText(getBaseContext(), R.string.locate_empty ,Toast.LENGTH_LONG).show();
+                return;
+            }
             setLocation = true;
             new LocateMyAsyncClass().execute();
 
@@ -188,10 +193,6 @@ public class LocateActivity extends AppCompatActivity {
                 parameterName = "dataToInsert";
 
                 StorageInputModel storageInputModel = new StorageInputModel();
-                if(finalLocation== null){
-                    Toast.makeText(getBaseContext(), "Ubicacion vacia",Toast.LENGTH_LONG).show();
-                    return null;
-                }
                 storageInputModel.LocationId = String.valueOf(finalLocation.LocateId);
                 storageInputModel.EntryUser = userLogged.Login;
                 for(MaterialOutputModel m : lstMaterial){
@@ -260,12 +261,12 @@ public class LocateActivity extends AppCompatActivity {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    setInformationMessage(modelResult);
+                    processData(modelResult);
                 }
             });
         }
 
-        private void setInformationMessage(Object modelResult) {
+        private void processData(Object modelResult) {
             String modelType = modelResult.getClass().getSimpleName();
             switch(modelType){
                 case "LocateOutputModel":
@@ -276,16 +277,28 @@ public class LocateActivity extends AppCompatActivity {
                     addMaterialToList((MaterialOutputModel)modelResult);
                     break;
                 case "StorageOutputModel":
-                    if(modelResult != null){
-                        Toast.makeText(getBaseContext(),"Ubicado",Toast.LENGTH_LONG).show();
+                    if(((StorageOutputModel)modelResult).Result){
+                        Toast.makeText(getBaseContext(), R.string.correct_location, Toast.LENGTH_LONG).show();
+                        //Limpiar controles
+                        cleanControlsViews();
+                    }else{
+                        Toast.makeText(getBaseContext(), R.string.error_process, Toast.LENGTH_LONG).show();
                     }
                     break;
                 default:
-                    Toast.makeText(getBaseContext(),"No reconocido",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), R.string.unidetified_code, Toast.LENGTH_LONG).show();
                     break;
             }
 
         }
+    }
+
+    private void cleanControlsViews() {
+        lstMaterial.clear();
+        ListViewMaterials.setAdapter(null);
+        textViewElements.setText(lstMaterial.size()+ " " + getText(R.string.materials_counter));
+        textViewLocationResult.setText("");
+        finalLocation = null;
     }
 
     private void addMaterialToList(MaterialOutputModel modelResult) {
@@ -365,6 +378,7 @@ public class LocateActivity extends AppCompatActivity {
                             new MaterialOutputModel(material.Id, materialImageType,material.MaterialDescription, material.MaterialType));
                 }
             }
+            textViewElements.setText(lstMaterial.size() + " " + getText(R.string.materials_counter));
 
 
         }catch (Exception e){
