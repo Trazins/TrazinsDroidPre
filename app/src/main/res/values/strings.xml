@@ -18,7 +18,7 @@
 
     //Locate Activity
     <string name="location_title">Ubicación</string>
-    <string name="change_location">Cambiar ubicación</string>
+    <string name="location_details">Bloque:__ Estantería:__ Posición:__</string>
     <string name="materials_title">Material a ubicar</string>
     <string name="materials_counter">elementos</string>
     <string name="delete">Borrar</string>

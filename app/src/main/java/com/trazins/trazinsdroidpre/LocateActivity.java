@@ -307,7 +307,7 @@ public class LocateActivity extends AppCompatActivity {
             ListViewMaterials.setAdapter(adapter);
             //Ponemos el color del selector igual que el del fondo para que no parezca que selecciona el primer
             //elemento
-            ListViewMaterials.setSelector(R.color.white);
+            ListViewMaterials.setSelector(R.color.transparent);
 
         }catch(Exception e){
             Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_LONG).show();

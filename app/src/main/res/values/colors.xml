@@ -11,4 +11,5 @@
     <color name="buttonTrazins">#2e74c3</color>
     <color name="medium_grey">#d5e3f3</color>
     <color name="selection">#BDDAFF</color>
+    <color name="transparent">#00000000</color>
 </resources>

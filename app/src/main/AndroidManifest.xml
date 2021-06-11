@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".SelectionActivity"></activity>
+        <activity android:name=".ShipmentActivity"></activity>
+        <activity android:name=".SelectionActivity" />
         <activity android:name=".LocateActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
