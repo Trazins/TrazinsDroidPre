@@ -66,7 +66,7 @@ public class LocateActivity extends AppCompatActivity {
     //Controles
     View bottomNavigationMenu;
     BottomNavigationView btm;
-    TextView textViewLocationResult, textViewUserName, textViewElements;
+    TextView textViewLocationResult, textViewUserName, textViewElements, textViewLocationDetails;
 
 
     MyReceiver Receiver = new MyReceiver();
@@ -94,6 +94,7 @@ public class LocateActivity extends AppCompatActivity {
 
         textViewLocationResult = findViewById(R.id.textViewLocationResult);
         textViewElements = findViewById(R.id.textViewMaterialCounter);
+        textViewLocationResult = findViewById(R.id.textViewLocationDetails);
 
         //Usuario loggeado
         this.userLogged = (UserOutputModel)getIntent().getSerializableExtra("userLogged");
@@ -271,7 +272,12 @@ public class LocateActivity extends AppCompatActivity {
             switch(modelType){
                 case "LocateOutputModel":
                     finalLocation = (LocateOutputModel)modelResult;
+                    //Comprobar sii devuelve todos los datos
                     textViewLocationResult.setText(((LocateOutputModel) modelResult).StorageDescription);
+                    textViewLocationDetails.setText(
+                            R.string.location_details_block + finalLocation.StBlock +
+                            R.string.location_details_shelf + finalLocation.Shelf +
+                            R.string.location_details_position+ finalLocation.Position);
                     break;
                 case "MaterialOutputModel":
                     addMaterialToList((MaterialOutputModel)modelResult);

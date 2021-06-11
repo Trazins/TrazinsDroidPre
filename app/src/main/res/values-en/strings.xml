@@ -20,6 +20,9 @@
     //Locate Activity
     <string name="location_title">Location</string>
     <string name="location_details">Block:__ Self:__ Position:__</string>
+    <string name="location_details_block">Block: </string>
+    <string name="location_details_shelf">Shelf: </string>
+    <string name="location_details_position">Position: </string>
     <string name="materials_title">Material to locate</string>
     <string name="materials_counter">elements</string>
     <string name="delete">Delete</string>
