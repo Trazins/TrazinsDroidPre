@@ -68,7 +68,6 @@ public class LocateActivity extends AppCompatActivity {
     BottomNavigationView btm;
     TextView textViewLocationResult, textViewUserName, textViewElements, textViewLocationDetails;
 
-
     MyReceiver Receiver = new MyReceiver();
     IntentFilter filter = new IntentFilter();
 
@@ -86,6 +85,7 @@ public class LocateActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
                 materialSelected = lstMaterial.get(position);
+                
                 //Habilitamos el selector de item en el listado.
                 ListViewMaterials.setSelector(R.color.selection);
                 ListViewMaterials.requestLayout();
@@ -94,7 +94,7 @@ public class LocateActivity extends AppCompatActivity {
 
         textViewLocationResult = findViewById(R.id.textViewLocationResult);
         textViewElements = findViewById(R.id.textViewMaterialCounter);
-        textViewLocationResult = findViewById(R.id.textViewLocationDetails);
+        textViewLocationDetails = findViewById(R.id.textViewLocationDetails);
 
         //Usuario loggeado
         this.userLogged = (UserOutputModel)getIntent().getSerializableExtra("userLogged");
@@ -272,12 +272,17 @@ public class LocateActivity extends AppCompatActivity {
             switch(modelType){
                 case "LocateOutputModel":
                     finalLocation = (LocateOutputModel)modelResult;
-                    //Comprobar sii devuelve todos los datos
+                    //Comprobar si devuelve todos los datos
                     textViewLocationResult.setText(((LocateOutputModel) modelResult).StorageDescription);
+
+                    String block = String.valueOf(((LocateOutputModel) modelResult).StBlock);
+                    String shelf = String.valueOf(((LocateOutputModel) modelResult).Shelf);
+                    String position = String.valueOf(((LocateOutputModel) modelResult).Position);
+
                     textViewLocationDetails.setText(
-                            R.string.location_details_block + finalLocation.StBlock +
-                            R.string.location_details_shelf + finalLocation.Shelf +
-                            R.string.location_details_position+ finalLocation.Position);
+                            getText(R.string.location_details_block)+ block + " "+
+                            getText(R.string.location_details_shelf)+ shelf + " " +
+                            getText(R.string.location_details_position)+ position);
                     break;
                 case "MaterialOutputModel":
                     addMaterialToList((MaterialOutputModel)modelResult);
