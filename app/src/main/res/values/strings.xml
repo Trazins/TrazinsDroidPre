@@ -7,6 +7,8 @@
     <string name="material_exists_list">El material ya está en la lista</string>
     <string name="unidetified_code">Código no reconocido</string>
     <string name="error_process">Error en el proceso, revise los datos</string>
+    <string name="delete">Borrar</string>
+    <string name="materials_counter">elementos</string>
 
     //Main Activity
     <string name="app_name">TrazinsDroidPre</string>
@@ -23,8 +25,6 @@
     <string name="location_details_shelf">Estantería: </string>
     <string name="location_details_position">Posición: </string>
     <string name="materials_title">Material a ubicar</string>
-    <string name="materials_counter">elementos</string>
-    <string name="delete">Borrar</string>
     <string name="add_location">Ubicar material</string>
     <string name="locate_empty">Lea la etiqueta de ubicación</string>
     <string name="locate_error">Ubicación incorrecta</string>
@@ -32,6 +32,9 @@
 
     //Shipment Activity
     <string name="add_shipment">Enviar material</string>
+    <string name="materials_shipment_title">Material a enviar</string>
+    <string name="shipment_title">Destino</string>
+    <string name="shipment_empty">Lea la etiqueta de destino</string>
 
     //Selection Activity
     <string name="selection_activity_title">Seleccione un proceso</string>

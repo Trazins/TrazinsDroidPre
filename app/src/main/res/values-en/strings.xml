@@ -7,6 +7,8 @@
     <string name="material_exists_list">Material is in list</string>
     <string name="error_process">Error on process, check data</string>
     <string name="unidetified_code">Unidetified code</string>
+    <string name="delete">Delete</string>
+    <string name="materials_counter">elements</string>
 
     //Main Activity
     <string name="app_name">TrazinsDroidPre</string>
@@ -24,15 +26,16 @@
     <string name="location_details_shelf">Shelf: </string>
     <string name="location_details_position">Position: </string>
     <string name="materials_title">Material to locate</string>
-    <string name="materials_counter">elements</string>
-    <string name="delete">Delete</string>
     <string name="add_location">Locate material</string>
-    <string name="locate_empty">Read location label</string>
+    <string name="locate_empty">Scan location label</string>
     <string name="locate_error">Incorrect location</string>
     <string name="correct_location">Correct location</string>
 
     //Shipment Activity
     <string name="add_shipment">Send material</string>
+    <string name="materials_shipment_title">Material to send</string>
+    <string name="shipment_title">Destiny</string>
+    <string name="shipment_empty">Scan destiny label</string>
 
     //Selection Activity
     <string name="selection_activity_title">Select a Process</string>

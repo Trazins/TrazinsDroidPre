@@ -85,7 +85,7 @@ public class LocateActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
                 materialSelected = lstMaterial.get(position);
-                
+
                 //Habilitamos el selector de item en el listado.
                 ListViewMaterials.setSelector(R.color.selection);
                 ListViewMaterials.requestLayout();
@@ -120,7 +120,6 @@ public class LocateActivity extends AppCompatActivity {
                 return false;
             }
         });
-
     }
 
     private void setLocate() {
@@ -272,7 +271,7 @@ public class LocateActivity extends AppCompatActivity {
             switch(modelType){
                 case "LocateOutputModel":
                     finalLocation = (LocateOutputModel)modelResult;
-                    //Comprobar si devuelve todos los datos
+
                     textViewLocationResult.setText(((LocateOutputModel) modelResult).StorageDescription);
 
                     String block = String.valueOf(((LocateOutputModel) modelResult).StBlock);
