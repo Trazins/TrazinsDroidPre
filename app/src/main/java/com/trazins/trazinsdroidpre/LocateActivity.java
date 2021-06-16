@@ -64,11 +64,9 @@ public class LocateActivity extends AppCompatActivity {
     UserOutputModel userLogged;
 
     //Controles
-    View bottomNavigationMenu;
     BottomNavigationView btm;
     TextView textViewLocationResult, textViewUserName, textViewElements, textViewLocationDetails;
 
-    MyReceiver Receiver = new MyReceiver();
     IntentFilter filter = new IntentFilter();
 
     Handler handler;
@@ -105,7 +103,6 @@ public class LocateActivity extends AppCompatActivity {
         filter.addCategory(Intent.CATEGORY_DEFAULT);
         filter.addAction(DataWedgeInterface.ACTIVITY_INTENT_FILTER_ACTION);
 
-        //bottomNavigationMenu = findViewById(R.id.bottomNavigationMenu);
         btm = findViewById(R.id.bottomNavigationMenu);
         btm.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

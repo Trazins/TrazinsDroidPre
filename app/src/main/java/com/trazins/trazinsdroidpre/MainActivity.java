@@ -27,6 +27,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private static final String PROFILE1 = "TrazinsMultiActivity_Profile1";
     private static final String PROFILE2 = "TrazinsMultiActivity_Profile2";
+    private static final String PROFILE3 = "TrazinsMultiActivity_Profile3";
 
     TextView textViewAutResult;
     Handler handler;
@@ -57,6 +58,12 @@ public class MainActivity extends AppCompatActivity {
         Code128Value = "true";
         EAN13Value = "false";
         CreateProfile(PROFILE2, Code128Value, EAN13Value);
+
+        //Create Profile 3 for ShipmentActivity
+        Code128Value = "true";
+        EAN13Value = "false";
+        CreateProfile(PROFILE3, Code128Value, EAN13Value);
+
     }
     @Override
     public void onStart() {
@@ -202,8 +209,11 @@ public class MainActivity extends AppCompatActivity {
         {
             activityName = MainActivity.class.getSimpleName();
         }
-        else {
+        else if(profileName.equals(PROFILE2)){
             activityName = LocateActivity.class.getSimpleName();
+        }
+        else{
+            activityName = ShipmentActivity.class.getSimpleName();
         }
         String activityPackageName = getPackageName() + "." + activityName;
         appConfig.putStringArray("ACTIVITY_LIST", new String[] {activityPackageName});
