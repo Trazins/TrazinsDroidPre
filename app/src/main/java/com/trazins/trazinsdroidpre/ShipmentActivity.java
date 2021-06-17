@@ -25,6 +25,8 @@ import com.trazins.trazinsdroidpre.models.locatemodel.LocateInputModel;
 import com.trazins.trazinsdroidpre.models.locatemodel.LocateOutputModel;
 import com.trazins.trazinsdroidpre.models.materialmodel.MaterialInputModel;
 import com.trazins.trazinsdroidpre.models.materialmodel.MaterialOutputModel;
+import com.trazins.trazinsdroidpre.models.origin.OriginInputModel;
+import com.trazins.trazinsdroidpre.models.origin.OriginOutputModel;
 import com.trazins.trazinsdroidpre.models.storagemodel.StorageInputModel;
 import com.trazins.trazinsdroidpre.models.storagemodel.StorageOutputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
@@ -46,10 +48,10 @@ public class ShipmentActivity extends AppCompatActivity {
     List<MaterialOutputModel> lstMaterial= new ArrayList<>();
 
     //Variable para gestionar el funcionamiento de la clase que gestiona la conexión webservice
-    boolean setLocation = false;
+    boolean setShipment = false;
 
     //Ubicación de destino
-    LocateOutputModel finalShipment = new LocateOutputModel();
+    OriginOutputModel finalShipment = new OriginOutputModel();
 
     //Material seleccionado en la lista
     MaterialOutputModel materialSelected = new MaterialOutputModel();
@@ -116,11 +118,11 @@ public class ShipmentActivity extends AppCompatActivity {
 
     private void setLocate() {
         try{
-            if(finalShipment.LocateId == 0){
+            if(finalShipment.OriginId == 0){
                 Toast.makeText(getBaseContext(), R.string.locate_empty ,Toast.LENGTH_LONG).show();
                 return;
             }
-            setLocation = true;
+            setShipment = true;
             new ShipmentMyAsyncClass().execute();
 
         }catch (Exception e){
@@ -179,14 +181,14 @@ public class ShipmentActivity extends AppCompatActivity {
                     "http://188.165.209.37:8009/Android/TrazinsDroidService.svc");
 
             //Si recibimos la orden de ubicar o de leer etiquetas.
-            if(setLocation){
+            if(setShipment){
                 //Usamos esta variable indicar que vamos a insertar los registros.
-                setLocation = false;
+                setShipment = false;
                 methodName = "SetStorageData";
                 parameterName = "dataToInsert";
 
                 StorageInputModel storageInputModel = new StorageInputModel();
-                storageInputModel.LocationId = String.valueOf(finalShipment.LocateId);
+                storageInputModel.LocationId = String.valueOf(finalShipment.OriginId);
                 storageInputModel.EntryUser = userLogged.Login;
                 for(MaterialOutputModel m : lstMaterial){
                     //Serializamos los materiales.
@@ -205,19 +207,19 @@ public class ShipmentActivity extends AppCompatActivity {
 
             }else{
                 //Determinamos que tipo de objeto es el código leido
-                if(readCode.substring(0,1).equals("U")){
-                    methodName = "GetLocation";
-                    parameterName = "locationCode";
+                if(readCode.substring(0,1).equals("O")){
+                    methodName = "GetOrigin";
+                    parameterName = "originCode";
 
-                    LocateInputModel locateInputModelData = new LocateInputModel();
-                    locateInputModelData.StorageCode = readCode;
+                    OriginInputModel originInputModel = new OriginInputModel();
+                    originInputModel.originCode = readCode;
 
                     //Según el código hay que usar una clase de web service o otra;
                     client.configure(new Configurator(
                             "http://tempuri.org/", "ITrazinsDroidService", methodName));
 
-                    client.addParameter(parameterName, locateInputModelData);
-                    resultModel = new LocateOutputModel();
+                    client.addParameter(parameterName, originInputModel);
+                    resultModel = new OriginOutputModel();
                 }else{
                     //Modelo Carro pdte desarrollo
                     if(readCode.substring(0,1).equals("C")){
@@ -254,7 +256,11 @@ public class ShipmentActivity extends AppCompatActivity {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    processData(modelResult);
+                    if(modelResult!= null){
+                        processData(modelResult);
+                    }else{
+                        Toast.makeText(getBaseContext(), getText(R.string.unidetified_code), Toast.LENGTH_LONG).show();
+                    }
                 }
             });
         }
@@ -262,19 +268,11 @@ public class ShipmentActivity extends AppCompatActivity {
         private void processData(Object modelResult) {
             String modelType = modelResult.getClass().getSimpleName();
             switch(modelType){
-                case "LocateOutputModel":
-                    finalShipment = (LocateOutputModel)modelResult;
+                case "OriginOutputModel":
+                    finalShipment = (OriginOutputModel)modelResult;
 
-                    textViewShipmentResult.setText(((LocateOutputModel) modelResult).StorageDescription);
+                    textViewShipmentResult.setText(((OriginOutputModel) modelResult).OriginDescription);
 
-                    String block = String.valueOf(((LocateOutputModel) modelResult).StBlock);
-                    String shelf = String.valueOf(((LocateOutputModel) modelResult).Shelf);
-                    String position = String.valueOf(((LocateOutputModel) modelResult).Position);
-
-                    textViewShipmentDetails.setText(
-                            getText(R.string.location_details_block)+ block + " "+
-                                    getText(R.string.location_details_shelf)+ shelf + " " +
-                                    getText(R.string.location_details_position)+ position);
                     break;
                 case "MaterialOutputModel":
                     addMaterialToList((MaterialOutputModel)modelResult);

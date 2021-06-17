@@ -258,7 +258,11 @@ public class LocateActivity extends AppCompatActivity {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    processData(modelResult);
+                    if(modelResult!= null){
+                        processData(modelResult);
+                    }else{
+                        Toast.makeText(getBaseContext(), getText(R.string.unidetified_code), Toast.LENGTH_LONG).show();
+                    }
                 }
             });
         }
