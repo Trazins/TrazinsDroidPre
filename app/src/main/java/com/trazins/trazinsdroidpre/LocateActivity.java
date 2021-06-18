@@ -189,6 +189,7 @@ public class LocateActivity extends AppCompatActivity {
                 methodName = "SetStorageData";
                 parameterName = "dataToInsert";
 
+                //Probar cambio, añadida descripcion al material
                 StorageInputModel storageInputModel = new StorageInputModel();
                 storageInputModel.LocationId = String.valueOf(finalLocation.LocateId);
                 storageInputModel.EntryUser = userLogged.Login;
@@ -197,6 +198,7 @@ public class LocateActivity extends AppCompatActivity {
                     MaterialInputModel serializableMaterial = new MaterialInputModel();
                     serializableMaterial.MaterialCode = m.Id;
                     serializableMaterial.MaterialType = m.MaterialType;
+                    serializableMaterial.MaterialDescription = m.MaterialDescription;
                     storageInputModel.MatList.add(serializableMaterial);
                 }
 

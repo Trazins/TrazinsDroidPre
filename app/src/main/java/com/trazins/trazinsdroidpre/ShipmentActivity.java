@@ -195,6 +195,7 @@ public class ShipmentActivity extends AppCompatActivity {
                     MaterialInputModel serializableMaterial = new MaterialInputModel();
                     serializableMaterial.MaterialCode = m.Id;
                     serializableMaterial.MaterialType = m.MaterialType;
+                    serializableMaterial.MaterialDescription = m.MaterialDescription;
                     storageInputModel.MatList.add(serializableMaterial);
                 }
 

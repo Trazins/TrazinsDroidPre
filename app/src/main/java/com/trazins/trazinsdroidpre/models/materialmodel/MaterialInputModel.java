@@ -5,4 +5,5 @@ import java.io.Serializable;
 public class MaterialInputModel implements Serializable {
     public String MaterialCode;
     public String MaterialType;
+    public String MaterialDescription;
 }
