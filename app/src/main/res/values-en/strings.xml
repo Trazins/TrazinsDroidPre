@@ -11,12 +11,12 @@
     <string name="materials_counter">elements</string>
 
     //Main Activity
-    <string name="app_name">TrazinsDroidPre</string>
+    <string name="app_name">Trazins DROID</string>
     <string name="welcome">Welcome to Trazins</string>
     <string name="read_code">Read your identification code</string>
     <string name="aut_result">Authentication pending</string>
     <string name="correct_user">Succesfully autentication</string>
-    <string name="Incorrect_user"><font fgcolor='#FFFF3B30'>Incorrect user</font></string>
+    <string name="incorrect_user"><font fgcolor='#FFFF3B30'>Incorrect user</font></string>
 
 
     //Locate Activity

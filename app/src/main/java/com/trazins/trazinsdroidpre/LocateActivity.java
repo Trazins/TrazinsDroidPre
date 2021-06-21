@@ -164,7 +164,7 @@ public class LocateActivity extends AppCompatActivity {
     // Used EventBus to notify foreground activity of profile change
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(DataWedgeInterface.MessageEvent event) {
-        TextView txtActiveProfile = findViewById(R.id.textViewAutResult);
+        //TextView txtActiveProfile = findViewById(R.id.textViewAutResult);
         //txtActiveProfile.setText(event.activeProfile);
     };
 

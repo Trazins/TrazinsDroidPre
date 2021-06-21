@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.threepin.fireexit_wcf.Configurator;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String PROFILE3 = "TrazinsMultiActivity_Profile3";
 
     TextView textViewAutResult;
+    Button buttonAutResult;
     Handler handler;
 
     IntentFilter filter = new IntentFilter();
@@ -43,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         handler = new Handler(Looper.getMainLooper());
-        textViewAutResult = findViewById(R.id.textViewAutResult);
+        //textViewAutResult = findViewById(R.id.textViewAutResult);
+        buttonAutResult = findViewById(R.id.buttonAutResult);
 
         filter.addAction(DataWedgeInterface.ACTION_RESULT_DATAWEDGE);
         filter.addCategory(Intent.CATEGORY_DEFAULT);
@@ -87,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
     // Used EventBus to notify foreground activity of profile change
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(DataWedgeInterface.MessageEvent event) {
-        TextView txtActiveProfile = findViewById(R.id.textViewAutResult);
+        //TextView txtActiveProfile = findViewById(R.id.textViewAutResult);
         //txtActiveProfile.setText(event.activeProfile);
     };
 
@@ -133,13 +136,17 @@ public class MainActivity extends AppCompatActivity {
         private void setInformationMessage(UserOutputModel userLogged) {
             if(userLogged!=null){
                 //textViewAutResult.setText(((UserOutputModel) userLogged).UserName);
-
+                //Por si primero no leen bien el código que les aparezca correcto.
+                buttonAutResult.setTextColor(getResources().getColor(R.color.green));
+                buttonAutResult.setText(R.string.correct_user);
                 Intent switchActivity = new Intent(getApplicationContext(), SelectionActivity.class);
                 switchActivity.putExtra("userLogged",((UserOutputModel) userLogged));
                 startActivity(switchActivity);
             }
             else{
-                textViewAutResult.setText(R.string.Incorrect_user);
+                //textViewAutResult.setText(R.string.incorrect_user);
+                buttonAutResult.setTextColor(getResources().getColor(R.color.red));
+                buttonAutResult.setText(R.string.incorrect_user);
             }
         }
     }

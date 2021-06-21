@@ -4,6 +4,7 @@
 
     //General resources
     <string name="global_image_description" translatable="false">separtorLine</string>
+    <string name="logotype_description" translatable="false">Trazins Resource</string>
     <string name="material_exists_list">El material ya está en la lista</string>
     <string name="unidetified_code">Código no reconocido</string>
     <string name="error_process">Error en el proceso, revise los datos</string>
@@ -11,12 +12,12 @@
     <string name="materials_counter">elementos</string>
 
     //Main Activity
-    <string name="app_name">TrazinsDroidPre</string>
+    <string name="app_name">Trazins DROID</string>
     <string name="welcome">Bienvenido a Trazins</string>
     <string name="read_code">Proceda a leer su identificación</string>
     <string name="aut_result">Pendiente autenticación</string>
     <string name="correct_user">Autenticación correcta</string>
-    <string name="Incorrect_user"><font fgcolor='#FFFF3B30'>Usuario incorrecto</font></string>
+    <string name="incorrect_user"><font fgcolor='#FFFF3B30'>Usuario incorrecto</font></string>
 
     //Locate Activity
     <string name="location_title">Ubicación</string>
