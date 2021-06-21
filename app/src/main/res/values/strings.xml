@@ -35,6 +35,9 @@
     <string name="materials_shipment_title">Material a enviar</string>
     <string name="shipment_title">Destino</string>
     <string name="shipment_empty">Lea la etiqueta de destino</string>
+    <string name="correct_shipment">Enviado correctamente</string>
+    <string name="shipment_error">Envío no realizado</string>
+
 
     //Selection Activity
     <string name="selection_activity_title">Seleccione un proceso</string>

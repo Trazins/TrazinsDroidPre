@@ -312,6 +312,7 @@ public class LocateActivity extends AppCompatActivity {
         textViewElements.setText(lstMaterial.size()+ " " + getText(R.string.materials_counter));
         textViewLocationResult.setText("");
         finalLocation = null;
+        textViewLocationDetails.setText(getText(R.string.location_details));
     }
 
     private void addMaterialToList(MaterialOutputModel modelResult) {

@@ -21,14 +21,12 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.threepin.fireexit_wcf.Configurator;
 import com.threepin.fireexit_wcf.FireExitClient;
-import com.trazins.trazinsdroidpre.models.locatemodel.LocateInputModel;
-import com.trazins.trazinsdroidpre.models.locatemodel.LocateOutputModel;
 import com.trazins.trazinsdroidpre.models.materialmodel.MaterialInputModel;
 import com.trazins.trazinsdroidpre.models.materialmodel.MaterialOutputModel;
 import com.trazins.trazinsdroidpre.models.origin.OriginInputModel;
 import com.trazins.trazinsdroidpre.models.origin.OriginOutputModel;
-import com.trazins.trazinsdroidpre.models.storagemodel.StorageInputModel;
-import com.trazins.trazinsdroidpre.models.storagemodel.StorageOutputModel;
+import com.trazins.trazinsdroidpre.models.shipment.ShipmentInputModel;
+import com.trazins.trazinsdroidpre.models.shipment.ShipmentOutputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 import com.trazins.trazinsdroidpre.scanner.DataWedgeInterface;
 
@@ -104,7 +102,7 @@ public class ShipmentActivity extends AppCompatActivity {
         btm.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if(item.getItemId()==R.id.add_location){
+                if(item.getItemId()==R.id.add_shipment){
                     //ubicar elementos
                     setLocate();
                 }else {
@@ -184,27 +182,27 @@ public class ShipmentActivity extends AppCompatActivity {
             if(setShipment){
                 //Usamos esta variable indicar que vamos a insertar los registros.
                 setShipment = false;
-                methodName = "SetStorageData";
+                methodName = "SetShipmentData";
                 parameterName = "dataToInsert";
 
-                StorageInputModel storageInputModel = new StorageInputModel();
-                storageInputModel.LocationId = String.valueOf(finalShipment.OriginId);
-                storageInputModel.EntryUser = userLogged.Login;
+                ShipmentInputModel shipmentInputModel = new ShipmentInputModel();
+                shipmentInputModel.OriginId = finalShipment.OriginId;
+                shipmentInputModel.EntryUser = userLogged.Login;
                 for(MaterialOutputModel m : lstMaterial){
                     //Serializamos los materiales.
                     MaterialInputModel serializableMaterial = new MaterialInputModel();
                     serializableMaterial.MaterialCode = m.Id;
                     serializableMaterial.MaterialType = m.MaterialType;
                     serializableMaterial.MaterialDescription = m.MaterialDescription;
-                    storageInputModel.MatList.add(serializableMaterial);
+                    shipmentInputModel.MatList.add(serializableMaterial);
                 }
 
                 //Según el código hay que usar una clase de web service o otra;
                 client.configure(new Configurator(
                         "http://tempuri.org/", "ITrazinsDroidService", methodName));
 
-                client.addParameter(parameterName, storageInputModel);
-                resultModel = new StorageOutputModel();
+                client.addParameter(parameterName, shipmentInputModel);
+                resultModel = new ShipmentOutputModel();
 
             }else{
                 //Determinamos que tipo de objeto es el código leido
@@ -271,16 +269,15 @@ public class ShipmentActivity extends AppCompatActivity {
             switch(modelType){
                 case "OriginOutputModel":
                     finalShipment = (OriginOutputModel)modelResult;
-
                     textViewShipmentResult.setText(((OriginOutputModel) modelResult).OriginDescription);
 
                     break;
                 case "MaterialOutputModel":
                     addMaterialToList((MaterialOutputModel)modelResult);
                     break;
-                case "StorageOutputModel":
-                    if(((StorageOutputModel)modelResult).Result){
-                        Toast.makeText(getBaseContext(), R.string.correct_location, Toast.LENGTH_LONG).show();
+                case "ShipmentOutputModel":
+                    if(((ShipmentOutputModel)modelResult).Result){
+                        Toast.makeText(getBaseContext(),R.string.correct_shipment, Toast.LENGTH_LONG).show();
                         //Limpiar controles
                         cleanControlsViews();
                     }else{

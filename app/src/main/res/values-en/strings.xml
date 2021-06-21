@@ -36,6 +36,8 @@
     <string name="materials_shipment_title">Material to send</string>
     <string name="shipment_title">Destiny</string>
     <string name="shipment_empty">Scan destiny label</string>
+    <string name="correct_shipment">Correct shipment</string>
+    <string name="shipment_error">Unrealized shipment</string>
 
     //Selection Activity
     <string name="selection_activity_title">Select a Process</string>
