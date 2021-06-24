@@ -1,4 +1,4 @@
-package com.trazins.trazinsdroidpre.models.shipment;
+package com.trazins.trazinsdroidpre.models.shipmentmodel;
 
 public class ShipmentOutputModel {
     public int ESId;

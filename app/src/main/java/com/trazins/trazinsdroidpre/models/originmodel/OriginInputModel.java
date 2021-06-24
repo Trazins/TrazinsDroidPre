@@ -1,4 +1,4 @@
-package com.trazins.trazinsdroidpre.models.origin;
+package com.trazins.trazinsdroidpre.models.originmodel;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package com.trazins.trazinsdroidpre.models.shipment;
+package com.trazins.trazinsdroidpre.models.shipmentmodel;
 
 import com.trazins.trazinsdroidpre.models.materialmodel.MaterialInputModel;
 

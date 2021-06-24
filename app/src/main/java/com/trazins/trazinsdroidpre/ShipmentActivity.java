@@ -23,10 +23,10 @@ import com.threepin.fireexit_wcf.Configurator;
 import com.threepin.fireexit_wcf.FireExitClient;
 import com.trazins.trazinsdroidpre.models.materialmodel.MaterialInputModel;
 import com.trazins.trazinsdroidpre.models.materialmodel.MaterialOutputModel;
-import com.trazins.trazinsdroidpre.models.origin.OriginInputModel;
-import com.trazins.trazinsdroidpre.models.origin.OriginOutputModel;
-import com.trazins.trazinsdroidpre.models.shipment.ShipmentInputModel;
-import com.trazins.trazinsdroidpre.models.shipment.ShipmentOutputModel;
+import com.trazins.trazinsdroidpre.models.originmodel.OriginInputModel;
+import com.trazins.trazinsdroidpre.models.originmodel.OriginOutputModel;
+import com.trazins.trazinsdroidpre.models.shipmentmodel.ShipmentInputModel;
+import com.trazins.trazinsdroidpre.models.shipmentmodel.ShipmentOutputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 import com.trazins.trazinsdroidpre.scanner.DataWedgeInterface;
 

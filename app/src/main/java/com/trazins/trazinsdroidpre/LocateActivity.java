@@ -28,6 +28,8 @@ import com.trazins.trazinsdroidpre.models.materialmodel.MaterialInputModel;
 import com.trazins.trazinsdroidpre.models.materialmodel.MaterialOutputModel;
 import com.trazins.trazinsdroidpre.models.storagemodel.StorageInputModel;
 import com.trazins.trazinsdroidpre.models.storagemodel.StorageOutputModel;
+import com.trazins.trazinsdroidpre.models.trolleymodel.TrolleyInputModel;
+import com.trazins.trazinsdroidpre.models.trolleymodel.TrolleyOutputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserInputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 import com.trazins.trazinsdroidpre.scanner.DataWedgeInterface;
@@ -50,6 +52,8 @@ public class LocateActivity extends AppCompatActivity {
 
     //Variable para gestionar el funcionamiento de la clase que gestiona la conexión webservice
     boolean setLocation = false;
+    //Si se ha leído un carro hay que deshabiltarlo del desplegable
+    TrolleyOutputModel isTrolleyContent;
 
     //Ubicación de destino
     LocateOutputModel finalLocation = new LocateOutputModel();
@@ -191,6 +195,10 @@ public class LocateActivity extends AppCompatActivity {
 
                 //Probar cambio, añadida descripcion al material
                 StorageInputModel storageInputModel = new StorageInputModel();
+                if(isTrolleyContent!= null){
+                    storageInputModel.TrolleyCode = isTrolleyContent.TrolleyCode;
+                    isTrolleyContent = null;
+                }
                 storageInputModel.LocationId = String.valueOf(finalLocation.LocateId);
                 storageInputModel.EntryUser = userLogged.Login;
                 for(MaterialOutputModel m : lstMaterial){
@@ -227,7 +235,15 @@ public class LocateActivity extends AppCompatActivity {
                 }else{
                     //Modelo Carro pdte desarrollo
                     if(readCode.substring(0,1).equals("C")){
-                        //resultModel = new TrolleyOutpuModel();
+                        methodName = "GetTrolleyContent";
+                        parameterName = "trolleyCode";
+                        TrolleyInputModel trolleyInputModel = new TrolleyInputModel();
+                        trolleyInputModel.TrolleyCode = readCode;
+
+                        client.configure(new Configurator(
+                                "http://tempuri.org/", "ITrazinsDroidService", methodName));
+                        client.addParameter(parameterName, trolleyInputModel);
+                        resultModel = new TrolleyOutputModel();
                     }else{
                         methodName = "GetMaterialData";
                         parameterName = "materialCode";
@@ -250,6 +266,7 @@ public class LocateActivity extends AppCompatActivity {
                 resultModel = client.call(resultModel);
             } catch (Exception e) {
                 e.printStackTrace();
+                Toast.makeText(getBaseContext(), e.getMessage(),Toast.LENGTH_LONG).show();
             }
             return resultModel;
         }
@@ -297,6 +314,17 @@ public class LocateActivity extends AppCompatActivity {
                     }else{
                         Toast.makeText(getBaseContext(), R.string.error_process, Toast.LENGTH_LONG).show();
                     }
+                    break;
+                case "TrolleyOutputModel":
+                    TrolleyOutputModel result = (TrolleyOutputModel)modelResult;
+                    for (TrolleyOutputModel item : result.TrolleyContent){
+                        MaterialOutputModel m = new MaterialOutputModel();
+                        m.MaterialType = item.MaterialType;
+                        m.MaterialDescription = item.MaterialDescription;
+                        m.Id = item.Id;
+                        addMaterialToList((m));
+                    }
+                    isTrolleyContent = result;
                     break;
                 default:
                     Toast.makeText(getBaseContext(), R.string.unidetified_code, Toast.LENGTH_LONG).show();

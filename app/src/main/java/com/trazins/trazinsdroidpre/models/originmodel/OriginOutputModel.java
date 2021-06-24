@@ -1,6 +1,4 @@
-package com.trazins.trazinsdroidpre.models.origin;
-
-import java.io.Serializable;
+package com.trazins.trazinsdroidpre.models.originmodel;
 
 public class OriginOutputModel{
     public int OriginId;
