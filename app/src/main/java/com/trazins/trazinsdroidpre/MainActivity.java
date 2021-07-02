@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.threepin.fireexit_wcf.Configurator;
 import com.threepin.fireexit_wcf.FireExitClient;
@@ -118,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 userOutputModelLogged = client.call(userOutputModelLogged);
             } catch (Exception e) {
                 e.printStackTrace();
+                Toast.makeText(getBaseContext(), e.getMessage(),Toast.LENGTH_LONG).show();
             }
             return userOutputModelLogged;
         }
@@ -134,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         private void setInformationMessage(UserOutputModel userLogged) {
-            if(userLogged!=null){
+            if(userLogged.Login!=null){
                 //textViewAutResult.setText(((UserOutputModel) userLogged).UserName);
                 //Por si primero no leen bien el código que les aparezca correcto.
                 buttonAutResult.setTextColor(getResources().getColor(R.color.green));

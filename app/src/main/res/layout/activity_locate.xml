@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LocateActivity"
-    android:orientation="horizontal">
+    android:fitsSystemWindows="true"
+    android:orientation="horizontal"
+    tools:context=".LocateActivity">
 
     <LinearLayout
         android:id="@+id/MainLayout"
@@ -53,24 +52,24 @@
             android:id="@+id/textViewLocationResult"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/light_grey"
             android:hint="@string/locate_empty"
             android:paddingStart="35dp"
             android:paddingEnd="0dp"
             android:textAlignment="textStart"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:background="@color/light_grey"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textViewLocationDetails"
             android:layout_width="match_parent"
             android:layout_height="36dp"
             android:layout_gravity="end"
+            android:background="@color/light_grey"
             android:gravity="end|center_vertical"
             android:text="@string/location_details"
-            android:textStyle="bold"
             android:textSize="14sp"
-            android:background="@color/light_grey"/>
+            android:textStyle="bold" />
 
         <ImageView
             android:layout_width="match_parent"
@@ -106,6 +105,7 @@
                 android:textSize="14sp" />
 
         </LinearLayout>
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -123,33 +123,31 @@
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="346dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationMenu"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MainLayout"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationMenu">
+        app:layout_constraintTop_toBottomOf="@+id/MainLayout">
 
         <ListView
             android:id="@+id/listViewMaterials"
             android:layout_width="match_parent"
-            android:layout_height="270dp"
-            android:choiceMode="singleChoice"
-
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="wrap_content"
+            android:choiceMode="singleChoice" />
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationMenu"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@color/medium_grey"
         app:itemIconTint="@color/buttonTrazins"
         app:itemTextColor="@color/buttonTrazins"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
         app:menu="@menu/menu_navigation">
 

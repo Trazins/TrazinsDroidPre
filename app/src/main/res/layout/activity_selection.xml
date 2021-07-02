@@ -105,7 +105,8 @@
             android:onClick="openSelectedActivity"
             android:text="@string/other_mode"
             android:textColor="@color/buttonTrazins"
-            app:layout_columnWeight="1" />
+            app:layout_columnWeight="1"
+            android:visibility="invisible"/>
 
 
     </androidx.gridlayout.widget.GridLayout>

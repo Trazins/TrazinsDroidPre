@@ -266,7 +266,6 @@ public class LocateActivity extends AppCompatActivity {
                 resultModel = client.call(resultModel);
             } catch (Exception e) {
                 e.printStackTrace();
-                Toast.makeText(getBaseContext(), e.getMessage(),Toast.LENGTH_LONG).show();
             }
             return resultModel;
         }

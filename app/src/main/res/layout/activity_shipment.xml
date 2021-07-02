@@ -6,7 +6,7 @@
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LocateActivity"
+    tools:context=".ShipmentActivity"
     android:orientation="horizontal">
 
     <LinearLayout
@@ -123,22 +123,18 @@
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="346dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationMenu"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MainLayout"
-        app:layout_constraintBottom_toTopOf="@+id/bottomShipmentNavigationMenu">
+        app:layout_constraintTop_toBottomOf="@+id/MainLayout">
 
         <ListView
             android:id="@+id/listViewShipmentMaterials"
             android:layout_width="match_parent"
-            android:layout_height="270dp"
-            android:choiceMode="singleChoice"
-
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="wrap_content"
+            android:choiceMode="singleChoice" />
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -150,6 +146,8 @@
         app:itemIconTint="@color/buttonTrazins"
         app:itemTextColor="@color/buttonTrazins"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
         app:menu="@menu/menu_navigation_shipment_activity">
 
