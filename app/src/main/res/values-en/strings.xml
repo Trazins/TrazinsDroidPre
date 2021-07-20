@@ -39,6 +39,10 @@
     <string name="correct_shipment">Correct shipment</string>
     <string name="shipment_error">Unrealized shipment</string>
 
+    //Post Counter Surgical Activity
+    <string name="start_counter"></string>
+    <string name="post_surgical_title">Post-Counter Surgical</string>
+
     //Selection Activity
     <string name="selection_activity_title">Select a Process</string>
     <string name="identified_user">User: </string>

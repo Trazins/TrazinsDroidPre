@@ -96,17 +96,16 @@
             app:layout_columnWeight="1" />
 
         <Button
-            android:id="@+id/buttonPost"
+            android:id="@+id/buttonPostCounterSurgical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/ic_menu_otheroption_48"
+            android:drawableTop="@drawable/ic_post_counter_surgical_48"
             android:onClick="openSelectedActivity"
-            android:text="@string/other_mode"
+            android:text="@string/post_surgical_title"
             android:textColor="@color/buttonTrazins"
-            app:layout_columnWeight="1"
-            android:visibility="invisible"/>
+            app:layout_columnWeight="1"            />
         <Button
             android:id="@+id/buttonOtherMenu"
             android:layout_width="wrap_content"

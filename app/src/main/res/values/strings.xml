@@ -39,6 +39,9 @@
     <string name="correct_shipment">Enviado correctamente</string>
     <string name="shipment_error">Envío no realizado</string>
 
+    //Post Counter Surgical Activity
+    <string name="start_counter"></string>
+    <string name="post_surgical_title">Recuento post quirúrgico</string>
 
     //Selection Activity
     <string name="selection_activity_title">Seleccione un proceso</string>
