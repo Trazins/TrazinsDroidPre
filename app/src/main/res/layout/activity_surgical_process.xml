@@ -87,7 +87,7 @@
                 android:id="@+id/textViewPatientCode"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/patient_id"
+                android:text="@string/record_number"
                 app:layout_columnWeight="1"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -122,7 +122,7 @@
                 android:id="@+id/textViewPCSMaterialTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/set_counter"
+                android:text="@string/materials_surgical_process_title"
                 android:textSize="18sp" />
 
             <TextView

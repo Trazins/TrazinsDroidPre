@@ -41,12 +41,12 @@
 
     //Post Counter Surgical Activity
     <string name="surgical_information_title">Surgical process information</string>
-    <string name="post_surgical_title">Post-Counter Surgical</string>
+    <string name="surgical_process_title">Surgical process</string>
     <string name="intervention_code">Intervention code:</string>
-    <string name="patient_id">Patient code:</string>
-    <string name="set_counter">Post-counter sets</string>
+    <string name="record_number">Record number:</string>
+    <string name="materials_surgical_process_title">Materials used</string>
     <string name="start_post_counter">Start post-counter</string>
-    <string name="add_post_counter">Add post-counter</string>
+    <string name="add_surgical_process">Add surgical process</string>
 
 
     //Selection Activity

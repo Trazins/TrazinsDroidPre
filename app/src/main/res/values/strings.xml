@@ -39,14 +39,14 @@
     <string name="correct_shipment">Enviado correctamente</string>
     <string name="shipment_error">Envío no realizado</string>
 
-    //Post Counter Surgical Activity
+    //Surgical Process Activity
     <string name="surgical_information_title">Datos del proceso quirúrgico</string>
-    <string name="post_surgical_title">Recuento post quirúrgico</string>
+    <string name="surgical_process_title">Proceso quirúrgico</string>
     <string name="intervention_code">Código de intervención:</string>
-    <string name="patient_id">Código de paciente:</string>
-    <string name="set_counter">Cajas para recuento</string>
+    <string name="record_number">Número de historia:</string>
+    <string name="materials_surgical_process_title">Material utilizado</string>
     <string name="start_post_counter">Iniciar recuento</string>
-    <string name="add_post_counter">Añadir recuento</string>
+    <string name="add_surgical_process">Crear proceso quirúrgico</string>
 
     //Selection Activity
     <string name="selection_activity_title">Seleccione un proceso</string>
