@@ -11,7 +11,7 @@
         android:icon="@drawable/ic_post_counter_surgical_start"
         />
     <item
-        android:id="@+id/add_post_counter"
+        android:id="@+id/add_surgical_process"
         android:title="@string/add_surgical_process"
         android:icon="@drawable/ic_add_surgical_process"
         />

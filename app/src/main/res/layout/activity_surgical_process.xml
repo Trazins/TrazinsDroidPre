@@ -23,7 +23,7 @@
         app:layout_constraintVertical_bias="0.0">
 
         <TextView
-            android:id="@+id/textViewPCSUserName"
+            android:id="@+id/textViewSPUserName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/identified_user" />
@@ -41,7 +41,7 @@
             android:src="@android:drawable/divider_horizontal_dark" />
 
         <TextView
-            android:id="@+id/textViewSurgicalTitle"
+            android:id="@+id/textViewSPTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/surgical_information_title"
@@ -65,9 +65,8 @@
             <TextView
                 android:id="@+id/textViewInterventionCode"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@color/light_grey"
-                android:gravity="center_vertical"
                 android:text="@string/intervention_code"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -75,6 +74,7 @@
                 android:paddingBottom="10dp"/>
 
             <EditText
+                android:id="@+id/editTextInterventionCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_columnWeight="1"
@@ -84,21 +84,43 @@
                 android:maxLength="10"/>
 
             <TextView
-                android:id="@+id/textViewPatientCode"
+                android:id="@+id/textViewRecordNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="@string/record_number"
                 app:layout_columnWeight="1"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:background="@color/light_grey"/>
+                android:background="@color/light_grey"
+                android:paddingBottom="10dp"/>
+
             <EditText
+                android:id="@+id/editTextRecordNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_columnWeight="1"
                 android:textSize="18sp"
                 android:maxLines="1"
-                android:maxLength="10"/>
+                android:maxLength="10"
+                android:paddingBottom="10dp"/>
+            <TextView
+                android:id="@+id/textViewOperatingRoom"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/operating_room"
+                app:layout_columnWeight="1"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:background="@color/light_grey"/>
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:layout_columnWeight="1"
+                android:textSize="18sp"
+                android:maxLines="1"
+                android:maxLength="10"
+                android:paddingBottom="10dp"/>
+            <!-- Pendiente ajustar tamaño -->
         </androidx.gridlayout.widget.GridLayout>
 
         <ImageView
@@ -119,14 +141,14 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textViewPCSMaterialTitle"
+                android:id="@+id/textViewSPMaterialTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/materials_surgical_process_title"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/textViewPCSMaterialCounter"
+                android:id="@+id/textViewSPMaterialCounter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/materials_counter"
@@ -149,26 +171,27 @@
             android:src="@android:drawable/divider_horizontal_dark" />
 
     </LinearLayout>
-    <!-- Size to TC21 346dp aprox.-->
+    <!-- Size to TC21 346dp aprox. -->
+
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="240dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomPostCounterNavigationMenu"
+        android:layout_height="230dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomSPNavigationMenu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/MainLayout">
 
         <ListView
-            android:id="@+id/listViewPCSMaterials"
+            android:id="@+id/listViewSPMaterials"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:choiceMode="singleChoice" />
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomPostCounterNavigationMenu"
+        android:id="@+id/bottomSPNavigationMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"

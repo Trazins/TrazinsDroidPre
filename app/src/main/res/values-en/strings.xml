@@ -47,6 +47,7 @@
     <string name="materials_surgical_process_title">Materials used</string>
     <string name="start_post_counter">Start post-counter</string>
     <string name="add_surgical_process">Add surgical process</string>
+    <string name="operating_room">Operating room:</string>
 
 
     //Selection Activity
