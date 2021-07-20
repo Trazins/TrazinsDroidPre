@@ -65,7 +65,7 @@
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:padding="10dp"
-        app:columnCount="2"
+        app:columnCount="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -95,6 +95,18 @@
             android:textColor="@color/buttonTrazins"
             app:layout_columnWeight="1" />
 
+        <Button
+            android:id="@+id/buttonPost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/white"
+            android:drawableTop="@drawable/ic_menu_otheroption_48"
+            android:onClick="openSelectedActivity"
+            android:text="@string/other_mode"
+            android:textColor="@color/buttonTrazins"
+            app:layout_columnWeight="1"
+            android:visibility="invisible"/>
         <Button
             android:id="@+id/buttonOtherMenu"
             android:layout_width="wrap_content"

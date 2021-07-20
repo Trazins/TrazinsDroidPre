@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 userOutputModelLogged = client.call(userOutputModelLogged);
             } catch (Exception e) {
                 e.printStackTrace();
-                Toast.makeText(getBaseContext(), e.getMessage(),Toast.LENGTH_LONG).show();
+                return e.getMessage();
             }
             return userOutputModelLogged;
         }
@@ -127,12 +127,17 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Object userLogged) {
             super.onPostExecute(userLogged);
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    setInformationMessage((UserOutputModel) userLogged);
-                }
-            });
+
+            if(userLogged instanceof UserOutputModel){
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        setInformationMessage((UserOutputModel) userLogged);
+                    }
+                });
+            }else{
+                Toast.makeText(getBaseContext(),userLogged.toString(),Toast.LENGTH_LONG).show();
+            }
         }
 
         private void setInformationMessage(UserOutputModel userLogged) {

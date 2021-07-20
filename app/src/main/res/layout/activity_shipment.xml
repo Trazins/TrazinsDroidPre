@@ -119,12 +119,12 @@
 
 
     </LinearLayout>
-
+    <!-- Size to TC21 346 dp -->
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="346dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationMenu"
+        android:layout_height="248dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomShipmentNavigationMenu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
