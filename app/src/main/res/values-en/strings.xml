@@ -45,6 +45,9 @@
     <string name="intervention_code">Intervention code:</string>
     <string name="patient_id">Patient code:</string>
     <string name="set_counter">Post-counter sets</string>
+    <string name="start_post_counter">Start post-counter</string>
+    <string name="add_post_counter">Add post-counter</string>
+
 
     //Selection Activity
     <string name="selection_activity_title">Select a Process</string>

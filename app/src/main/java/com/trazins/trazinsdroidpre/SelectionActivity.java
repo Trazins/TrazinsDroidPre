@@ -39,7 +39,7 @@ public class SelectionActivity extends AppCompatActivity {
                 i = new Intent(getApplicationContext(), ShipmentActivity.class);
                 break;
             case R.id.buttonPostCounterSurgical:
-                i = new Intent(getApplicationContext(), PostCounterSurgicalActivity.class);
+                i = new Intent(getApplicationContext(), SurgicalProcessActivity.class);
                 break;
             default:
                 break;

@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".PostCounterSurgicalActivity"></activity>
+        <activity android:name=".SurgicalProcessActivity"></activity>
         <activity android:name=".ShipmentActivity" />
         <activity android:name=".SelectionActivity" />
         <activity android:name=".LocateActivity" />

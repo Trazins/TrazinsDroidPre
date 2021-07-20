@@ -129,7 +129,7 @@ public class ShipmentActivity extends AppCompatActivity {
     }
 
     private void removeSelectedMaterial() {
-        CustomAdapter adapter = new CustomAdapter(this, removeData( materialSelected));
+        CustomAdapter adapter = new CustomAdapter(this, removeData(materialSelected));
         ListViewMaterials.setAdapter(adapter);
     }
 

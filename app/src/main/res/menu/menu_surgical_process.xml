@@ -7,12 +7,12 @@
         />
     <item
         android:id="@+id/start_counter"
-        android:title="@string/add_location"
+        android:title="@string/start_post_counter"
         android:icon="@drawable/ic_post_counter_surgical_start"
         />
     <item
         android:id="@+id/add_post_counter"
-        android:title="@string/add_location"
+        android:title="@string/add_post_counter"
         android:icon="@drawable/ic_add_post_counter"
         />
 </menu>
