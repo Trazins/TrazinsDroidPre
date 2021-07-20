@@ -40,8 +40,11 @@
     <string name="shipment_error">Unrealized shipment</string>
 
     //Post Counter Surgical Activity
-    <string name="start_counter"></string>
+    <string name="surgical_information_title">Surgical process information</string>
     <string name="post_surgical_title">Post-Counter Surgical</string>
+    <string name="intervention_code">Intervention code:</string>
+    <string name="patient_id">Patient code:</string>
+    <string name="set_counter">Post-counter sets</string>
 
     //Selection Activity
     <string name="selection_activity_title">Select a Process</string>
