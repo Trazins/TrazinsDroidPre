@@ -13,16 +13,17 @@ import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 public class SelectionActivity extends AppCompatActivity {
 
     private TextView txtUserName;
-    private Button buttonLocate, buttonShipment;
+    private Button buttonLocate, buttonShipment, buttonPostCounter;
     private UserOutputModel userLogged;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selection);
 
-        txtUserName = (TextView)findViewById(R.id.textViewSelectionActivityUserName);
-        buttonLocate = (Button)findViewById(R.id.buttonLocateMenu);
+        txtUserName = findViewById(R.id.textViewSelectionActivityUserName);
+        buttonLocate = findViewById(R.id.buttonLocateMenu);
         buttonShipment = findViewById(R.id.buttonShipmentMenu);
+        buttonPostCounter = findViewById(R.id.buttonPostCounterSurgical);
 
         this.userLogged = (UserOutputModel)getIntent().getSerializableExtra("userLogged");
         txtUserName.setText(getString(R.string.identified_user) + " " + userLogged.UserName);
@@ -36,6 +37,9 @@ public class SelectionActivity extends AppCompatActivity {
                 break;
             case R.id.buttonShipmentMenu:
                 i = new Intent(getApplicationContext(), ShipmentActivity.class);
+                break;
+            case R.id.buttonPostCounterSurgical:
+                i = new Intent(getApplicationContext(), PostCounterSurgicalActivity.class);
                 break;
             default:
                 break;
