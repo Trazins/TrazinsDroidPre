@@ -48,6 +48,7 @@
     <string name="start_post_counter">Iniciar recuento</string>
     <string name="add_surgical_process">Crear proceso quirúrgico</string>
     <string name="operating_room">Quirófano:</string>
+    <string name="correct_surgical_process">Proceso creado correctamente</string>
 
     //Selection Activity
     <string name="selection_activity_title">Seleccione un proceso</string>

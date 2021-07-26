@@ -48,6 +48,7 @@
     <string name="start_post_counter">Start post-counter</string>
     <string name="add_surgical_process">Add surgical process</string>
     <string name="operating_room">Operating room:</string>
+    <string name="correct_surgical_process">Surgical process created</string>
 
 
     //Selection Activity

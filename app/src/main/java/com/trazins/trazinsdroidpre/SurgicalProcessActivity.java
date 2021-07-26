@@ -28,6 +28,8 @@ import com.trazins.trazinsdroidpre.models.materialmodel.MaterialInputModel;
 import com.trazins.trazinsdroidpre.models.materialmodel.MaterialOutputModel;
 import com.trazins.trazinsdroidpre.models.storagemodel.StorageInputModel;
 import com.trazins.trazinsdroidpre.models.storagemodel.StorageOutputModel;
+import com.trazins.trazinsdroidpre.models.surgicalprocessmodel.SurgicalProcessInputModel;
+import com.trazins.trazinsdroidpre.models.surgicalprocessmodel.SurgicalProcessOutputModel;
 import com.trazins.trazinsdroidpre.models.trolleymodel.TrolleyInputModel;
 import com.trazins.trazinsdroidpre.models.trolleymodel.TrolleyOutputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserInputModel;
@@ -58,7 +60,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
     Handler handler;
 
     ListView ListViewMaterials;
-    TextView textViewUserName, textViewElements;
+    TextView textViewUserName, textViewElements, textViewRecordNumber, textViewInterventionCode;
     BottomNavigationView bnv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +86,8 @@ public class SurgicalProcessActivity extends AppCompatActivity {
         textViewUserName = findViewById(R.id.textViewSPUserName);
         textViewUserName.setText(getString(R.string.identified_user) + " " + userLogged.UserName);
         textViewElements = findViewById(R.id.textViewSPMaterialCounter);
+        textViewInterventionCode = findViewById(R.id.textViewInterventionCode);
+        textViewRecordNumber = findViewById(R.id.textViewRecordNumber);
 
         bnv = findViewById(R.id.bottomSPNavigationMenu);
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -91,17 +95,26 @@ public class SurgicalProcessActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if(item.getItemId()==R.id.add_surgical_process){
                     //añadir registro en bd
+                    newSurgicalProcess();
                 }else if(item.getItemId()==R.id.start_counter){
                     //Abrir nueva activity
                 }else{
-                    removeSelectedSet();
+                    removeSelected();
                 }
                 return false;
             }
         });
     }
 
-    private void removeSelectedSet(){
+    private void newSurgicalProcess(){
+        try{
+            createNewSurgicalProcess = true;
+            new SurgicalProcessMyAsyncClass().execute();
+        }catch(Exception e){
+            Toast.makeText(getBaseContext(), e.getMessage(),Toast.LENGTH_LONG).show();
+        }
+    }
+    private void removeSelected(){
         CustomAdapter adapter = new CustomAdapter(this, removeData(materialSelected));
         ListViewMaterials.setAdapter(adapter);
     }
@@ -143,7 +156,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
     };
 
     //Clase que gestiona la conexión con el web service
-    class LocateMyAsyncClass extends AsyncTask {
+    class SurgicalProcessMyAsyncClass extends AsyncTask {
         @Override
         protected Object doInBackground(Object[] objects) {
             String methodName;
@@ -160,75 +173,44 @@ public class SurgicalProcessActivity extends AppCompatActivity {
             if(createNewSurgicalProcess){
                 //Usamos esta variable indicar que vamos a insertar los registros.
                 createNewSurgicalProcess = false;
-                methodName = "SetStorageData";
+                methodName = "SetSurgicalProcess";
                 parameterName = "dataToInsert";
 
-                /*Probar cambio, añadida descripcion al material
-                StorageInputModel storageInputModel = new StorageInputModel();
-                if(isTrolleyContent!= null){
-                    storageInputModel.TrolleyCode = isTrolleyContent.TrolleyCode;
-                    isTrolleyContent = null;
-                }
-                storageInputModel.LocationId = String.valueOf(finalLocation.LocateId);
-                storageInputModel.EntryUser = userLogged.Login;*/
+                //Probar cambio, añadida descripcion al material
+                SurgicalProcessInputModel surgicalProcessInputModel = new SurgicalProcessInputModel();
+
+                //surgicalProcessInputModel.LocationId = String.valueOf(finalLocation.LocateId);
+                surgicalProcessInputModel.InterventionCode = (String)textViewInterventionCode.getText();
+                surgicalProcessInputModel.RecordNumber = (String)textViewRecordNumber.getText();
+                surgicalProcessInputModel.EntryUser = userLogged.Login;
                 for(MaterialOutputModel m : lstMaterial){
                     //Serializamos los materiales.
                     MaterialInputModel serializableMaterial = new MaterialInputModel();
                     serializableMaterial.MaterialCode = m.Id;
                     serializableMaterial.MaterialType = m.MaterialType;
                     serializableMaterial.MaterialDescription = m.MaterialDescription;
-                    //storageInputModel.MatList.add(serializableMaterial);
+                    surgicalProcessInputModel.MaterialList.add(serializableMaterial);
                 }
 
                 //Según el código hay que usar una clase de web service o otra;
                 client.configure(new Configurator(
                         "http://tempuri.org/", "ITrazinsDroidService", methodName));
 
-                //client.addParameter(parameterName, storageInputModel);
-                resultModel = new StorageOutputModel();
+                client.addParameter(parameterName, surgicalProcessInputModel);
+                resultModel = new SurgicalProcessOutputModel();
 
             }else{
-                //Determinamos que tipo de objeto es el código leido
-                if(readCode.substring(0,1).equals("U")){
-                    methodName = "GetLocation";
-                    parameterName = "locationCode";
+                methodName = "GetMaterialData";
+                parameterName = "materialCode";
 
-                    LocateInputModel locateInputModelData = new LocateInputModel();
-                    locateInputModelData.StorageCode = readCode;
+                MaterialInputModel materialInputModel = new MaterialInputModel();
+                materialInputModel.MaterialCode = readCode;
 
-                    //Según el código hay que usar una clase de web service o otra;
-                    client.configure(new Configurator(
-                            "http://tempuri.org/", "ITrazinsDroidService", methodName));
+                client.configure(new Configurator(
+                        "http://tempuri.org/", "ITrazinsDroidService", methodName));
+                client.addParameter(parameterName, materialInputModel);
 
-                    client.addParameter(parameterName, locateInputModelData);
-                    resultModel = new LocateOutputModel();
-                }else{
-                    //Modelo Carro pdte desarrollo
-                    if(readCode.substring(0,1).equals("C")){
-                        methodName = "GetTrolleyContent";
-                        parameterName = "trolleyCode";
-                        TrolleyInputModel trolleyInputModel = new TrolleyInputModel();
-                        trolleyInputModel.TrolleyCode = readCode;
-
-                        client.configure(new Configurator(
-                                "http://tempuri.org/", "ITrazinsDroidService", methodName));
-                        client.addParameter(parameterName, trolleyInputModel);
-                        resultModel = new TrolleyOutputModel();
-                    }else{
-                        methodName = "GetMaterialData";
-                        parameterName = "materialCode";
-
-                        MaterialInputModel materialInputModel = new MaterialInputModel();
-                        materialInputModel.MaterialCode = readCode;
-
-                        client.configure(new Configurator(
-                                "http://tempuri.org/", "ITrazinsDroidService", methodName));
-                        client.addParameter(parameterName, materialInputModel);
-
-                        resultModel = new MaterialOutputModel();
-                    }
-                }
-
+                resultModel = new MaterialOutputModel();
             }
 
             try {
@@ -258,42 +240,17 @@ public class SurgicalProcessActivity extends AppCompatActivity {
         private void processData(Object modelResult) {
             String modelType = modelResult.getClass().getSimpleName();
             switch(modelType){
-                case "LocateOutputModel":
-                    //finalLocation = (LocateOutputModel)modelResult;
-
-                    //textViewLocationResult.setText(((LocateOutputModel) modelResult).StorageDescription);
-
-                    String block = String.valueOf(((LocateOutputModel) modelResult).StBlock);
-                    String shelf = String.valueOf(((LocateOutputModel) modelResult).Shelf);
-                    String position = String.valueOf(((LocateOutputModel) modelResult).Position);
-
-                    /*textViewLocationDetails.setText(
-                            getText(R.string.location_details_block)+ block + " "+
-                            getText(R.string.location_details_shelf)+ shelf + " " +
-                            getText(R.string.location_details_position)+ position);*/
-                    break;
                 case "MaterialOutputModel":
                     addMaterialToList((MaterialOutputModel)modelResult);
                     break;
-                case "StorageOutputModel":
-                    if(((StorageOutputModel)modelResult).Result){
-                        Toast.makeText(getBaseContext(), R.string.correct_location, Toast.LENGTH_LONG).show();
+                case "SurgicalProcessOutputModel":
+                    if(((SurgicalProcessOutputModel)modelResult).Result){
+                        Toast.makeText(getBaseContext(),R.string.correct_surgical_process, Toast.LENGTH_LONG).show();
                         //Limpiar controles
                         cleanControlsViews();
                     }else{
                         Toast.makeText(getBaseContext(), R.string.error_process, Toast.LENGTH_LONG).show();
                     }
-                    break;
-                case "TrolleyOutputModel":
-                    TrolleyOutputModel result = (TrolleyOutputModel)modelResult;
-                    for (TrolleyOutputModel item : result.TrolleyContent){
-                        MaterialOutputModel m = new MaterialOutputModel();
-                        m.MaterialType = item.MaterialType;
-                        m.MaterialDescription = item.MaterialDescription;
-                        m.Id = item.Id;
-                        addMaterialToList((m));
-                    }
-                    //isTrolleyContent = result;
                     break;
                 default:
                     Toast.makeText(getBaseContext(), R.string.unidetified_code, Toast.LENGTH_LONG).show();
@@ -307,9 +264,8 @@ public class SurgicalProcessActivity extends AppCompatActivity {
         lstMaterial.clear();
         ListViewMaterials.setAdapter(null);
         textViewElements.setText(lstMaterial.size()+ " " + getText(R.string.materials_counter));
-        //textViewLocationResult.setText("");
-        //finalLocation = null;
-        //textViewLocationDetails.setText(getText(R.string.location_details));
+        textViewRecordNumber.setText("");
+        textViewInterventionCode.setText("");
     }
 
     private void addMaterialToList(MaterialOutputModel modelResult) {
@@ -356,7 +312,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
         //String decodedLabelType = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_label_type));
         readCode = decodedData;
 
-        new LocateMyAsyncClass().execute();
+        new SurgicalProcessMyAsyncClass().execute();
     };
 
     private List<MaterialOutputModel> GetData(MaterialOutputModel material) {

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SurgicalProcessPreviousDataActivity">
+    <LinearLayout
+        android:id="@+id/MainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/textViewSPUserName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/identified_user" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/medium_grey"
+            android:contentDescription="@string/global_image_description"
+            android:paddingLeft="5dp"
+            android:paddingTop="1dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="0dp"
+            android:scaleType="fitXY"
+            android:src="@android:drawable/divider_horizontal_dark" />
+
+        <TextView
+            android:id="@+id/textViewSPTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/surgical_information_title"
+            android:textSize="18sp"
+            android:paddingBottom="5dp"
+            tools:text="@string/surgical_information_title" />
+
+
+        <androidx.gridlayout.widget.GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:columnCount="2"
+            android:paddingBottom="10dp"
+            android:background="@color/light_grey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewSurgicalTitle">
+
+            <TextView
+                android:id="@+id/textViewInterventionCode"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/light_grey"
+                android:text="@string/intervention_code"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_columnWeight="1"
+                android:paddingBottom="10dp"/>
+
+            <EditText
+                android:id="@+id/editTextInterventionCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_columnWeight="1"
+                android:textSize="18sp"
+                android:paddingBottom="10dp"
+                android:maxLines="1"
+                android:maxLength="10"/>
+
+            <TextView
+                android:id="@+id/textViewRecordNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/record_number"
+                app:layout_columnWeight="1"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:background="@color/light_grey"
+                android:paddingBottom="10dp"/>
+
+            <EditText
+                android:id="@+id/editTextRecordNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_columnWeight="1"
+                android:textSize="18sp"
+                android:maxLines="1"
+                android:maxLength="10"
+                android:paddingBottom="10dp"/>
+            <TextView
+                android:id="@+id/textViewOperatingRoom"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/operating_room"
+                app:layout_columnWeight="1"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:background="@color/light_grey"/>
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:layout_columnWeight="1"
+                android:textSize="18sp"
+                android:maxLines="1"
+                android:maxLength="10"
+                android:paddingBottom="10dp"/>
+            <!-- Pendiente ajustar tamaño -->
+        </androidx.gridlayout.widget.GridLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/medium_grey"
+            android:contentDescription="@string/global_image_description"
+            android:paddingLeft="5dp"
+            android:paddingTop="1dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="0dp"
+            android:scaleType="fitXY"
+            android:src="@android:drawable/divider_horizontal_dark" />
+    </LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomSPNavigationMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/medium_grey"
+        app:itemIconTint="@color/buttonTrazins"
+        app:itemTextColor="@color/buttonTrazins"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:menu="@menu/menu_surgical_process">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
