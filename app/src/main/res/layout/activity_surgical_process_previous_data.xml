@@ -64,7 +64,8 @@
             android:textSize="18sp"
             android:paddingBottom="10dp"
             android:maxLines="1"
-            android:maxLength="10"/>
+            android:singleLine="true"
+            android:maxLength="20"/>
 
         <TextView
             android:id="@+id/textViewRecordNumber"
@@ -80,10 +81,10 @@
             android:id="@+id/editTextRecordNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_columnWeight="1"
             android:textSize="18sp"
             android:maxLines="1"
-            android:maxLength="10"
+            android:singleLine="true"
+            android:maxLength="20"
             android:paddingBottom="10dp"/>
         <TextView
             android:id="@+id/textViewOperatingRoom"
@@ -99,14 +100,14 @@
             android:id="@+id/spinnerOperationRoom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:textAlignment=""
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:layout_gravity="center_vertical"
+            android:paddingBottom="10dp"/>
             <!-- Pendiente ajustar tamaño -->
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/black"
+            android:background="@color/light_black"
             android:contentDescription="@string/global_image_description"
             android:paddingLeft="5dp"
             android:paddingTop="1dp"
@@ -122,7 +123,8 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:background="@color/light_grey"
-            android:paddingBottom="10dp"/>
+            android:paddingBottom="10dp"
+            android:layout_marginTop="5dp"/>
 
         <ImageView
             android:layout_width="match_parent"

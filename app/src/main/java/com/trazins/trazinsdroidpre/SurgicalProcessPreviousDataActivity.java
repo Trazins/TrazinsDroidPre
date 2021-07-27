@@ -102,7 +102,7 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
                 OperationRoomOutputModel o = (OperationRoomOutputModel)modelResult;
                 OperationRoomList = o.OpList;
                 adapter = new ArrayAdapter(
-                        getBaseContext(), R.layout.support_simple_spinner_dropdown_item, OperationRoomList);
+                        getBaseContext(), R.layout.spinner_list, OperationRoomList);
                 spinnerOperationRoom.setAdapter(adapter);
 
             }catch(Exception e){
