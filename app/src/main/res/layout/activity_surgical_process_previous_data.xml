@@ -12,7 +12,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationMenu"
+        app:layout_constraintBottom_toTopOf="@+id/bottomSPPDNavigationMenu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -125,6 +125,18 @@
             android:background="@color/light_grey"
             android:paddingBottom="10dp"
             android:layout_marginTop="5dp"/>
+        <EditText
+            android:id="@+id/editTextInterventionDate"
+            android:inputType="none"
+            android:hint="@string/select_intervention_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="false"
+            android:textSize="18sp"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:maxLength="20"
+            android:paddingBottom="10dp"/>
 
         <ImageView
             android:layout_width="match_parent"
@@ -150,7 +162,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menu_surgical_process">
+        app:menu="@menu/menu_previous_surgical_process">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 

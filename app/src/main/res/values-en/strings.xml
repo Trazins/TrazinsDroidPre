@@ -9,6 +9,7 @@
     <string name="unidetified_code">Unidetified code</string>
     <string name="delete">Delete</string>
     <string name="materials_counter">elements</string>
+    <string name="go_back">Go back</string>
 
     //Main Activity
     <string name="app_name">Trazins DROID</string>
@@ -50,7 +51,9 @@
     <string name="operating_room">Operating room:</string>
     <string name="correct_surgical_process">Surgical process created</string>
     <string name="intervention_date">Intervention date:</string>
+    <string name="select_intervention_date">Select intervention date</string>
     <string name="error_operating_room">Fail loading operating rooms</string>
+    <string name="add_materials">Add material</string>
 
 
     //Selection Activity

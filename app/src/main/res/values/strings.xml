@@ -10,6 +10,7 @@
     <string name="error_process">Error en el proceso, revise los datos</string>
     <string name="delete">Borrar</string>
     <string name="materials_counter">elementos</string>
+    <string name="go_back">Volver atrás</string>
 
     //Main Activity
     <string name="app_name">Trazins DROID</string>
@@ -50,7 +51,9 @@
     <string name="operating_room">Quirófano:</string>
     <string name="correct_surgical_process">Proceso creado correctamente</string>
     <string name="intervention_date">Fecha de intervención:</string>
+    <string name="select_intervention_date">Seleccione la fecha de la intervención</string>
     <string name="error_operating_room">Error al cargar los quirófanos</string>
+    <string name="add_materials">Añadir material</string>
 
     //Selection Activity
     <string name="selection_activity_title">Seleccione un proceso</string>

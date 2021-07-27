@@ -2,14 +2,20 @@ package com.trazins.trazinsdroidpre;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.InputType;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.threepin.fireexit_wcf.Configurator;
@@ -18,12 +24,14 @@ import com.trazins.trazinsdroidpre.models.operationroom.OperationRoomInputModel;
 import com.trazins.trazinsdroidpre.models.operationroom.OperationRoomOutputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
 
-    private EditText editTextRecordNumber, editTextInterventionCode;
+    private EditText editTextRecordNumber, editTextInterventionCode, editTextInterventionDate;
     private TextView textViewUserName;
     private Spinner spinnerOperationRoom;
     List<OperationRoomOutputModel> OperationRoomList;
@@ -40,6 +48,8 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
 
         editTextInterventionCode = findViewById(R.id.editTextInterventionCode);
         editTextRecordNumber = findViewById(R.id.editTextRecordNumber);
+        editTextInterventionDate = findViewById(R.id.editTextInterventionDate);
+        editTextInterventionDate.setInputType(InputType.TYPE_NULL);
         spinnerOperationRoom = findViewById(R.id.spinnerOperationRoom);
 
         //Usuario loggeado
@@ -50,6 +60,42 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
         OperationRoomList = new ArrayList<OperationRoomOutputModel>();
 
         new OperationRoomAsyncClass().execute();
+
+        editTextInterventionDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDateTimeDialog(editTextInterventionDate);
+            }
+        });
+    }
+
+    private void showDateTimeDialog(EditText editTextInterventioDate) {
+        Calendar calendar = Calendar.getInstance();
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+                calendar.set(Calendar.YEAR,year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        calendar.set(Calendar.HOUR_OF_DAY,hourOfDay);
+                        calendar.set(Calendar.MINUTE, minute);
+
+                        SimpleDateFormat simpleDateFormat =
+                                new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                        editTextInterventioDate.setText(simpleDateFormat.format(calendar.getTime()));
+                    }
+                };
+                new TimePickerDialog(SurgicalProcessPreviousDataActivity.this, timeSetListener,
+                        calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show();
+            }
+        };
+        new DatePickerDialog(SurgicalProcessPreviousDataActivity.this, dateSetListener,
+                calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
     class OperationRoomAsyncClass extends AsyncTask{
