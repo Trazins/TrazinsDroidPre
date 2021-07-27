@@ -1,7 +1,5 @@
 package com.trazins.trazinsdroidpre.models.materialmodel;
 
-import java.io.Serializable;
-
 public class MaterialOutputModel {
 
     public String Id;

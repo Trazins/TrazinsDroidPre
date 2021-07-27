@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -17,7 +18,6 @@ import com.trazins.trazinsdroidpre.models.operationroom.OperationRoomInputModel;
 import com.trazins.trazinsdroidpre.models.operationroom.OperationRoomOutputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 
-import java.nio.channels.AsynchronousChannelGroup;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +35,8 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_surgical_process_precious_data);
+        setContentView(R.layout.activity_surgical_process_previous_data);
+        handler = new Handler(Looper.getMainLooper());
 
         editTextInterventionCode = findViewById(R.id.editTextInterventionCode);
         editTextRecordNumber = findViewById(R.id.editTextRecordNumber);
@@ -49,9 +50,6 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
         OperationRoomList = new ArrayList<OperationRoomOutputModel>();
 
         new OperationRoomAsyncClass().execute();
-
-        spinnerOperationRoom.setAdapter(adapter);
-
     }
 
     class OperationRoomAsyncClass extends AsyncTask{
@@ -76,7 +74,7 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
             client.addParameter(parameterName,operationRoomInputModel );
             resultModel = new OperationRoomOutputModel();
             try {
-                resultModel= (List<OperationRoomOutputModel>)client.call(resultModel);
+                resultModel = client.call(resultModel);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -98,18 +96,21 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
             });
         }
 
-    }
+        private void processData(Object modelResult){
+            //Si no es nulo cargamos el arrayadapter
+            try {
+                OperationRoomOutputModel o = (OperationRoomOutputModel)modelResult;
+                OperationRoomList = o.OpList;
+                adapter = new ArrayAdapter(
+                        getBaseContext(), R.layout.support_simple_spinner_dropdown_item, OperationRoomList);
+                spinnerOperationRoom.setAdapter(adapter);
 
-    private void processData(Object modelResult){
-        //Si no es nulo cargamos el arrayadapter
-        try {
-            OperationRoomList = (List<OperationRoomOutputModel>) modelResult;
-            adapter = new ArrayAdapter(
-                            this, R.layout.support_simple_spinner_dropdown_item, OperationRoomList);
-
-
-        }catch(Exception e){
-            Toast.makeText(getBaseContext(), e.getMessage(),Toast.LENGTH_LONG).show();
+            }catch(Exception e){
+                Toast.makeText(getBaseContext(), e.getMessage(),Toast.LENGTH_LONG).show();
+            }
         }
+
     }
+
+
 }
