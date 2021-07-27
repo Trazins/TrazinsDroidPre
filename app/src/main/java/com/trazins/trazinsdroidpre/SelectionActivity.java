@@ -23,7 +23,7 @@ public class SelectionActivity extends AppCompatActivity {
         txtUserName = findViewById(R.id.textViewSelectionActivityUserName);
         buttonLocate = findViewById(R.id.buttonLocateMenu);
         buttonShipment = findViewById(R.id.buttonShipmentMenu);
-        buttonPostCounter = findViewById(R.id.buttonPostCounterSurgical);
+        buttonPostCounter = findViewById(R.id.buttonSurgicalProcess);
 
         this.userLogged = (UserOutputModel)getIntent().getSerializableExtra("userLogged");
         txtUserName.setText(getString(R.string.identified_user) + " " + userLogged.UserName);
@@ -38,8 +38,8 @@ public class SelectionActivity extends AppCompatActivity {
             case R.id.buttonShipmentMenu:
                 i = new Intent(getApplicationContext(), ShipmentActivity.class);
                 break;
-            case R.id.buttonPostCounterSurgical:
-                i = new Intent(getApplicationContext(), SurgicalProcessActivity.class);
+            case R.id.buttonSurgicalProcess:
+                i = new Intent(getApplicationContext(), SurgicalProcessPreviousDataActivity.class);
                 break;
             default:
                 break;

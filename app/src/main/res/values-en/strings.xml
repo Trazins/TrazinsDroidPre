@@ -49,6 +49,7 @@
     <string name="add_surgical_process">Add surgical process</string>
     <string name="operating_room">Operating room:</string>
     <string name="correct_surgical_process">Surgical process created</string>
+    <string name="intervention_date">Intervention date:</string>
 
 
     //Selection Activity

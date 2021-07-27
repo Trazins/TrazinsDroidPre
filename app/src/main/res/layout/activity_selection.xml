@@ -96,7 +96,7 @@
             app:layout_columnWeight="1" />
 
         <Button
-            android:id="@+id/buttonPostCounterSurgical"
+            android:id="@+id/buttonSurgicalProcess"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"

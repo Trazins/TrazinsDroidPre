@@ -63,7 +63,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textViewSurgicalTitle">
 
             <TextView
-                android:id="@+id/textViewInterventionCode"
+                android:id="@+id/textViewSPnterventionCode"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@color/light_grey"
@@ -74,7 +74,7 @@
                 android:paddingBottom="10dp"/>
 
             <EditText
-                android:id="@+id/editTextInterventionCode"
+                android:id="@+id/editTextSPInterventionCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_columnWeight="1"
@@ -84,7 +84,7 @@
                 android:maxLength="10"/>
 
             <TextView
-                android:id="@+id/textViewRecordNumber"
+                android:id="@+id/textViewSPRecordNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="@string/record_number"
@@ -95,7 +95,7 @@
                 android:paddingBottom="10dp"/>
 
             <EditText
-                android:id="@+id/editTextRecordNumber"
+                android:id="@+id/editTextSPRecordNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_columnWeight="1"
@@ -104,7 +104,7 @@
                 android:maxLength="10"
                 android:paddingBottom="10dp"/>
             <TextView
-                android:id="@+id/textViewOperatingRoom"
+                android:id="@+id/textViewSPOperatingRoom"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="@string/operating_room"
