@@ -50,6 +50,7 @@
     <string name="operating_room">Operating room:</string>
     <string name="correct_surgical_process">Surgical process created</string>
     <string name="intervention_date">Intervention date:</string>
+    <string name="error_operating_room">Fail loading operating rooms</string>
 
 
     //Selection Activity

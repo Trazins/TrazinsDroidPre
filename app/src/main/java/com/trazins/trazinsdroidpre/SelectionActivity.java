@@ -45,7 +45,7 @@ public class SelectionActivity extends AppCompatActivity {
                 break;
         }
 
-        i.putExtra("userLogged",this.userLogged);
+        i.putExtra("userLogged", this.userLogged);
         startActivity(i);
     }
 }
