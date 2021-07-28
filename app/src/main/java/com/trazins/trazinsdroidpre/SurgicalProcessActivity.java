@@ -52,6 +52,8 @@ public class SurgicalProcessActivity extends AppCompatActivity {
     UserOutputModel userLogged;
     SurgicalProcessOutputModel surgicalProcess;
 
+    boolean result = false;
+
     //Lectura obtenida en el scanner
     String readCode;
 
@@ -93,7 +95,6 @@ public class SurgicalProcessActivity extends AppCompatActivity {
         filter.addCategory(Intent.CATEGORY_DEFAULT);
         filter.addAction(DataWedgeInterface.ACTIVITY_INTENT_FILTER_ACTION);
 
-
         bnv = findViewById(R.id.bottomSPNavigationMenu);
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -101,6 +102,8 @@ public class SurgicalProcessActivity extends AppCompatActivity {
                 if(item.getItemId()==R.id.add_surgical_process){
                     //añadir registro en bd
                     newSurgicalProcess();
+                    //Volver a la pantalla de procesos quirúrgicos y borrar los datos del proceso
+                    finish();
                 }else if(item.getItemId()==R.id.start_counter){
                     //Abrir nueva activity
                 }else{
@@ -111,10 +114,17 @@ public class SurgicalProcessActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+
+        super.onBackPressed();
+    }
+
     private void newSurgicalProcess(){
         try{
             createNewSurgicalProcess = true;
-            new SurgicalProcessMyAsyncClass().execute();
+            String result = new SurgicalProcessMyAsyncClass().execute().toString();
+
         }catch(Exception e){
             Toast.makeText(getBaseContext(), e.getMessage(),Toast.LENGTH_LONG).show();
         }
@@ -244,26 +254,26 @@ public class SurgicalProcessActivity extends AppCompatActivity {
             });
         }
 
-        private void processData(Object modelResult) {
-            String modelType = modelResult.getClass().getSimpleName();
-            switch(modelType){
-                case "MaterialOutputModel":
-                    addMaterialToList((MaterialOutputModel)modelResult);
-                    break;
-                case "SurgicalProcessOutputModel":
-                    if(((SurgicalProcessOutputModel)modelResult).Result){
-                        Toast.makeText(getBaseContext(),R.string.correct_surgical_process, Toast.LENGTH_LONG).show();
-                        //Limpiar controles
-                        cleanControlsViews();
-                    }else{
-                        Toast.makeText(getBaseContext(), R.string.error_process, Toast.LENGTH_LONG).show();
-                    }
-                    break;
-                default:
-                    Toast.makeText(getBaseContext(), R.string.unidentified_code, Toast.LENGTH_LONG).show();
-                    break;
-            }
 
+    }
+    private void processData(Object modelResult) {
+        String modelType = modelResult.getClass().getSimpleName();
+        switch(modelType){
+            case "MaterialOutputModel":
+                addMaterialToList((MaterialOutputModel)modelResult);
+                break;
+            case "SurgicalProcessOutputModel":
+                if(((SurgicalProcessOutputModel)modelResult).Result){
+                    Toast.makeText(getBaseContext(),R.string.correct_surgical_process, Toast.LENGTH_LONG).show();
+                    //Limpiar controles
+                    cleanControlsViews();
+                }else{
+                    Toast.makeText(getBaseContext(), R.string.error_process, Toast.LENGTH_LONG).show();
+                }
+                break;
+            default:
+                Toast.makeText(getBaseContext(), R.string.unidentified_code, Toast.LENGTH_LONG).show();
+                break;
         }
     }
 
