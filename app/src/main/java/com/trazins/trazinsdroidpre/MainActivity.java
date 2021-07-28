@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String PROFILE1 = "TrazinsMultiActivity_Profile1";
     private static final String PROFILE2 = "TrazinsMultiActivity_Profile2";
     private static final String PROFILE3 = "TrazinsMultiActivity_Profile3";
+    private static final String PROFILE4 = "TrazinsMultiActivity_Profile4";
 
     TextView textViewAutResult;
     Button buttonAutResult;
@@ -67,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
         Code128Value = "true";
         EAN13Value = "false";
         CreateProfile(PROFILE3, Code128Value, EAN13Value);
+
+        //Create Profile 4 for SurgicalProcessActivity
+        Code128Value = "true";
+        EAN13Value = "false";
+        CreateProfile(PROFILE4, Code128Value, EAN13Value);
 
     }
     @Override
@@ -226,9 +232,13 @@ public class MainActivity extends AppCompatActivity {
         else if(profileName.equals(PROFILE2)){
             activityName = LocateActivity.class.getSimpleName();
         }
-        else{
+        else if(profileName.equals(PROFILE3)){
             activityName = ShipmentActivity.class.getSimpleName();
         }
+        else{
+            activityName = SurgicalProcessActivity.class.getSimpleName();
+        }
+
         String activityPackageName = getPackageName() + "." + activityName;
         appConfig.putStringArray("ACTIVITY_LIST", new String[] {activityPackageName});
         bMain.putParcelableArray("APP_LIST", new Bundle[]{appConfig});

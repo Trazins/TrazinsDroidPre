@@ -11,8 +11,7 @@ public class SurgicalProcessInputModel implements Serializable {
     public int OperationRoomId;
     public String InterventionCode;
     public String RecordNumber;
-    //De momento solo se generan con fecha actual en bd
-    //public DateTime InterventionDate { get; set; }
+    public String InterventionDate;
     public String EntryUser;
     public List<MaterialInputModel> MaterialList = new ArrayList<MaterialInputModel>();
 }

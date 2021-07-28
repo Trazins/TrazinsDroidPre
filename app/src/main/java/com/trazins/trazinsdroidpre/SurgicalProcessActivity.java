@@ -61,7 +61,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
     Handler handler;
 
     ListView ListViewMaterials;
-    TextView textViewUserName, textViewElements, textViewRecordNumber, textViewInterventionCode;
+    TextView textViewUserName, textViewElements;
     BottomNavigationView bnv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,8 +88,11 @@ public class SurgicalProcessActivity extends AppCompatActivity {
         textViewUserName = findViewById(R.id.textViewSPUserName);
         textViewUserName.setText(getString(R.string.identified_user) + " " + userLogged.UserName);
         textViewElements = findViewById(R.id.textViewSPMaterialCounter);
-        textViewInterventionCode = findViewById(R.id.textViewInterventionCode);
-        textViewRecordNumber = findViewById(R.id.textViewRecordNumber);
+
+        filter.addAction(DataWedgeInterface.ACTION_RESULT_DATAWEDGE);
+        filter.addCategory(Intent.CATEGORY_DEFAULT);
+        filter.addAction(DataWedgeInterface.ACTIVITY_INTENT_FILTER_ACTION);
+
 
         bnv = findViewById(R.id.bottomSPNavigationMenu);
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -181,10 +184,12 @@ public class SurgicalProcessActivity extends AppCompatActivity {
                 //Probar cambio, añadida descripcion al material
                 SurgicalProcessInputModel surgicalProcessInputModel = new SurgicalProcessInputModel();
 
-                //surgicalProcessInputModel.LocationId = String.valueOf(finalLocation.LocateId);
-                surgicalProcessInputModel.InterventionCode = (String)textViewInterventionCode.getText();
-                surgicalProcessInputModel.RecordNumber = (String)textViewRecordNumber.getText();
+                surgicalProcessInputModel.InterventionCode = surgicalProcess.InterventionCode;
+                surgicalProcessInputModel.RecordNumber = surgicalProcess.RecordNumber;
+                surgicalProcessInputModel.InterventionDate = surgicalProcess.InterventionDate;
+                surgicalProcessInputModel.OperationRoomId = surgicalProcess.OperationRoomId;
                 surgicalProcessInputModel.EntryUser = userLogged.Login;
+
                 for(MaterialOutputModel m : lstMaterial){
                     //Serializamos los materiales.
                     MaterialInputModel serializableMaterial = new MaterialInputModel();
@@ -266,8 +271,6 @@ public class SurgicalProcessActivity extends AppCompatActivity {
         lstMaterial.clear();
         ListViewMaterials.setAdapter(null);
         textViewElements.setText(lstMaterial.size()+ " " + getText(R.string.materials_counter));
-        textViewRecordNumber.setText("");
-        textViewInterventionCode.setText("");
     }
 
     private void addMaterialToList(MaterialOutputModel modelResult) {
@@ -309,9 +312,9 @@ public class SurgicalProcessActivity extends AppCompatActivity {
     };
 
     private void displayScanResult(Intent initiatingIntent, String howDataRecibed){
-        //String decodedSource = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_source));
+
         String decodedData = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_data));
-        //String decodedLabelType = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_label_type));
+
         readCode = decodedData;
 
         new SurgicalProcessMyAsyncClass().execute();
