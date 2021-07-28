@@ -6,11 +6,12 @@
     <string name="global_image_description" translatable="false">separtorLine</string>
     <string name="logotype_description" translatable="false">Trazins Resource</string>
     <string name="material_exists_list">El material ya está en la lista</string>
-    <string name="unidetified_code">Código no reconocido</string>
+    <string name="unidentified_code">Código no reconocido</string>
     <string name="error_process">Error en el proceso, revise los datos</string>
     <string name="delete">Borrar</string>
     <string name="materials_counter">elementos</string>
     <string name="go_back">Volver atrás</string>
+    <string name="empty_data">Debe rellenar los datos obligatorios</string>
 
     //Main Activity
     <string name="app_name">Trazins DROID</string>

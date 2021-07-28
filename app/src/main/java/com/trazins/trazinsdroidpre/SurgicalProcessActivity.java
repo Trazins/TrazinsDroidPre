@@ -50,6 +50,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
     List<MaterialOutputModel> lstMaterial = new ArrayList<MaterialOutputModel>();
     //Usuario logeado
     UserOutputModel userLogged;
+    SurgicalProcessOutputModel surgicalProcess;
 
     //Lectura obtenida en el scanner
     String readCode;
@@ -83,6 +84,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
 
         //Usuario loggeado
         this.userLogged = (UserOutputModel)getIntent().getSerializableExtra("userLogged");
+        this.surgicalProcess = (SurgicalProcessOutputModel)getIntent().getSerializableExtra("surgicalProcess");
         textViewUserName = findViewById(R.id.textViewSPUserName);
         textViewUserName.setText(getString(R.string.identified_user) + " " + userLogged.UserName);
         textViewElements = findViewById(R.id.textViewSPMaterialCounter);
@@ -231,7 +233,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
                     if(modelResult!= null){
                         processData(modelResult);
                     }else{
-                        Toast.makeText(getBaseContext(), getText(R.string.unidetified_code), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getBaseContext(), getText(R.string.unidentified_code), Toast.LENGTH_LONG).show();
                     }
                 }
             });
@@ -253,7 +255,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
                     }
                     break;
                 default:
-                    Toast.makeText(getBaseContext(), R.string.unidetified_code, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), R.string.unidentified_code, Toast.LENGTH_LONG).show();
                     break;
             }
 

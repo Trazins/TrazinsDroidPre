@@ -258,7 +258,7 @@ public class ShipmentActivity extends AppCompatActivity {
                     if(modelResult!= null){
                         processData(modelResult);
                     }else{
-                        Toast.makeText(getBaseContext(), getText(R.string.unidetified_code), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getBaseContext(), getText(R.string.unidentified_code), Toast.LENGTH_LONG).show();
                     }
                 }
             });
@@ -285,7 +285,7 @@ public class ShipmentActivity extends AppCompatActivity {
                     }
                     break;
                 default:
-                    Toast.makeText(getBaseContext(), R.string.unidetified_code, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), R.string.unidentified_code, Toast.LENGTH_LONG).show();
                     break;
             }
 

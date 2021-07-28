@@ -6,10 +6,11 @@
 
     <string name="material_exists_list">Material is in list</string>
     <string name="error_process">Error on process, check data</string>
-    <string name="unidetified_code">Unidetified code</string>
+    <string name="unidentified_code">Unidentified code</string>
     <string name="delete">Delete</string>
     <string name="materials_counter">elements</string>
     <string name="go_back">Go back</string>
+    <string name="empty_data">Complete mandatory fields</string>
 
     //Main Activity
     <string name="app_name">Trazins DROID</string>

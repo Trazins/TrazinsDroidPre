@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/delete"
+        android:id="@+id/go_back"
         android:title="@string/go_back"
         android:icon="@drawable/ic_arrow_back"
         />
     <item
-        android:id="@+id/start_counter"
+        android:id="@+id/add_material"
         android:title="@string/add_materials"
         android:icon="@drawable/ic_scan_materials"
         />
