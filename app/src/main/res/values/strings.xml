@@ -60,4 +60,12 @@
     <string name="selection_activity_title">Seleccione un proceso</string>
     <string name="identified_user">Usuario: </string>
     <string name="other_mode">Otra opción</string>
+
+    //Material Post-Counter Activity
+    <string name="set_title">Nombre de la caja</string>
+    <string name="set_name_default">Nombre de la caja</string>
+    <string name="previous_count">Recuento Pre:</string>
+    <string name="post_count">Recuento Post:</string>
+    <string name="verified_post_count">Verificar recuento</string>
+    <string name="remarks">Observaciones</string>
 </resources>

@@ -56,9 +56,16 @@
     <string name="error_operating_room">Fail loading operating rooms</string>
     <string name="add_materials">Add material</string>
 
-
     //Selection Activity
     <string name="selection_activity_title">Select a Process</string>
     <string name="identified_user">User: </string>
     <string name="other_mode">Other option</string>
+
+    //Material Post-Counter Activity
+    <string name="set_title">Set name</string>
+    <string name="set_name_default">Set name</string>
+    <string name="previous_count">Pre counter:</string>
+    <string name="post_count">Post counter:</string>
+    <string name="verified_post_count">Verified post counter</string>
+    <string name="remarks">Remarks</string>
 </resources>

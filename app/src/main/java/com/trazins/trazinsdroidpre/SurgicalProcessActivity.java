@@ -105,7 +105,8 @@ public class SurgicalProcessActivity extends AppCompatActivity {
                     //Volver a la pantalla de procesos quirúrgicos y borrar los datos del proceso
                     finish();
                 }else if(item.getItemId()==R.id.start_counter){
-                    //Abrir nueva activity
+                    //Abrir pantalla de recuento
+                    openMPCActivity();
                 }else{
                     removeSelected();
                 }
@@ -114,10 +115,10 @@ public class SurgicalProcessActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void onBackPressed() {
-
-        super.onBackPressed();
+    private void openMPCActivity(){
+        Intent i = new Intent(getApplicationContext(), MaterialPostCounterActivity.class);
+        i.putExtra("userLogged", this.userLogged);
+        startActivity(i);
     }
 
     private void newSurgicalProcess(){

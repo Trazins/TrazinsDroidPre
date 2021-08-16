@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SurgicalProcessPreviousDataActivity"></activity>
+        <activity android:name=".MaterialPostCounterActivity"></activity>
+        <activity android:name=".SurgicalProcessPreviousDataActivity" />
         <activity android:name=".SurgicalProcessActivity" />
         <activity android:name=".ShipmentActivity" />
         <activity android:name=".SelectionActivity" />
