@@ -40,6 +40,7 @@ import java.util.List;
 
 public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
 
+    private static final int REQUEST_CODE = 77;
     private EditText editTextRecordNumber, editTextInterventionCode, editTextInterventionDate;
     private TextView textViewUserName;
     private Spinner spinnerOperationRoom;
@@ -134,7 +135,8 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
         Intent i = new Intent(getApplicationContext(), SurgicalProcessActivity.class);
         i.putExtra("surgicalProcess", this.surgicalProcess);
         i.putExtra("userLogged", this.userLogged);
-        startActivity(i);
+        //startActivity(i);
+        startActivityForResult(i,REQUEST_CODE);
     }
 
     //Crear controles de visualización del calendario.
@@ -167,6 +169,21 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
                 calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                cleanControls();
+            }
+        }
+    }
+
+    private void cleanControls(){
+        editTextRecordNumber.setText("");
+        editTextInterventionCode.setText("");
+        editTextInterventionDate.setText("");
+        spinnerOperationRoom.setSelection(0);
+    }
     //Solo realizamos la consulta para obtener los quirófanos de BD
     class OperationRoomAsyncClass extends AsyncTask{
 

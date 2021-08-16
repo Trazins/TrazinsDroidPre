@@ -100,9 +100,16 @@ public class SurgicalProcessActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if(item.getItemId()==R.id.add_surgical_process){
-                    //añadir registro en bd
+                    //Añadir registro en bd
                     newSurgicalProcess();
+
+                    //Revisar si da error que no salga de la pantalla
+
+
                     //Volver a la pantalla de procesos quirúrgicos y borrar los datos del proceso
+                    Intent i = getIntent();
+                    setResult(RESULT_OK,i);
+
                     finish();
                 }else if(item.getItemId()==R.id.start_counter){
                     //Abrir pantalla de recuento
@@ -124,7 +131,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
     private void newSurgicalProcess(){
         try{
             createNewSurgicalProcess = true;
-            String result = new SurgicalProcessMyAsyncClass().execute().toString();
+            new SurgicalProcessMyAsyncClass().execute().toString();
 
         }catch(Exception e){
             Toast.makeText(getBaseContext(), e.getMessage(),Toast.LENGTH_LONG).show();
@@ -254,8 +261,6 @@ public class SurgicalProcessActivity extends AppCompatActivity {
                 }
             });
         }
-
-
     }
     private void processData(Object modelResult) {
         String modelType = modelResult.getClass().getSimpleName();
