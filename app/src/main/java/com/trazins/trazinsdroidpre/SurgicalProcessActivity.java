@@ -105,12 +105,9 @@ public class SurgicalProcessActivity extends AppCompatActivity {
 
                     //Revisar si da error que no salga de la pantalla
 
-
                     //Volver a la pantalla de procesos quirúrgicos y borrar los datos del proceso
-                    Intent i = getIntent();
-                    setResult(RESULT_OK,i);
+                    closeScreenWithResult();
 
-                    finish();
                 }else if(item.getItemId()==R.id.start_counter){
                     //Abrir pantalla de recuento
                     openMPCActivity();
@@ -122,6 +119,13 @@ public class SurgicalProcessActivity extends AppCompatActivity {
         });
     }
 
+    private void closeScreenWithResult(){
+        Intent i = getIntent();
+        setResult(RESULT_OK,i);
+
+        finish();
+
+    }
     private void openMPCActivity(){
         Intent i = new Intent(getApplicationContext(), MaterialPostCounterActivity.class);
         i.putExtra("userLogged", this.userLogged);
@@ -270,6 +274,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
                 break;
             case "SurgicalProcessOutputModel":
                 if(((SurgicalProcessOutputModel)modelResult).Result){
+                    this.result = true;
                     Toast.makeText(getBaseContext(),R.string.correct_surgical_process, Toast.LENGTH_LONG).show();
                     //Limpiar controles
                     cleanControlsViews();
