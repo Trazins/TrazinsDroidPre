@@ -198,7 +198,7 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
             operationRoomInputModel.UserLogged = userLogged.Login;
 
             FireExitClient client = new FireExitClient(
-                    "http://188.165.209.37:8009/Android/TrazinsDroidService.svc");
+                    "http://10.50.0.170:8006/Android/TrazinsDroidService.svc");
             methodName = "GetOperationRoomList";
             parameterName = "userlogged";
 

@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             //Desplegar el servicio:
             //Usamos la librería Fireexit para la gestión de la serialización.
             FireExitClient client = new FireExitClient(
-                    "http://188.165.209.37:8009/Android/TrazinsDroidService.svc");
+                    "http://10.50.0.170:8006/Android/TrazinsDroidService.svc");
             client.configure(new Configurator(
                     "http://tempuri.org/", "ITrazinsDroidService", "GetUser"));
 
