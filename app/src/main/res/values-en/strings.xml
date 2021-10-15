@@ -2,8 +2,8 @@
 <resources>
     //Scanner resources
     <string name="datawedge_intent_key_data">com.symbol.datawedge.data_string</string>
-    //General resources
 
+    //General resources
     <string name="material_exists_list">Material is in list</string>
     <string name="error_process">Error on process, check data</string>
     <string name="unidentified_code">Unidentified code</string>
@@ -11,6 +11,7 @@
     <string name="materials_counter">elements</string>
     <string name="go_back">Go back</string>
     <string name="empty_data">Complete mandatory fields</string>
+    <string name="result">Result:</string>
 
     //Main Activity
     <string name="app_name">Trazins DROID</string>
@@ -68,4 +69,10 @@
     <string name="post_count">Post counter:</string>
     <string name="verified_post_count">Verified post counter</string>
     <string name="remarks">Remarks</string>
+
+    //PrinterSettingsActivity
+    <string name="printer_test_button">Test</string>
+    <string name="ip_address">Ip Address:</string>
+    <string name="port_number">Port Number:</string>
+    <string name="test_result">Not connected</string>
 </resources>

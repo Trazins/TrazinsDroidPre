@@ -12,6 +12,7 @@
     <string name="materials_counter">elementos</string>
     <string name="go_back">Volver atrás</string>
     <string name="empty_data">Debe rellenar los datos obligatorios</string>
+    <string name="result">Resultado:</string>
 
     //Main Activity
     <string name="app_name">Trazins DROID</string>
@@ -68,4 +69,10 @@
     <string name="post_count">Recuento Post:</string>
     <string name="verified_post_count">Verificar recuento</string>
     <string name="remarks">Observaciones</string>
+
+    //PrinterSettingsActivity
+    <string name="printer_test_button">Probar conexión</string>
+    <string name="ip_address">Dirección IP:</string>
+    <string name="port_number">Puerto:</string>
+    <string name="test_result">No conectado</string>
 </resources>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    tools:context=".PrinterSettingsActivity">
+    <LinearLayout
+        android:id="@+id/layoutInputIP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/textViewIpAddress"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ip_address"
+            android:layout_weight="1"
+            android:textSize="20dp">
+        </TextView>
+        <EditText
+            android:id="@+id/editTextIpAddress"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+        </EditText>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/layoutInputPort"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/layoutInputIP"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <TextView
+            android:id="@+id/textViewPort"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/port_number"
+            android:layout_weight="1"
+            android:textSize="20dp">
+        </TextView>
+        <EditText
+            android:id="@+id/editTextPort"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="9100">
+        </EditText>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/layoutVertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutInputPort"
+        android:orientation="vertical">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/printer_test_button"
+            android:backgroundTint="@color/buttonTrazins"
+            android:textColor="@color/white">
+
+        </Button>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:text="@string/result"
+            android:textSize="25dp"
+            >
+
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/test_result"
+            android:textAlignment="center"
+            android:textSize="25dp"
+            android:background="@color/red">
+
+        </TextView>
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
