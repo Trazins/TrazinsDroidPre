@@ -19,6 +19,7 @@ import com.threepin.fireexit_wcf.FireExitClient;
 import com.trazins.trazinsdroidpre.models.usermodel.UserInputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 import com.trazins.trazinsdroidpre.scanner.DataWedgeInterface;
+import com.trazins.trazinsdroidpre.utils.ConnectionParameters;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -112,9 +113,9 @@ public class MainActivity extends AppCompatActivity {
             //Desplegar el servicio:
             //Usamos la librería Fireexit para la gestión de la serialización.
             FireExitClient client = new FireExitClient(
-                    "http://10.50.0.170:8006/Android/TrazinsDroidService.svc");
+                    ConnectionParameters.soapAddress[ConnectionParameters.setUrlConnection]);
             client.configure(new Configurator(
-                    "http://tempuri.org/", "ITrazinsDroidService", "GetUser"));
+                    ConnectionParameters.namespace, ConnectionParameters.contractName, "GetUser"));
 
             client.addParameter("signature", userInputModelData);
 

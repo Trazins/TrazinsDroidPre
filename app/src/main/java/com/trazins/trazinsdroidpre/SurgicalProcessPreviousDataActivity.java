@@ -31,6 +31,7 @@ import com.trazins.trazinsdroidpre.models.operationroom.OperationRoomInputModel;
 import com.trazins.trazinsdroidpre.models.operationroom.OperationRoomOutputModel;
 import com.trazins.trazinsdroidpre.models.surgicalprocessmodel.SurgicalProcessOutputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
+import com.trazins.trazinsdroidpre.utils.ConnectionParameters;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -198,12 +199,12 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
             operationRoomInputModel.UserLogged = userLogged.Login;
 
             FireExitClient client = new FireExitClient(
-                    "http://10.50.0.170:8006/Android/TrazinsDroidService.svc");
+                    ConnectionParameters.soapAddress[ConnectionParameters.setUrlConnection]);
             methodName = "GetOperationRoomList";
             parameterName = "userlogged";
 
             client.configure(new Configurator(
-                    "http://tempuri.org/","ITrazinsDroidService", methodName));
+                    ConnectionParameters.namespace, ConnectionParameters.contractName, methodName));
             client.addParameter(parameterName,operationRoomInputModel );
             resultModel = new OperationRoomOutputModel();
             try {

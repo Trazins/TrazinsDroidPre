@@ -36,6 +36,7 @@ import com.trazins.trazinsdroidpre.models.usermodel.UserInputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 import com.trazins.trazinsdroidpre.scanner.DataWedgeInterface;
 import com.trazins.trazinsdroidpre.scanner.MyReceiver;
+import com.trazins.trazinsdroidpre.utils.ConnectionParameters;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -194,7 +195,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
             //Desplegar el servicio:
             //Usamos la librería Fireexit para la gestión de la serialización.
             FireExitClient client = new FireExitClient(
-                    "http://10.50.0.170:8006/Android/TrazinsDroidService.svc");
+                    ConnectionParameters.soapAddress[ConnectionParameters.setUrlConnection]);
 
             //Si recibimos la orden de ubicar o de leer etiquetas.
             if(createNewSurgicalProcess){
@@ -223,7 +224,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
 
                 //Según el código hay que usar una clase de web service o otra;
                 client.configure(new Configurator(
-                        "http://tempuri.org/", "ITrazinsDroidService", methodName));
+                        ConnectionParameters.namespace, ConnectionParameters.contractName, methodName));
 
                 client.addParameter(parameterName, surgicalProcessInputModel);
                 resultModel = new SurgicalProcessOutputModel();
@@ -236,7 +237,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
                 materialInputModel.MaterialCode = readCode;
 
                 client.configure(new Configurator(
-                        "http://tempuri.org/", "ITrazinsDroidService", methodName));
+                        ConnectionParameters.namespace, ConnectionParameters.contractName, methodName));
                 client.addParameter(parameterName, materialInputModel);
 
                 resultModel = new MaterialOutputModel();
