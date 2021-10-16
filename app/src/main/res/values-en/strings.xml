@@ -74,5 +74,13 @@
     <string name="printer_test_button">Test</string>
     <string name="ip_address">Ip Address:</string>
     <string name="port_number">Port Number:</string>
-    <string name="test_result">Not connected</string>
+    <string name="not_connected">Not connected</string>
+    <string name="connection_error">Com error!!! Disconnecting</string>
+    <string name="connection_ok">Connected</string>
+    <string name="invalid_data">Invalid values</string>
+    <string name="disconnecting">Disconnecting</string>
+    <string name="determining_printer_language">Determining printer language</string>
+    <string name="printer_language">Printer language </string>
+    <string name="unknown_printer_language">Unknown Printer Language</string>
+
 </resources>

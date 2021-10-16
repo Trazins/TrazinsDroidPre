@@ -64,6 +64,7 @@
         app:layout_constraintTop_toBottomOf="@+id/layoutInputPort"
         android:orientation="vertical">
         <Button
+            android:id="@+id/buttonTest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/printer_test_button"
@@ -81,6 +82,7 @@
 
         </TextView>
         <TextView
+            android:id="@+id/textViewInfoTest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/test_result"

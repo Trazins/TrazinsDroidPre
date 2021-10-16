@@ -74,5 +74,13 @@
     <string name="printer_test_button">Probar conexión</string>
     <string name="ip_address">Dirección IP:</string>
     <string name="port_number">Puerto:</string>
-    <string name="test_result">No conectado</string>
+    <string name="not_connected">No conectado</string>
+    <string name="connection_error">Error de conexión</string>
+    <string name="connection_ok">Conexión establecida</string>
+    <string name="invalid_data">Valores no válidos</string>
+    <string name="disconnecting">Desconectando</string>
+    <string name="determining_printer_language">Recuperando lenguaje de la impresora</string>
+    <string name="printer_language">Lenguaje de impresora </string>
+    <string name="unknown_printer_language">Lenguaje de impresora desconocido</string>
+
 </resources>
