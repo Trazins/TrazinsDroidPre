@@ -27,6 +27,8 @@ import com.trazins.trazinsdroidpre.models.originmodel.OriginInputModel;
 import com.trazins.trazinsdroidpre.models.originmodel.OriginOutputModel;
 import com.trazins.trazinsdroidpre.models.shipmentmodel.ShipmentInputModel;
 import com.trazins.trazinsdroidpre.models.shipmentmodel.ShipmentOutputModel;
+import com.trazins.trazinsdroidpre.models.trolleymodel.TrolleyInputModel;
+import com.trazins.trazinsdroidpre.models.trolleymodel.TrolleyOutputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 import com.trazins.trazinsdroidpre.scanner.DataWedgeInterface;
 import com.trazins.trazinsdroidpre.utils.ConnectionParameters;
@@ -212,7 +214,7 @@ public class ShipmentActivity extends AppCompatActivity {
 
             }else{
                 //Determinamos que tipo de objeto es el código leido
-                if(readCode.substring(0,1).equals("O")){
+                if(readCode.startsWith("O")){
                     methodName = "GetOrigin";
                     parameterName = "originCode";
 
@@ -226,9 +228,18 @@ public class ShipmentActivity extends AppCompatActivity {
                     client.addParameter(parameterName, originInputModel);
                     resultModel = new OriginOutputModel();
                 }else{
-                    
-                    if(readCode.substring(0,1).equals("C")){
-                        //resultModel = new TrolleyOutpuModel();
+
+                    if(readCode.startsWith("C")){
+                        methodName = "GetTrolleyData";
+                        parameterName= "trolleyCode";
+
+                        TrolleyInputModel trolleyInputModel = new TrolleyInputModel();
+                        trolleyInputModel.TrolleyCode = readCode;
+
+                        client.configure(new Configurator(
+                                ConnectionParameters.namespace,ConnectionParameters.contractName, methodName));
+                        client.addParameter(parameterName, trolleyInputModel);
+                        resultModel = new TrolleyOutputModel();
                     }else{
                         methodName = "GetMaterialData";
                         parameterName = "materialCode";
