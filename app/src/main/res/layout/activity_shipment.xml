@@ -56,20 +56,45 @@
             android:hint="@string/shipment_empty"
             android:paddingStart="35dp"
             android:paddingEnd="0dp"
+            android:paddingBottom="5dp"
             android:textAlignment="textStart"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/medium_grey"
+            android:contentDescription="@string/global_image_description"
+            android:paddingLeft="5dp"
+            android:paddingTop="1dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="0dp"
+            android:scaleType="fitXY"
+            android:src="@android:drawable/divider_horizontal_dark" />
 
-        <TextView
-            android:id="@+id/textViewShipmentDetails"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:layout_gravity="end"
-            android:gravity="end"
-            android:text="@string/location_details"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            app:backgroundTint="@color/buttonTrazins" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+            <TextView
+                android:id="@+id/textViewShipmentDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="start|center_vertical"
+                android:text="@string/select_trolley"
+                android:textSize="18sp"
+
+                />
+            <Spinner
+                android:id="@+id/spinnerOperationRoom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_gravity="center_vertical"
+                />
+        </LinearLayout>
 
         <ImageView
             android:layout_width="match_parent"

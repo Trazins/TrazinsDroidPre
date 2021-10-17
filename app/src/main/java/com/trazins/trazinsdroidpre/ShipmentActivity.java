@@ -40,6 +40,8 @@ import java.util.List;
 
 public class ShipmentActivity extends AppCompatActivity {
 
+    //region Variables
+
     //Lista que muestra los resultados por pantalla
     ListView ListViewMaterials;
 
@@ -68,6 +70,9 @@ public class ShipmentActivity extends AppCompatActivity {
     IntentFilter filter = new IntentFilter();
 
     Handler handler;
+
+    //endregion
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
