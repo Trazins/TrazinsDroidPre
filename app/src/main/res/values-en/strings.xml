@@ -12,6 +12,7 @@
     <string name="go_back">Go back</string>
     <string name="empty_data">Complete mandatory fields</string>
     <string name="result">Result:</string>
+    <string name="status">Status:</string>
 
     //Main Activity
     <string name="app_name">Trazins DROID</string>
@@ -74,6 +75,7 @@
     <string name="printer_test_button">Test</string>
     <string name="ip_address">Ip Address:</string>
     <string name="port_number">Port Number:</string>
+    <string name="connecting">Connecting</string>
     <string name="not_connected">Not connected</string>
     <string name="connection_error">Com error!!! Disconnecting</string>
     <string name="connection_ok">Connected</string>
@@ -82,5 +84,7 @@
     <string name="determining_printer_language">Determining printer language</string>
     <string name="printer_language">Printer language </string>
     <string name="unknown_printer_language">Unknown Printer Language</string>
+    <string name="sending_data">Sending data</string>
+
 
 </resources>

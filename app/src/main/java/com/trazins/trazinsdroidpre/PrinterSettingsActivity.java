@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.trazins.trazinsdroidpre.utils.SettingsHelper;
 import com.trazins.trazinsdroidpre.utils.ThreadSleeper;
+import com.zebra.sdk.comm.BluetoothConnection;
 import com.zebra.sdk.comm.Connection;
 import com.zebra.sdk.comm.ConnectionException;
 import com.zebra.sdk.comm.TcpConnection;
@@ -39,7 +40,9 @@ public class PrinterSettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_printer_settings);
 
         editTextIp = findViewById(R.id.editTextIpAddress);
+        editTextIp.setText(SettingsHelper.getIp(this));
         editTextPortNumber = findViewById(R.id.editTextPort);
+        editTextPortNumber.setText(SettingsHelper.getPort(this));
         textViewTestInfo = findViewById(R.id.textViewInfoTest);
         buttonTest = findViewById(R.id.buttonTest);
 
@@ -67,6 +70,14 @@ public class PrinterSettingsActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (printerConnection != null && printerConnection.isConnected()) {
+            disconnect();
+        }
+    }
+
     //region Métodos principales
 
     //Método para conectar y enviar etiqueta de prueba
@@ -74,11 +85,17 @@ public class PrinterSettingsActivity extends AppCompatActivity {
 
         //Creamos la conexión y si todo va bien envíamos la etiqueta
         printer = connect();
+        if(printer!= null){
+            sendTestLabel();
+        }else {
+            disconnect();
+        }
     }
 
     //Método que devuelve la impresora con todos los datos de configuración
     private ZebraPrinter connect() {
-        setStatus("Connecting...", Color.YELLOW);
+        setStatus(getText(R.string.connecting).toString(), Color.YELLOW);
+        ThreadSleeper.sleep(1000);
         printerConnection = null;
 
         try {
@@ -99,6 +116,7 @@ public class PrinterSettingsActivity extends AppCompatActivity {
         try{
             printerConnection.open();
             setStatus(getText(R.string.connection_ok).toString(),Color.GREEN);
+            ThreadSleeper.sleep(1000);
         }catch (ConnectionException e){
             e.printStackTrace();
             setStatus(getText(R.string.connection_error).toString(),Color.RED);
@@ -130,10 +148,55 @@ public class PrinterSettingsActivity extends AppCompatActivity {
         return printer;
     }
 
+    private void sendTestLabel() {
+        try{
+            byte[] configLabel = getConfigLabel();
+            printerConnection.write(configLabel);
+            setStatus(getText(R.string.sending_data).toString(), Color.BLUE);
+            ThreadSleeper.sleep(1500);
 
+        }catch (ConnectionException e) {
+            e.printStackTrace();
+            Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+        finally{
+            disconnect();
+        }
+    }
 
+    private byte[] getConfigLabel() {
+        PrinterLanguage printerLanguage = printer.getPrinterControlLanguage();
+        byte[] configLabel = null;
+        if(printerLanguage== PrinterLanguage.ZPL){
+            configLabel = "^XA^FO17,16^GB379,371,8^FS^FT65,255^A0N,135,134^FDTEST^FS^XZ".getBytes();
+        }else{
+            String cpclConfigLabel = "! 0 200 200 406 1\r\n" + "ON-FEED IGNORE\r\n" + "BOX 20 20 380 380 8\r\n" + "T 0 6 137 177 TEST\r\n" + "PRINT\r\n";
+            configLabel = cpclConfigLabel.getBytes();
+        }
+
+        return configLabel;
+    }
+
+    //Método para desconectar la impresora
+    private void disconnect() {
+        try{
+            setStatus(getText(R.string.disconnecting).toString(),Color.RED);
+            if(printerConnection != null){
+                printerConnection.close();
+            }
+            ThreadSleeper.sleep(1000);
+            setStatus(getText(R.string.not_connected).toString(),Color.RED);
+        } catch (ConnectionException e) {
+            e.printStackTrace();
+            setStatus(getText(R.string.connection_error).toString(),Color.RED);
+        }
+        finally {
+            enableButtonTest(true);
+        }
+    }
 
     //endregion
+
     //region Métodos de apoyo
 
     //Habilita y deshabilita el botón de test
@@ -162,20 +225,6 @@ public class PrinterSettingsActivity extends AppCompatActivity {
     //Devuelve la ip del editText correspondiente
     private String getIpAddress(){return  editTextIp.getText().toString();}
 
-    //Método para desconectar la impresora
-    private void disconnect() {
-        try{
-            setStatus(getText(R.string.disconnecting).toString(),Color.RED);
-            if(printerConnection != null){
-                printerConnection.close();
-            }
-        } catch (ConnectionException e) {
-            e.printStackTrace();
-            setStatus(getText(R.string.connection_error).toString(),Color.RED);
-        }
-        finally {
-            enableButtonTest(true);
-        }
-    }
+
     //endregion
 }

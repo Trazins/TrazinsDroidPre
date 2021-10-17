@@ -13,6 +13,7 @@
     <string name="go_back">Volver atrás</string>
     <string name="empty_data">Debe rellenar los datos obligatorios</string>
     <string name="result">Resultado:</string>
+    <string name="status">Estado:</string>
 
     //Main Activity
     <string name="app_name">Trazins DROID</string>
@@ -75,6 +76,7 @@
     <string name="ip_address">Dirección IP:</string>
     <string name="port_number">Puerto:</string>
     <string name="not_connected">No conectado</string>
+    <string name="connecting">Conectando</string>
     <string name="connection_error">Error de conexión</string>
     <string name="connection_ok">Conexión establecida</string>
     <string name="invalid_data">Valores no válidos</string>
@@ -82,5 +84,6 @@
     <string name="determining_printer_language">Recuperando lenguaje de la impresora</string>
     <string name="printer_language">Lenguaje de impresora </string>
     <string name="unknown_printer_language">Lenguaje de impresora desconocido</string>
+    <string name="sending_data">Enviando datos</string>
 
 </resources>

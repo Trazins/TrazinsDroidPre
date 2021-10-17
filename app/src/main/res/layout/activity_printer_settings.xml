@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:text="@string/ip_address"
             android:layout_weight="1"
+            android:inputType="number"
             android:textSize="20dp">
         </TextView>
         <EditText
@@ -76,7 +77,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="15dp"
-            android:text="@string/result"
+            android:text="@string/status"
             android:textSize="25dp"
             >
 
@@ -85,7 +86,7 @@
             android:id="@+id/textViewInfoTest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/test_result"
+            android:text="@string/not_connected"
             android:textAlignment="center"
             android:textSize="25dp"
             android:background="@color/red">
