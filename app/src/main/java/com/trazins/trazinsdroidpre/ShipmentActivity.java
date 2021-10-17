@@ -226,7 +226,7 @@ public class ShipmentActivity extends AppCompatActivity {
                     client.addParameter(parameterName, originInputModel);
                     resultModel = new OriginOutputModel();
                 }else{
-                    //Modelo Carro pdte desarrollo
+                    
                     if(readCode.substring(0,1).equals("C")){
                         //resultModel = new TrolleyOutpuModel();
                     }else{

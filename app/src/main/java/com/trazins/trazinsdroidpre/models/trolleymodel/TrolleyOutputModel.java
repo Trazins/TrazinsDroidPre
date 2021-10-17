@@ -8,5 +8,6 @@ import java.util.List;
 public class TrolleyOutputModel extends MaterialOutputModel {
     public String TrolleyCode;
     public int LocateId;
+    public String TrolleyName;
     public List<TrolleyOutputModel> TrolleyContent = new ArrayList<TrolleyOutputModel>();
 }

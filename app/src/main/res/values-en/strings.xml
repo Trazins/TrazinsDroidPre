@@ -43,7 +43,8 @@
     <string name="correct_shipment">Correct shipment</string>
     <string name="shipment_error">Unrealized shipment</string>
     <string name="send_print_label">Send and print label</string>
-    <string name="select_trolley">Select trolley</string>
+    <string name="trolley">Trolley:</string>
+    <string name="trolley_hint">Scan trolley label</string>
 
     //Post Counter Surgical Activity
     <string name="surgical_information_title">Surgical process information</string>

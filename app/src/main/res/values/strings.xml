@@ -43,7 +43,8 @@
     <string name="correct_shipment">Enviado correctamente</string>
     <string name="shipment_error">Envío no realizado</string>
     <string name="send_print_label">Enviar e imprimir</string>
-    <string name="select_trolley">Seleccione carro</string>
+    <string name="trolley">Carro:</string>
+    <string name="trolley_hint">Lea la etiqueta del carro</string>
 
     //Surgical Process Activity
     <string name="surgical_information_title">Datos del proceso quirúrgico</string>

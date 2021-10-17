@@ -220,7 +220,7 @@ public class LocateActivity extends AppCompatActivity {
 
             }else{
                 //Determinamos que tipo de objeto es el código leido
-                if(readCode.substring(0,1).equals("U")){
+                if(readCode.startsWith("U")){
                     methodName = "GetLocation";
                     parameterName = "locationCode";
 
@@ -234,8 +234,8 @@ public class LocateActivity extends AppCompatActivity {
                     client.addParameter(parameterName, locateInputModelData);
                     resultModel = new LocateOutputModel();
                 }else{
-                    //Modelo Carro pdte desarrollo
-                    if(readCode.substring(0,1).equals("C")){
+
+                    if(readCode.startsWith("C")){
                         methodName = "GetTrolleyContent";
                         parameterName = "trolleyCode";
                         TrolleyInputModel trolleyInputModel = new TrolleyInputModel();

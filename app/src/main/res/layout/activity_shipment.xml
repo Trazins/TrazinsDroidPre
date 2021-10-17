@@ -79,21 +79,19 @@
             android:paddingBottom="5dp"
             android:paddingTop="5dp">
             <TextView
-                android:id="@+id/textViewShipmentDetails"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="start|center_vertical"
-                android:text="@string/select_trolley"
+                android:text="@string/trolley"
                 android:textSize="18sp"
-
-                />
-            <Spinner
-                android:id="@+id/spinnerOperationRoom"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/textViewShipmentDetails"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:layout_gravity="center_vertical"
-                />
+                android:layout_height="match_parent"
+                android:gravity="end|center_vertical"
+                android:text="@string/trolley_hint"
+                android:textSize="18sp"/>
         </LinearLayout>
 
         <ImageView
