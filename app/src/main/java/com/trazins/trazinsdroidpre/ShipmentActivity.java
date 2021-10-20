@@ -56,6 +56,9 @@ public class ShipmentActivity extends AppCompatActivity {
     //Ubicación de destino
     OriginOutputModel finalShipment = new OriginOutputModel();
 
+    //Carro asociado al envío final
+    TrolleyOutputModel finalTrolley = new TrolleyOutputModel();
+
     //Material seleccionado en la lista
     MaterialOutputModel materialSelected = new MaterialOutputModel();
 
@@ -67,7 +70,7 @@ public class ShipmentActivity extends AppCompatActivity {
 
     //Controles
     BottomNavigationView btm;
-    TextView textViewShipmentResult, textViewUserName, textViewElements, textViewShipmentDetails;
+    TextView textViewShipmentResult, textViewUserName, textViewElements, textViewTrolleyName;
 
     IntentFilter filter = new IntentFilter();
 
@@ -95,7 +98,7 @@ public class ShipmentActivity extends AppCompatActivity {
 
         textViewShipmentResult = findViewById(R.id.textViewShipmentResult);
         textViewElements = findViewById(R.id.textViewShipmentMaterialCounter);
-        textViewShipmentDetails = findViewById(R.id.textViewShipmentDetails);
+        textViewTrolleyName = findViewById(R.id.textViewTrolleyName);
 
         //Usuario loggeado
         this.userLogged = (UserOutputModel)getIntent().getSerializableExtra("userLogged");
@@ -295,11 +298,16 @@ public class ShipmentActivity extends AppCompatActivity {
                 case "ShipmentOutputModel":
                     if(((ShipmentOutputModel)modelResult).Result){
                         Toast.makeText(getBaseContext(),R.string.correct_shipment, Toast.LENGTH_LONG).show();
+                        //Imprimir la etiqueta
                         //Limpiar controles
                         cleanControlsViews();
                     }else{
                         Toast.makeText(getBaseContext(), R.string.error_process, Toast.LENGTH_LONG).show();
                     }
+                    break;
+                case"TrolleyOutputModel":
+                    textViewTrolleyName.setText(((TrolleyOutputModel)modelResult).TrolleyName);
+                    finalTrolley = (TrolleyOutputModel)modelResult;
                     break;
                 default:
                     Toast.makeText(getBaseContext(), R.string.unidentified_code, Toast.LENGTH_LONG).show();
@@ -315,6 +323,7 @@ public class ShipmentActivity extends AppCompatActivity {
         textViewElements.setText(lstMaterial.size()+ " " + getText(R.string.materials_counter));
         textViewShipmentResult.setText("");
         finalShipment = null;
+        finalTrolley = null;
     }
 
     private void addMaterialToList(MaterialOutputModel modelResult) {

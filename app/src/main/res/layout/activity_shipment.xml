@@ -83,10 +83,9 @@
                 android:layout_height="match_parent"
                 android:gravity="start|center_vertical"
                 android:text="@string/trolley"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textSize="18sp"/>
             <TextView
-                android:id="@+id/textViewShipmentDetails"
+                android:id="@+id/textViewTrolleyName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="end|center_vertical"
