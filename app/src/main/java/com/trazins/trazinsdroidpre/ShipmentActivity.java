@@ -32,6 +32,11 @@ import com.trazins.trazinsdroidpre.models.trolleymodel.TrolleyOutputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 import com.trazins.trazinsdroidpre.scanner.DataWedgeInterface;
 import com.trazins.trazinsdroidpre.utils.ConnectionParameters;
+import com.trazins.trazinsdroidpre.utils.SettingsHelper;
+import com.zebra.android.comm.ZebraPrinterConnection;
+import com.zebra.sdk.comm.Connection;
+import com.zebra.sdk.comm.TcpConnection;
+import com.zebra.sdk.printer.ZebraPrinter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -58,6 +63,9 @@ public class ShipmentActivity extends AppCompatActivity {
 
     //Carro asociado al envío final
     TrolleyOutputModel finalTrolley = new TrolleyOutputModel();
+
+    //Registro de envío generado para insertar en bd
+    ShipmentInputModel createShipment = new ShipmentInputModel();
 
     //Material seleccionado en la lista
     MaterialOutputModel materialSelected = new MaterialOutputModel();
@@ -196,23 +204,23 @@ public class ShipmentActivity extends AppCompatActivity {
                 methodName = "SetShipmentData";
                 parameterName = "dataToInsert";
 
-                ShipmentInputModel shipmentInputModel = new ShipmentInputModel();
-                shipmentInputModel.OriginId = finalOrigin.OriginId;
-                shipmentInputModel.EntryUser = userLogged.Login;
+                createShipment = new ShipmentInputModel();
+                createShipment.OriginId = finalOrigin.OriginId;
+                createShipment.EntryUser = userLogged.Login;
                 for(MaterialOutputModel m : lstMaterial){
                     //Serializamos los materiales.
                     MaterialInputModel serializableMaterial = new MaterialInputModel();
                     serializableMaterial.MaterialCode = m.Id;
                     serializableMaterial.MaterialType = m.MaterialType;
                     serializableMaterial.MaterialDescription = m.MaterialDescription;
-                    shipmentInputModel.MatList.add(serializableMaterial);
+                    createShipment.MatList.add(serializableMaterial);
                 }
 
                 //Según el código hay que usar una clase de web service o otra;
                 client.configure(new Configurator(
                         ConnectionParameters.namespace, ConnectionParameters.contractName, methodName));
 
-                client.addParameter(parameterName, shipmentInputModel);
+                client.addParameter(parameterName, createShipment);
                 resultModel = new ShipmentOutputModel();
 
             }else{
@@ -296,11 +304,12 @@ public class ShipmentActivity extends AppCompatActivity {
                     addMaterialToList((MaterialOutputModel)modelResult);
                     break;
                 case "ShipmentOutputModel":
-                    if(((ShipmentOutputModel)modelResult).Result){
+                    ShipmentOutputModel resultShipment = (ShipmentOutputModel)modelResult;
+                    if(resultShipment.Result){
                         Toast.makeText(getBaseContext(),R.string.correct_shipment, Toast.LENGTH_LONG).show();
                         //Imprimir la etiqueta
                         if(finalTrolley!= null){
-                            printShipmentLabel();
+                            printShipmentLabel(resultShipment);
                         }
                         //Limpiar controles
                         cleanControlsViews();
@@ -320,8 +329,33 @@ public class ShipmentActivity extends AppCompatActivity {
         }
     }
 
-    private void printShipmentLabel() {
+    private void printShipmentLabel(ShipmentOutputModel resultShipment) {
+        try{
+            //Recuperamos los datos de la impresora guardados en el archivo de preferencias
+            int port = Integer.parseInt(SettingsHelper.getPort(this));
+            Connection printerConnection = new TcpConnection(
+                    SettingsHelper.getIp(this), port);
+            printerConnection.open();
+            byte[] label = createLabel(resultShipment);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
+
+    private byte[] createLabel(ShipmentOutputModel resultShipment) {
+        String originName = finalOrigin.OriginDescription;
+        String total = String.valueOf(createShipment.MatList.size());
+        //Formato que hay que obtener idEs, origenId, (Pendiente añadir propiedad para guardar el dato en el insert)carroSeleccionado
+        String barcode = resultShipment.ESId+"-"+resultShipment.OriginId+"-";
+        String label =  "^XA"+
+                        "^LH0,0"+"\r\n"+
+                        "^FO50,20" + "\r\n" + "^BCN,90,Y,N,N" + "\r\n" + "^FD002002E2021101500001^FS" + "\r\n" +
+                        "^FO50,170" + "\r\n" + "^A0,N,40,40" + "\r\n" + "^FDQuirofano01^FS" + "\r\n" +
+                        "^FO50,220" + "\r\n" + "^A0,N,40,40" + "\r\n" + "^FDCAN: 3^FS" + "\r\n" +
+                        "^XZ";
+        return label.getBytes();
+    }
+
 
     private void cleanControlsViews() {
         lstMaterial.clear();
