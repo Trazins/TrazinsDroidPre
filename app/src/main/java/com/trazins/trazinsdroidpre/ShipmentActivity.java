@@ -54,7 +54,7 @@ public class ShipmentActivity extends AppCompatActivity {
     boolean setShipment = false;
 
     //Ubicación de destino
-    OriginOutputModel finalShipment = new OriginOutputModel();
+    OriginOutputModel finalOrigin = new OriginOutputModel();
 
     //Carro asociado al envío final
     TrolleyOutputModel finalTrolley = new TrolleyOutputModel();
@@ -127,7 +127,7 @@ public class ShipmentActivity extends AppCompatActivity {
 
     private void setLocate() {
         try{
-            if(finalShipment.OriginId == 0){
+            if(finalOrigin.OriginId == 0){
                 Toast.makeText(getBaseContext(), R.string.locate_empty ,Toast.LENGTH_LONG).show();
                 return;
             }
@@ -197,7 +197,7 @@ public class ShipmentActivity extends AppCompatActivity {
                 parameterName = "dataToInsert";
 
                 ShipmentInputModel shipmentInputModel = new ShipmentInputModel();
-                shipmentInputModel.OriginId = finalShipment.OriginId;
+                shipmentInputModel.OriginId = finalOrigin.OriginId;
                 shipmentInputModel.EntryUser = userLogged.Login;
                 for(MaterialOutputModel m : lstMaterial){
                     //Serializamos los materiales.
@@ -288,7 +288,7 @@ public class ShipmentActivity extends AppCompatActivity {
             String modelType = modelResult.getClass().getSimpleName();
             switch(modelType){
                 case "OriginOutputModel":
-                    finalShipment = (OriginOutputModel)modelResult;
+                    finalOrigin = (OriginOutputModel)modelResult;
                     textViewShipmentResult.setText(((OriginOutputModel) modelResult).OriginDescription);
 
                     break;
@@ -299,6 +299,9 @@ public class ShipmentActivity extends AppCompatActivity {
                     if(((ShipmentOutputModel)modelResult).Result){
                         Toast.makeText(getBaseContext(),R.string.correct_shipment, Toast.LENGTH_LONG).show();
                         //Imprimir la etiqueta
+                        if(finalTrolley!= null){
+                            printShipmentLabel();
+                        }
                         //Limpiar controles
                         cleanControlsViews();
                     }else{
@@ -317,12 +320,15 @@ public class ShipmentActivity extends AppCompatActivity {
         }
     }
 
+    private void printShipmentLabel() {
+    }
+
     private void cleanControlsViews() {
         lstMaterial.clear();
         ListViewMaterials.setAdapter(null);
         textViewElements.setText(lstMaterial.size()+ " " + getText(R.string.materials_counter));
         textViewShipmentResult.setText("");
-        finalShipment = null;
+        finalOrigin = null;
         finalTrolley = null;
     }
 
