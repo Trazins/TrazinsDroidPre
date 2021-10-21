@@ -78,9 +78,13 @@
             android:layout_gravity="center"
             android:text="@string/aut_result" />
         <EditText
+            android:id="@+id/editAutResult"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            android:maxLines="1"
+            android:inputType="text"
+            android:maxLength="10"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

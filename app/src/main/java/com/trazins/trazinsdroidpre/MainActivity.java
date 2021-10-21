@@ -10,8 +10,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +30,7 @@ import com.trazins.trazinsdroidpre.utils.ConnectionParameters;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -35,8 +40,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String PROFILE3 = "TrazinsMultiActivity_Profile3";
     private static final String PROFILE4 = "TrazinsMultiActivity_Profile4";
 
-    TextView textViewAutResult;
+    TextView editTextAutResult;
     Button buttonAutResult;
+    ImageView imageViewAutResult;
     Handler handler;
 
     IntentFilter filter = new IntentFilter();
@@ -50,15 +56,31 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         handler = new Handler(Looper.getMainLooper());
-        textViewAutResult = findViewById(R.id.textViewAutResult);
+        editTextAutResult = findViewById(R.id.editAutResult);
         buttonAutResult = findViewById(R.id.buttonAutResult);
+        imageViewAutResult= findViewById(R.id.imageViewUser);
 
         buttonAutResult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                editTextAutResult.setVisibility(View.VISIBLE);
             }
         });
+
+        editTextAutResult.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(event.getAction()==KeyEvent.ACTION_DOWN && keyCode== KeyEvent.KEYCODE_ENTER){
+                    readCode = editTextAutResult.getText().toString();
+                    new MyAsyncClass().execute();
+                    editTextAutResult.setText("");
+                    editTextAutResult.setVisibility(View.INVISIBLE);
+                    return true;
+                }
+                return false;
+            }
+        });
+
 
         filter.addAction(DataWedgeInterface.ACTION_RESULT_DATAWEDGE);
         filter.addCategory(Intent.CATEGORY_DEFAULT);
@@ -95,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
         DataWedgeInterface.sendDataWedgeIntentWithExtra(getApplicationContext(),
                 DataWedgeInterface.ACTION_DATAWEDGE, DataWedgeInterface. EXTRA_GET_ACTIVE_PROFILE,
                 DataWedgeInterface.EXTRA_EMPTY);
+
     }
 
     @Override
@@ -110,6 +133,9 @@ public class MainActivity extends AppCompatActivity {
         //TextView txtActiveProfile = findViewById(R.id.textViewAutResult);
         //txtActiveProfile.setText(event.activeProfile);
     };
+    private void sendMessage(){
+        Toast.makeText(getBaseContext(),"Aqui", Toast.LENGTH_LONG).show();
+    }
 
     //Clase que gestiona la conexión con el web service
     class MyAsyncClass extends AsyncTask{
