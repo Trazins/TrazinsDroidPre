@@ -3,10 +3,12 @@ package com.trazins.trazinsdroidpre;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.AsyncQueryHandler;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,6 +37,7 @@ import com.trazins.trazinsdroidpre.utils.ConnectionParameters;
 import com.trazins.trazinsdroidpre.utils.SettingsHelper;
 import com.zebra.android.comm.ZebraPrinterConnection;
 import com.zebra.sdk.comm.Connection;
+import com.zebra.sdk.comm.ConnectionException;
 import com.zebra.sdk.comm.TcpConnection;
 import com.zebra.sdk.printer.ZebraPrinter;
 
@@ -44,6 +47,9 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ShipmentActivity extends AppCompatActivity {
 
@@ -62,16 +68,21 @@ public class ShipmentActivity extends AppCompatActivity {
     OriginOutputModel finalOrigin = new OriginOutputModel();
 
     //Carro asociado al envío final
-    TrolleyOutputModel finalTrolley = new TrolleyOutputModel();
+    TrolleyOutputModel finalTrolley;
 
     //Registro de envío generado para insertar en bd
     ShipmentInputModel createShipment = new ShipmentInputModel();
+    ShipmentOutputModel shipmentResult = new ShipmentOutputModel();
 
     //Material seleccionado en la lista
     MaterialOutputModel materialSelected = new MaterialOutputModel();
 
+    Connection printerConnection;
+
     //Lectura obtenida en el scanner
     String readCode;
+
+    String originDescription= "";
 
     //Usuario logeado
     UserOutputModel userLogged;
@@ -83,6 +94,7 @@ public class ShipmentActivity extends AppCompatActivity {
     IntentFilter filter = new IntentFilter();
 
     Handler handler;
+    ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     //endregion
 
@@ -124,6 +136,9 @@ public class ShipmentActivity extends AppCompatActivity {
                 if(item.getItemId()==R.id.add_shipment){
                     //ubicar elementos
                     setLocate();
+                }else if(item.getItemId()== R.id.printlabel){
+                    //Imprimir y enviar
+                    setLocateAndPrint();
                 }else {
                     //Borrar elementos
                     removeSelectedMaterial();
@@ -131,6 +146,20 @@ public class ShipmentActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    //Es necesario crear un hilo nuevo pro la conexión TCP
+    private void setLocateAndPrint() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                setLocate();
+                Looper.prepare();
+                createPrinterConnection();
+                Looper.loop();
+                Looper.myLooper().quit();
+            }
+        }).start();
     }
 
     private void setLocate() {
@@ -174,6 +203,7 @@ public class ShipmentActivity extends AppCompatActivity {
         super.onStop();
         EventBus.getDefault().unregister(this);
         unregisterReceiver(myBroadCastReceiver);
+        disconnect();
     }
 
     // Used EventBus to notify foreground activity of profile change
@@ -208,7 +238,8 @@ public class ShipmentActivity extends AppCompatActivity {
                 createShipment = new ShipmentInputModel();
                 createShipment.OriginId = finalOrigin.OriginId;
                 createShipment.EntryUser = userLogged.Login;
-                createShipment.TrolleyCode = finalTrolley.TrolleyCode;
+                if(finalTrolley!= null)
+                    createShipment.TrolleyCode = finalTrolley.TrolleyCode;
                 for(MaterialOutputModel m : lstMaterial){
                     //Serializamos los materiales.
                     MaterialInputModel serializableMaterial = new MaterialInputModel();
@@ -267,7 +298,6 @@ public class ShipmentActivity extends AppCompatActivity {
                         resultModel = new MaterialOutputModel();
                     }
                 }
-
             }
 
             try {
@@ -300,29 +330,21 @@ public class ShipmentActivity extends AppCompatActivity {
                 case "OriginOutputModel":
                     finalOrigin = (OriginOutputModel)modelResult;
                     textViewShipmentResult.setText(((OriginOutputModel) modelResult).OriginDescription);
-
                     break;
+
                 case "MaterialOutputModel":
                     addMaterialToList((MaterialOutputModel)modelResult);
                     break;
+
                 case "ShipmentOutputModel":
-                    ShipmentOutputModel resultShipment = (ShipmentOutputModel)modelResult;
-                    if(resultShipment.Result){
-                        Toast.makeText(getBaseContext(),R.string.correct_shipment, Toast.LENGTH_LONG).show();
-                        //Imprimir la etiqueta
-                        if(finalTrolley!= null){
-                            printShipmentLabel(resultShipment);
-                        }
-                        //Limpiar controles
-                        cleanControlsViews();
-                    }else{
-                        Toast.makeText(getBaseContext(), R.string.error_process, Toast.LENGTH_LONG).show();
-                    }
+                    refreshUI((ShipmentOutputModel)modelResult);
                     break;
+
                 case"TrolleyOutputModel":
                     textViewTrolleyName.setText(((TrolleyOutputModel)modelResult).TrolleyName);
                     finalTrolley = (TrolleyOutputModel)modelResult;
                     break;
+
                 default:
                     Toast.makeText(getBaseContext(), R.string.unidentified_code, Toast.LENGTH_LONG).show();
                     break;
@@ -331,16 +353,64 @@ public class ShipmentActivity extends AppCompatActivity {
         }
     }
 
-    private void printShipmentLabel(ShipmentOutputModel resultShipment) {
+    private void refreshUI(ShipmentOutputModel modelResult) {
         try{
-            //Recuperamos los datos de la impresora guardados en el archivo de preferencias
-            int port = Integer.parseInt(SettingsHelper.getPort(this));
-            Connection printerConnection = new TcpConnection(
-                    SettingsHelper.getIp(this), port);
-            printerConnection.open();
-            byte[] label = createLabel(resultShipment);
+
+            if(modelResult.Result){
+                shipmentResult = modelResult;
+                originDescription = finalOrigin.OriginDescription;
+                Toast.makeText(getBaseContext(), R.string.correct_shipment, Toast.LENGTH_LONG).show();
+
+                //Imprimir la etiqueta
+                if (finalTrolley != null) {
+                    printLabel((ShipmentOutputModel) modelResult);
+                }
+                cleanControlsViews();
+            }else{
+                Toast.makeText(getBaseContext(), R.string.error_process, Toast.LENGTH_LONG).show();
+            }
+
         }catch(Exception e){
             e.printStackTrace();
+            Toast.makeText(this, e.getMessage(),Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void createPrinterConnection() {
+        //Recuperamos los datos de la impresora guardados en el archivo de preferencias
+        int port = Integer.parseInt(SettingsHelper.getPort(this));
+        printerConnection = new TcpConnection(
+                SettingsHelper.getIp(this), port);
+        try {
+            printerConnection.open();
+        } catch (ConnectionException e) {
+            e.printStackTrace();
+            Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void printLabel(ShipmentOutputModel resultShipment)  {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Looper.prepare();
+                createShipmentLabel(resultShipment);
+                Looper.loop();
+                Looper.myLooper().quit();
+
+            }
+        }).start();
+    }
+
+    private void createShipmentLabel(ShipmentOutputModel resultShipment) {
+        try{
+            if(printerConnection.isConnected()){
+                byte[] label = createLabel(resultShipment);
+                printerConnection.write(label);
+            }
+        }catch(ConnectionException e){
+            e.printStackTrace();
+            Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_LONG).show();
         }
     }
 
@@ -348,7 +418,7 @@ public class ShipmentActivity extends AppCompatActivity {
         String originName = finalOrigin.OriginDescription;
         String total = String.valueOf(createShipment.MatList.size());
         //Formato que hay que obtener idEs, origenId, (Pendiente añadir propiedad para guardar el dato en el insert)carroSeleccionado
-        String barcode = resultShipment.ESId+"-"+resultShipment.OriginId+"-"+ resultShipment.TrolleyCode;
+        String barcode = resultShipment.ESId + "-" + resultShipment.OriginId + "-" + resultShipment.TrolleyCode;
         String label =  "^XA"+
                         "^LH0,0"+"\r\n"+
                         "^FO50,20" + "\r\n" + "^BCN,90,Y,N,N" + "\r\n" + "^FD" + barcode + "^FS" + "\r\n" +
@@ -363,6 +433,7 @@ public class ShipmentActivity extends AppCompatActivity {
         ListViewMaterials.setAdapter(null);
         textViewElements.setText(lstMaterial.size()+ " " + getText(R.string.materials_counter));
         textViewShipmentResult.setText("");
+        textViewTrolleyName.setText("");
         finalOrigin = null;
         finalTrolley = null;
     }
@@ -461,6 +532,20 @@ public class ShipmentActivity extends AppCompatActivity {
             }
         }
         return false;
+    }
+
+    //Método para desconectar la impresora
+    public void disconnect() {
+        try {
+
+            if (printerConnection != null) {
+                printerConnection.close();
+            }
+
+        } catch (ConnectionException e) {
+            Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+        }
+
     }
 
 }

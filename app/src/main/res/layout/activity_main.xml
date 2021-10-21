@@ -77,9 +77,10 @@
             android:textAlignment="center"
             android:layout_gravity="center"
             android:text="@string/aut_result" />
-
-
-
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

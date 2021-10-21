@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".PrinterSettingsActivity"></activity>
+        <activity android:name=".PrinterSettingsActivity" />
         <activity android:name=".settingsactivities.PrinterSettingsActivity" />
         <activity android:name=".MaterialPostCounterActivity" />
         <activity android:name=".SurgicalProcessPreviousDataActivity" />

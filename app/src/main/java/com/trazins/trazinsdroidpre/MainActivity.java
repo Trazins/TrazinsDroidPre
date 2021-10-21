@@ -10,7 +10,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,8 +50,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         handler = new Handler(Looper.getMainLooper());
-        //textViewAutResult = findViewById(R.id.textViewAutResult);
+        textViewAutResult = findViewById(R.id.textViewAutResult);
         buttonAutResult = findViewById(R.id.buttonAutResult);
+
+        buttonAutResult.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         filter.addAction(DataWedgeInterface.ACTION_RESULT_DATAWEDGE);
         filter.addCategory(Intent.CATEGORY_DEFAULT);
@@ -191,9 +200,9 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void displayScanResult(Intent initiatingIntent, String howDataRecibed){
-        //String decodedSource = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_source));
+
         String decodedData = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_data));
-        //String decodedLabelType = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_label_type));
+
         readCode = decodedData;
         new MyAsyncClass().execute();
     };
