@@ -185,7 +185,7 @@ public class LocateActivity extends AppCompatActivity {
             //Desplegar el servicio:
             //Usamos la librería Fireexit para la gestión de la serialización.
             FireExitClient client = new FireExitClient(
-                    ConnectionParameters.soapAddress[ConnectionParameters.setUrlConnection]);
+                    ConnectionParameters.SOAP_ADDRESS[ConnectionParameters.SET_URL_CONNECTION]);
 
             //Si recibimos la orden de ubicar o de leer etiquetas.
             if(setLocation){
@@ -213,7 +213,7 @@ public class LocateActivity extends AppCompatActivity {
 
                 //Según el código hay que usar una clase de web service o otra;
                 client.configure(new Configurator(
-                        ConnectionParameters.namespace, ConnectionParameters.contractName, methodName));
+                        ConnectionParameters.NAME_SPACE, ConnectionParameters.CONTRACT_NAME, methodName));
 
                 client.addParameter(parameterName, storageInputModel);
                 resultModel = new StorageOutputModel();
@@ -229,7 +229,7 @@ public class LocateActivity extends AppCompatActivity {
 
                     //Según el código hay que usar una clase de web service o otra;
                     client.configure(new Configurator(
-                            ConnectionParameters.namespace, ConnectionParameters.contractName, methodName));
+                            ConnectionParameters.NAME_SPACE, ConnectionParameters.CONTRACT_NAME, methodName));
 
                     client.addParameter(parameterName, locateInputModelData);
                     resultModel = new LocateOutputModel();
@@ -242,7 +242,7 @@ public class LocateActivity extends AppCompatActivity {
                         trolleyInputModel.TrolleyCode = readCode;
 
                         client.configure(new Configurator(
-                                ConnectionParameters.namespace, ConnectionParameters.contractName, methodName));
+                                ConnectionParameters.NAME_SPACE, ConnectionParameters.CONTRACT_NAME, methodName));
                         client.addParameter(parameterName, trolleyInputModel);
                         resultModel = new TrolleyOutputModel();
                     }else{
@@ -253,7 +253,7 @@ public class LocateActivity extends AppCompatActivity {
                         materialInputModel.MaterialCode = readCode;
 
                         client.configure(new Configurator(
-                                ConnectionParameters.namespace, ConnectionParameters.contractName, methodName));
+                                ConnectionParameters.NAME_SPACE, ConnectionParameters.CONTRACT_NAME, methodName));
                         client.addParameter(parameterName, materialInputModel);
 
                         resultModel = new MaterialOutputModel();

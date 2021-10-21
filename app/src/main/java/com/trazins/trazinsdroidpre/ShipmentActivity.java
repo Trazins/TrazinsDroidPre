@@ -195,7 +195,7 @@ public class ShipmentActivity extends AppCompatActivity {
             //Desplegar el servicio:
             //Usamos la librería Fireexit para la gestión de la serialización.
             FireExitClient client = new FireExitClient(
-                    ConnectionParameters.soapAddress[ConnectionParameters.setUrlConnection]);
+                    ConnectionParameters.SOAP_ADDRESS[ConnectionParameters.SET_URL_CONNECTION]);
 
             //Si recibimos la orden de ubicar o de leer etiquetas.
             if(setShipment){
@@ -204,9 +204,11 @@ public class ShipmentActivity extends AppCompatActivity {
                 methodName = "SetShipmentData";
                 parameterName = "dataToInsert";
 
+                //Mapeamos el registro a insertar
                 createShipment = new ShipmentInputModel();
                 createShipment.OriginId = finalOrigin.OriginId;
                 createShipment.EntryUser = userLogged.Login;
+                createShipment.TrolleyCode = finalTrolley.TrolleyCode;
                 for(MaterialOutputModel m : lstMaterial){
                     //Serializamos los materiales.
                     MaterialInputModel serializableMaterial = new MaterialInputModel();
@@ -218,7 +220,7 @@ public class ShipmentActivity extends AppCompatActivity {
 
                 //Según el código hay que usar una clase de web service o otra;
                 client.configure(new Configurator(
-                        ConnectionParameters.namespace, ConnectionParameters.contractName, methodName));
+                        ConnectionParameters.NAME_SPACE, ConnectionParameters.CONTRACT_NAME, methodName));
 
                 client.addParameter(parameterName, createShipment);
                 resultModel = new ShipmentOutputModel();
@@ -234,7 +236,7 @@ public class ShipmentActivity extends AppCompatActivity {
 
                     //Según el código hay que usar una clase de web service o otra;
                     client.configure(new Configurator(
-                            ConnectionParameters.namespace, ConnectionParameters.contractName, methodName));
+                            ConnectionParameters.NAME_SPACE, ConnectionParameters.CONTRACT_NAME, methodName));
 
                     client.addParameter(parameterName, originInputModel);
                     resultModel = new OriginOutputModel();
@@ -248,7 +250,7 @@ public class ShipmentActivity extends AppCompatActivity {
                         trolleyInputModel.TrolleyCode = readCode;
 
                         client.configure(new Configurator(
-                                ConnectionParameters.namespace,ConnectionParameters.contractName, methodName));
+                                ConnectionParameters.NAME_SPACE,ConnectionParameters.CONTRACT_NAME, methodName));
                         client.addParameter(parameterName, trolleyInputModel);
                         resultModel = new TrolleyOutputModel();
                     }else{
@@ -259,7 +261,7 @@ public class ShipmentActivity extends AppCompatActivity {
                         materialInputModel.MaterialCode = readCode;
 
                         client.configure(new Configurator(
-                                ConnectionParameters.namespace, ConnectionParameters.contractName, methodName));
+                                ConnectionParameters.NAME_SPACE, ConnectionParameters.CONTRACT_NAME, methodName));
                         client.addParameter(parameterName, materialInputModel);
 
                         resultModel = new MaterialOutputModel();
@@ -346,16 +348,15 @@ public class ShipmentActivity extends AppCompatActivity {
         String originName = finalOrigin.OriginDescription;
         String total = String.valueOf(createShipment.MatList.size());
         //Formato que hay que obtener idEs, origenId, (Pendiente añadir propiedad para guardar el dato en el insert)carroSeleccionado
-        String barcode = resultShipment.ESId+"-"+resultShipment.OriginId+"-";
+        String barcode = resultShipment.ESId+"-"+resultShipment.OriginId+"-"+ resultShipment.TrolleyCode;
         String label =  "^XA"+
                         "^LH0,0"+"\r\n"+
-                        "^FO50,20" + "\r\n" + "^BCN,90,Y,N,N" + "\r\n" + "^FD002002E2021101500001^FS" + "\r\n" +
-                        "^FO50,170" + "\r\n" + "^A0,N,40,40" + "\r\n" + "^FDQuirofano01^FS" + "\r\n" +
-                        "^FO50,220" + "\r\n" + "^A0,N,40,40" + "\r\n" + "^FDCAN: 3^FS" + "\r\n" +
+                        "^FO50,20" + "\r\n" + "^BCN,90,Y,N,N" + "\r\n" + "^FD" + barcode + "^FS" + "\r\n" +
+                        "^FO50,170" + "\r\n" + "^A0,N,40,40" + "\r\n" + "^FD"+ originName +"^FS" + "\r\n" +
+                        "^FO50,220" + "\r\n" + "^A0,N,40,40" + "\r\n" + "^FDCAN: " + total + "^FS" + "\r\n" +
                         "^XZ";
         return label.getBytes();
     }
-
 
     private void cleanControlsViews() {
         lstMaterial.clear();

@@ -113,9 +113,9 @@ public class MainActivity extends AppCompatActivity {
             //Desplegar el servicio:
             //Usamos la librería Fireexit para la gestión de la serialización.
             FireExitClient client = new FireExitClient(
-                    ConnectionParameters.soapAddress[ConnectionParameters.setUrlConnection]);
+                    ConnectionParameters.SOAP_ADDRESS[ConnectionParameters.SET_URL_CONNECTION]);
             client.configure(new Configurator(
-                    ConnectionParameters.namespace, ConnectionParameters.contractName, "GetUser"));
+                    ConnectionParameters.NAME_SPACE, ConnectionParameters.CONTRACT_NAME, "GetUser"));
 
             client.addParameter("signature", userInputModelData);
 

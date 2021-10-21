@@ -199,12 +199,12 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
             operationRoomInputModel.UserLogged = userLogged.Login;
 
             FireExitClient client = new FireExitClient(
-                    ConnectionParameters.soapAddress[ConnectionParameters.setUrlConnection]);
+                    ConnectionParameters.SOAP_ADDRESS[ConnectionParameters.SET_URL_CONNECTION]);
             methodName = "GetOperationRoomList";
             parameterName = "userlogged";
 
             client.configure(new Configurator(
-                    ConnectionParameters.namespace, ConnectionParameters.contractName, methodName));
+                    ConnectionParameters.NAME_SPACE, ConnectionParameters.CONTRACT_NAME, methodName));
             client.addParameter(parameterName,operationRoomInputModel );
             resultModel = new OperationRoomOutputModel();
             try {

@@ -5,5 +5,6 @@ public class ShipmentOutputModel {
     public int OriginId;
     public String EntryUser;
     public boolean IsCentral;
+    public String TrolleyCode;
     public boolean Result;
 }
