@@ -80,7 +80,7 @@
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="330dp"
+        android:layout_height="346dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomSPNavigationMenu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
