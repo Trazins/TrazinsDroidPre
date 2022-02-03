@@ -7,9 +7,9 @@ public class ConnectionParameters {
 
     //Listado de url de coenxión para los web service
     public static final String [] SOAP_ADDRESS = new String[]{
-            "http://188.165.209.37:8009/Android/TrazinsDroidService.svc",
+            "http://188.165.209.37:8036/Android/TrazinsDroidService.svc", //Pruebas
             "http://10.50.0.170:8006/Android/TrazinsDroidService.svc",
-            "http://188.165.209.37:8026/Android/TrazinsDroidService.svc",
+            "http://188.165.209.37:8026/Android/TrazinsDroidService.svc", //Huesca
     };
 
     //Datos de conexión del webservice
