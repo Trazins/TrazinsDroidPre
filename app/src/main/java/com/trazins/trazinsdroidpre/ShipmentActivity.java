@@ -35,6 +35,7 @@ import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 import com.trazins.trazinsdroidpre.scanner.DataWedgeInterface;
 import com.trazins.trazinsdroidpre.utils.ConnectionParameters;
 import com.trazins.trazinsdroidpre.utils.SettingsHelper;
+import com.trazins.trazinsdroidpre.utils.ThreadSleeper;
 import com.zebra.android.comm.ZebraPrinterConnection;
 import com.zebra.sdk.comm.Connection;
 import com.zebra.sdk.comm.ConnectionException;
@@ -154,6 +155,7 @@ public class ShipmentActivity extends AppCompatActivity {
             @Override
             public void run() {
                 setLocate();
+                ThreadSleeper.sleep(2000);
                 Looper.prepare();
                 createPrinterConnection();
                 Looper.loop();
@@ -378,7 +380,17 @@ public class ShipmentActivity extends AppCompatActivity {
 
     private void createPrinterConnection() {
         //Recuperamos los datos de la impresora guardados en el archivo de preferencias
-        int port = Integer.parseInt(SettingsHelper.getPort(this));
+        String portToParse = SettingsHelper.getPort(this);
+        if(portToParse.equals("")){
+            Toast.makeText(getBaseContext(), R.string.printing_error,Toast.LENGTH_LONG).show();
+            return;
+        }
+        int port = Integer.parseInt(portToParse);
+        if(SettingsHelper.getIp(this).equals("")){
+            Toast.makeText(getBaseContext(), R.string.printing_error,Toast.LENGTH_LONG).show();
+            return;
+        }
+
         printerConnection = new TcpConnection(
                 SettingsHelper.getIp(this), port);
         try {
@@ -404,6 +416,9 @@ public class ShipmentActivity extends AppCompatActivity {
 
     private void createShipmentLabel(ShipmentOutputModel resultShipment) {
         try{
+            if(printerConnection == null){
+                return;
+            }
             if(printerConnection.isConnected()){
                 byte[] label = createLabel(resultShipment);
                 printerConnection.write(label);

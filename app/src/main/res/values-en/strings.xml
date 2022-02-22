@@ -88,6 +88,7 @@
     <string name="printer_language">Printer language </string>
     <string name="unknown_printer_language">Unknown Printer Language</string>
     <string name="sending_data">Sending data</string>
+    <string name="printing_error">Printing error, please configure printer</string>
 
 
 </resources>

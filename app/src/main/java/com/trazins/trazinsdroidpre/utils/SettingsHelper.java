@@ -18,6 +18,7 @@ public class SettingsHelper {
     //Método que devuelve la ip desde el archivo de preferencias
     public static String getIp(Context context){
         SharedPreferences settings = context.getSharedPreferences(PREFS_NAME,0);
+
         return settings.getString(tcpIpAddressKey,"");
     }
 
