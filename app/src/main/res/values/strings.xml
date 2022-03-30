@@ -22,6 +22,7 @@
     <string name="aut_result">Pendiente autenticación</string>
     <string name="correct_user">Autenticación correcta</string>
     <string name="incorrect_user"><font fgcolor='#FFFF3B30'>Usuario incorrecto</font></string>
+    <string name="app_version">Versión 1.01</string>
 
     //Locate Activity
     <string name="location_title">Ubicación</string>
@@ -45,6 +46,7 @@
     <string name="send_print_label">Enviar e imprimir</string>
     <string name="trolley">Carro:</string>
     <string name="trolley_hint">Lea la etiqueta del carro</string>
+    <string name="located_trolley">El carro seleccionado no se puede usar porque está ubicado</string>
 
     //Surgical Process Activity
     <string name="surgical_information_title">Datos del proceso quirúrgico</string>
@@ -89,6 +91,15 @@
     <string name="unknown_printer_language">Lenguaje de impresora desconocido</string>
     <string name="sending_data">Enviando datos</string>
     <string name="printing_error">Error de impresión, por favor, revise la configuración de impresora</string>
+
+    //Show ErrorLog Activity
+    <string name="user">Usuario:</string>
+    <string name="password">Contraseña:</string>
+    <string name="user_hint">Introduzca usuario</string>
+    <string name="password_hint">Introduzca contraseña</string>
+    <string name="login">Activar</string>
+    <string name="show_error_log">Ver log de errores</string>
+    <string name="exit">Salir</string>
 
 
 </resources>

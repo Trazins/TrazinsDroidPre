@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ import com.trazins.trazinsdroidpre.models.usermodel.UserInputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 import com.trazins.trazinsdroidpre.scanner.DataWedgeInterface;
 import com.trazins.trazinsdroidpre.utils.ConnectionParameters;
+import com.trazins.trazinsdroidpre.utils.ErrorLogWriter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView editTextAutResult;
     Button buttonAutResult;
+    ImageButton buttonShowErrorLog;
     ImageView imageViewAutResult;
     Handler handler;
 
@@ -56,14 +59,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         handler = new Handler(Looper.getMainLooper());
+
         editTextAutResult = findViewById(R.id.editAutResult);
         buttonAutResult = findViewById(R.id.buttonAutResult);
         imageViewAutResult= findViewById(R.id.imageViewUser);
+        buttonShowErrorLog = findViewById(R.id.buttonShowErrorLog);
 
         buttonAutResult.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 editTextAutResult.setVisibility(View.VISIBLE);
+            }
+        });
+
+        buttonShowErrorLog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 
@@ -81,11 +93,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         filter.addAction(DataWedgeInterface.ACTION_RESULT_DATAWEDGE);
         filter.addCategory(Intent.CATEGORY_DEFAULT);
         filter.addAction(DataWedgeInterface.ACTIVITY_INTENT_FILTER_ACTION);
 
+        createProfileForeachActivity();
+    }
+
+    private void createProfileForeachActivity() {
         // Create Profile 1 for MainActivity:
         String Code128Value = "true";
         String EAN13Value = "false";
@@ -105,8 +120,8 @@ public class MainActivity extends AppCompatActivity {
         Code128Value = "true";
         EAN13Value = "false";
         CreateProfile(PROFILE4, Code128Value, EAN13Value);
-
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -161,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
                 userOutputModelLogged = client.call(userOutputModelLogged);
             } catch (Exception e) {
                 e.printStackTrace();
+                ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext());
                 return e.getMessage();
             }
             return userOutputModelLogged;
@@ -219,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     displayScanResult(intent, "via Broadcast");
                 }catch (Exception e){
-
+                    ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext());
                 }
             }
         }

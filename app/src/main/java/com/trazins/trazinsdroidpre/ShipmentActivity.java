@@ -34,6 +34,7 @@ import com.trazins.trazinsdroidpre.models.trolleymodel.TrolleyOutputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 import com.trazins.trazinsdroidpre.scanner.DataWedgeInterface;
 import com.trazins.trazinsdroidpre.utils.ConnectionParameters;
+import com.trazins.trazinsdroidpre.utils.ErrorLogWriter;
 import com.trazins.trazinsdroidpre.utils.SettingsHelper;
 import com.trazins.trazinsdroidpre.utils.ThreadSleeper;
 import com.zebra.android.comm.ZebraPrinterConnection;
@@ -307,6 +308,7 @@ public class ShipmentActivity extends AppCompatActivity {
                 resultModel = client.call(resultModel);
             } catch (Exception e) {
                 e.printStackTrace();
+                ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext());
             }
             return resultModel;
         }
@@ -343,8 +345,14 @@ public class ShipmentActivity extends AppCompatActivity {
                     break;
 
                 case"TrolleyOutputModel":
-                    textViewTrolleyName.setText(((TrolleyOutputModel)modelResult).TrolleyName);
-                    finalTrolley = (TrolleyOutputModel)modelResult;
+
+                    if(((TrolleyOutputModel) modelResult).LocateId!= null){
+                        Toast.makeText(getBaseContext(),R.string.located_trolley, Toast.LENGTH_LONG).show();
+                    }else {
+
+                        finalTrolley = (TrolleyOutputModel)modelResult;
+                        textViewTrolleyName.setText(((TrolleyOutputModel)modelResult).TrolleyName);
+                    }
                     break;
 
                 default:

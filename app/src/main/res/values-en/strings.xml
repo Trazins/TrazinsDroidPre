@@ -21,7 +21,7 @@
     <string name="aut_result">Authentication pending</string>
     <string name="correct_user">Succesfully autentication</string>
     <string name="incorrect_user"><font fgcolor='#FFFF3B30'>Incorrect user</font></string>
-
+    <string name="app_version">Version 1.01</string>
 
     //Locate Activity
     <string name="location_title">Location</string>
@@ -45,6 +45,7 @@
     <string name="send_print_label">Send and print label</string>
     <string name="trolley">Trolley:</string>
     <string name="trolley_hint">Scan trolley label</string>
+    <string name="located_trolley">Selected trolley cannot be used because it is located</string>
 
     //Post Counter Surgical Activity
     <string name="surgical_information_title">Surgical process information</string>
@@ -90,5 +91,13 @@
     <string name="sending_data">Sending data</string>
     <string name="printing_error">Printing error, please configure printer</string>
 
+    //Show ErrorLog Activity
+    <string name="user">User:</string>
+    <string name="password">Password:</string>
+    <string name="user_hint">Insert user login</string>
+    <string name="password_hint">Insert password</string>
+    <string name="login">Login</string>
+    <string name="show_error_log">Show error log</string>
+    <string name="exit">Exit</string>
 
 </resources>
