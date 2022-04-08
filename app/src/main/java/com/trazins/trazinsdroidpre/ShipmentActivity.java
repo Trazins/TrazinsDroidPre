@@ -3,12 +3,10 @@ package com.trazins.trazinsdroidpre;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.AsyncQueryHandler;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -34,14 +32,13 @@ import com.trazins.trazinsdroidpre.models.trolleymodel.TrolleyOutputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 import com.trazins.trazinsdroidpre.scanner.DataWedgeInterface;
 import com.trazins.trazinsdroidpre.utils.ConnectionParameters;
+import com.trazins.trazinsdroidpre.utils.CustomAdapter;
 import com.trazins.trazinsdroidpre.utils.ErrorLogWriter;
 import com.trazins.trazinsdroidpre.utils.SettingsHelper;
 import com.trazins.trazinsdroidpre.utils.ThreadSleeper;
-import com.zebra.android.comm.ZebraPrinterConnection;
 import com.zebra.sdk.comm.Connection;
 import com.zebra.sdk.comm.ConnectionException;
 import com.zebra.sdk.comm.TcpConnection;
-import com.zebra.sdk.printer.ZebraPrinter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -49,7 +46,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -57,6 +53,7 @@ public class ShipmentActivity extends AppCompatActivity {
 
     //region Variables
 
+    String activityName;
     //Lista que muestra los resultados por pantalla
     ListView ListViewMaterials;
 
@@ -105,6 +102,8 @@ public class ShipmentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shipment);
         handler = new Handler(Looper.getMainLooper());
+
+        this.activityName= this.getClass().getSimpleName();
 
         ListViewMaterials = findViewById(R.id.listViewShipmentMaterials);
         ListViewMaterials.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -175,6 +174,7 @@ public class ShipmentActivity extends AppCompatActivity {
             new ShipmentMyAsyncClass().execute();
 
         }catch (Exception e){
+            ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
             Toast.makeText(getBaseContext(),"Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
@@ -308,7 +308,7 @@ public class ShipmentActivity extends AppCompatActivity {
                 resultModel = client.call(resultModel);
             } catch (Exception e) {
                 e.printStackTrace();
-                ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext());
+                ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
             }
             return resultModel;
         }
@@ -382,6 +382,7 @@ public class ShipmentActivity extends AppCompatActivity {
 
         }catch(Exception e){
             e.printStackTrace();
+            ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
             Toast.makeText(this, e.getMessage(),Toast.LENGTH_LONG).show();
         }
     }
@@ -405,6 +406,7 @@ public class ShipmentActivity extends AppCompatActivity {
             printerConnection.open();
         } catch (ConnectionException e) {
             e.printStackTrace();
+            ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
             Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_LONG).show();
         }
     }
@@ -433,6 +435,7 @@ public class ShipmentActivity extends AppCompatActivity {
             }
         }catch(ConnectionException e){
             e.printStackTrace();
+            ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
             Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_LONG).show();
         }
     }
@@ -470,6 +473,7 @@ public class ShipmentActivity extends AppCompatActivity {
             ListViewMaterials.setSelector(R.color.transparent);
 
         }catch(Exception e){
+            ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
             Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_LONG).show();
         }
     }
@@ -493,7 +497,7 @@ public class ShipmentActivity extends AppCompatActivity {
                 try {
                     displayScanResult(intent, "via Broadcast");
                 }catch (Exception e){
-
+                    ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
                 }
             }
         }
@@ -542,6 +546,7 @@ public class ShipmentActivity extends AppCompatActivity {
 
 
         }catch (Exception e){
+            ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
             Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_LONG).show();
         }
         return lstMaterial;
@@ -566,6 +571,7 @@ public class ShipmentActivity extends AppCompatActivity {
             }
 
         } catch (ConnectionException e) {
+            ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
             Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_LONG).show();
         }
 

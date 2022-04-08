@@ -1,4 +1,4 @@
-package com.trazins.trazinsdroidpre;
+package com.trazins.trazinsdroidpre.surgicalprocessactivities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,12 +10,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Parcelable;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -27,11 +25,13 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.threepin.fireexit_wcf.Configurator;
 import com.threepin.fireexit_wcf.FireExitClient;
+import com.trazins.trazinsdroidpre.R;
 import com.trazins.trazinsdroidpre.models.operationroom.OperationRoomInputModel;
 import com.trazins.trazinsdroidpre.models.operationroom.OperationRoomOutputModel;
 import com.trazins.trazinsdroidpre.models.surgicalprocessmodel.SurgicalProcessOutputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 import com.trazins.trazinsdroidpre.utils.ConnectionParameters;
+import com.trazins.trazinsdroidpre.utils.ErrorLogWriter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -50,16 +50,22 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
     //Usuario logeado
     UserOutputModel userLogged;
 
+    String activityName;
+
     //Proceso Quirúrgico
     SurgicalProcessOutputModel surgicalProcess = new SurgicalProcessOutputModel();
 
     Handler handler;
     ArrayAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_surgical_process_previous_data);
+
         handler = new Handler(Looper.getMainLooper());
+
+        this.activityName= this.getClass().getSimpleName();
 
         editTextInterventionCode = findViewById(R.id.editTextInterventionCode);
         editTextRecordNumber = findViewById(R.id.editTextRecordNumber);
@@ -185,6 +191,7 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
         editTextInterventionDate.setText("");
         spinnerOperationRoom.setSelection(0);
     }
+
     //Solo realizamos la consulta para obtener los quirófanos de BD
     class OperationRoomAsyncClass extends AsyncTask{
 
@@ -211,6 +218,7 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
                 resultModel = client.call(resultModel);
             } catch (Exception e) {
                 e.printStackTrace();
+                ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
             }
             return resultModel;
         }
@@ -240,6 +248,7 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
                 spinnerOperationRoom.setAdapter(adapter);
 
             }catch(Exception e){
+                ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
                 Toast.makeText(getBaseContext(), e.getMessage(),Toast.LENGTH_LONG).show();
             }
         }

@@ -7,7 +7,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,11 +29,11 @@ import com.trazins.trazinsdroidpre.models.storagemodel.StorageInputModel;
 import com.trazins.trazinsdroidpre.models.storagemodel.StorageOutputModel;
 import com.trazins.trazinsdroidpre.models.trolleymodel.TrolleyInputModel;
 import com.trazins.trazinsdroidpre.models.trolleymodel.TrolleyOutputModel;
-import com.trazins.trazinsdroidpre.models.usermodel.UserInputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 import com.trazins.trazinsdroidpre.scanner.DataWedgeInterface;
-import com.trazins.trazinsdroidpre.scanner.MyReceiver;
 import com.trazins.trazinsdroidpre.utils.ConnectionParameters;
+import com.trazins.trazinsdroidpre.utils.CustomAdapter;
+import com.trazins.trazinsdroidpre.utils.ErrorLogWriter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -47,6 +46,8 @@ public class LocateActivity extends AppCompatActivity {
 
     //Lista que muestra los resultados por pantalla
     ListView ListViewMaterials;
+
+    String activityName;
 
     //Lista que gestiona los materiales internamente.
     List<MaterialOutputModel> lstMaterial= new ArrayList<>();
@@ -82,6 +83,8 @@ public class LocateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_locate);
 
         handler = new Handler(Looper.getMainLooper());
+
+        this.activityName= this.getClass().getSimpleName();
 
         ListViewMaterials = findViewById(R.id.listViewMaterials);
         ListViewMaterials.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -134,6 +137,7 @@ public class LocateActivity extends AppCompatActivity {
             new LocateMyAsyncClass().execute();
 
         }catch (Exception e){
+            ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
             Toast.makeText(getBaseContext(),"Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
@@ -179,6 +183,7 @@ public class LocateActivity extends AppCompatActivity {
         protected Object doInBackground(Object[] objects) {
             String methodName;
             String parameterName;
+
             //Variable para almacenar el resultado de la petición
             Object resultModel = null;
 
@@ -189,7 +194,7 @@ public class LocateActivity extends AppCompatActivity {
 
             //Si recibimos la orden de ubicar o de leer etiquetas.
             if(setLocation){
-                //Usamos esta variable indicar que vamos a insertar los registros.
+                //Usamos esta variable para indicar que vamos a insertar los registros.
                 setLocation = false;
                 methodName = "SetStorageData";
                 parameterName = "dataToInsert";
@@ -267,6 +272,7 @@ public class LocateActivity extends AppCompatActivity {
                 resultModel = client.call(resultModel);
             } catch (Exception e) {
                 e.printStackTrace();
+                ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
             }
             return resultModel;
         }
@@ -352,6 +358,7 @@ public class LocateActivity extends AppCompatActivity {
             ListViewMaterials.setSelector(R.color.transparent);
 
         }catch(Exception e){
+            ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
             Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_LONG).show();
         }
     }
@@ -375,7 +382,7 @@ public class LocateActivity extends AppCompatActivity {
                 try {
                     displayScanResult(intent, "via Broadcast");
                 }catch (Exception e){
-
+                    ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
                 }
             }
         }
@@ -424,6 +431,7 @@ public class LocateActivity extends AppCompatActivity {
 
 
         }catch (Exception e){
+            ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
             Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_LONG).show();
         }
         return lstMaterial;

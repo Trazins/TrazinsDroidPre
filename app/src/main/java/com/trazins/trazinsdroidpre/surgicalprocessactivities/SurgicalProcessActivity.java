@@ -1,4 +1,4 @@
-package com.trazins.trazinsdroidpre;
+package com.trazins.trazinsdroidpre.surgicalprocessactivities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,7 +7,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,26 +21,23 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.threepin.fireexit_wcf.Configurator;
 import com.threepin.fireexit_wcf.FireExitClient;
-import com.trazins.trazinsdroidpre.models.locatemodel.LocateInputModel;
-import com.trazins.trazinsdroidpre.models.locatemodel.LocateOutputModel;
+import com.trazins.trazinsdroidpre.utils.CustomAdapter;
+import com.trazins.trazinsdroidpre.MaterialPostCounterActivity;
+import com.trazins.trazinsdroidpre.R;
 import com.trazins.trazinsdroidpre.models.materialmodel.MaterialInputModel;
 import com.trazins.trazinsdroidpre.models.materialmodel.MaterialOutputModel;
-import com.trazins.trazinsdroidpre.models.storagemodel.StorageInputModel;
-import com.trazins.trazinsdroidpre.models.storagemodel.StorageOutputModel;
 import com.trazins.trazinsdroidpre.models.surgicalprocessmodel.SurgicalProcessInputModel;
 import com.trazins.trazinsdroidpre.models.surgicalprocessmodel.SurgicalProcessOutputModel;
-import com.trazins.trazinsdroidpre.models.trolleymodel.TrolleyInputModel;
-import com.trazins.trazinsdroidpre.models.trolleymodel.TrolleyOutputModel;
-import com.trazins.trazinsdroidpre.models.usermodel.UserInputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 import com.trazins.trazinsdroidpre.scanner.DataWedgeInterface;
-import com.trazins.trazinsdroidpre.scanner.MyReceiver;
 import com.trazins.trazinsdroidpre.utils.ConnectionParameters;
+import com.trazins.trazinsdroidpre.utils.ErrorLogWriter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +48,8 @@ public class SurgicalProcessActivity extends AppCompatActivity {
     //Usuario logeado
     UserOutputModel userLogged;
     SurgicalProcessOutputModel surgicalProcess;
+
+    String activityName;
 
     boolean result = false;
 
@@ -72,6 +70,8 @@ public class SurgicalProcessActivity extends AppCompatActivity {
         setContentView(R.layout.activity_surgical_process);
 
         handler = new Handler(Looper.getMainLooper());
+
+        this.activityName= this.getClass().getSimpleName();
 
         ListViewMaterials = findViewById(R.id.listViewSPMaterials);
         ListViewMaterials.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -139,6 +139,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
             new SurgicalProcessMyAsyncClass().execute().toString();
 
         }catch(Exception e){
+            ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
             Toast.makeText(getBaseContext(), e.getMessage(),Toast.LENGTH_LONG).show();
         }
     }
@@ -152,6 +153,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
             lstMaterial.remove(material);
             return lstMaterial;
         }catch(Exception e){
+            ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
             Toast.makeText(getBaseContext(), e.getMessage(),Toast.LENGTH_LONG).show();
             return null;
         }
@@ -247,6 +249,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
                 //Realizamos la llamada al web service para obtener los datos
                 resultModel = client.call(resultModel);
             } catch (Exception e) {
+                ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
                 e.printStackTrace();
             }
             return resultModel;
@@ -304,6 +307,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
             ListViewMaterials.setSelector(R.color.transparent);
 
         }catch(Exception e){
+            ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
             Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_LONG).show();
         }
     }
@@ -327,7 +331,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
                 try {
                     displayScanResult(intent, "via Broadcast");
                 }catch (Exception e){
-
+                    ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
                 }
             }
         }
@@ -376,6 +380,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
 
 
         }catch (Exception e){
+            ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
             Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_LONG).show();
         }
         return lstMaterial;

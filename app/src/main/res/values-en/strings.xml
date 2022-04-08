@@ -47,7 +47,7 @@
     <string name="trolley_hint">Scan trolley label</string>
     <string name="located_trolley">Selected trolley cannot be used because it is located</string>
 
-    //Post Counter Surgical Activity
+    //Surgical Process Activities
     <string name="surgical_information_title">Surgical process information</string>
     <string name="surgical_process_title">Surgical process</string>
     <string name="intervention_code">Intervention code:</string>
@@ -55,6 +55,8 @@
     <string name="materials_surgical_process_title">Materials used</string>
     <string name="start_post_counter">Start post-counter</string>
     <string name="add_surgical_process">Add surgical process</string>
+    <string name="new_surgical_process">New</string>
+    <string name="edit_surgical_process">Edit</string>
     <string name="operating_room">Operating room:</string>
     <string name="correct_surgical_process">Surgical process created</string>
     <string name="intervention_date">Intervention date:</string>
@@ -98,6 +100,7 @@
     <string name="password_hint">Insert password</string>
     <string name="login">Login</string>
     <string name="show_error_log">Show error log</string>
+    <string name="show_error_log_title">Errors Log</string>
     <string name="exit">Exit</string>
 
 </resources>

@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
+import com.trazins.trazinsdroidpre.surgicalprocessactivities.SelectSurgicalProcessActivity;
+import com.trazins.trazinsdroidpre.surgicalprocessactivities.SurgicalProcessActivity;
+import com.trazins.trazinsdroidpre.surgicalprocessactivities.SurgicalProcessPreviousDataActivity;
 
 public class SelectionActivity extends AppCompatActivity {
 
@@ -47,7 +49,7 @@ public class SelectionActivity extends AppCompatActivity {
                 i = new Intent(getApplicationContext(), ShipmentActivity.class);
                 break;
             case R.id.buttonSurgicalProcess:
-                i = new Intent(getApplicationContext(), SurgicalProcessPreviousDataActivity.class);
+                i = new Intent(getApplicationContext(), SelectSurgicalProcessActivity.class);
                 break;
             default:
                 break;

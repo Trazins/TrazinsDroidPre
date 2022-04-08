@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/select_SP_go_back"
+        android:title="@string/go_back"
+        android:icon="@drawable/ic_arrow_back"
+        />
+    <item
+        android:id="@+id/edit_SP"
+        android:title="@string/edit_surgical_process"
+        android:icon="@drawable/ic_edit_surgical_process"
+        />
+    <item
+        android:id="@+id/new_SP"
+        android:title="@string/new_surgical_process"
+        android:icon="@drawable/ic_add_surgical_process"
+        />
+</menu>

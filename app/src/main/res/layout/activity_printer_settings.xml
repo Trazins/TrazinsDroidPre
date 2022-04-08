@@ -21,8 +21,7 @@
             android:layout_height="wrap_content"
             android:text="@string/ip_address"
             android:layout_weight="1"
-            android:inputType="number"
-            android:textSize="20dp">
+            android:textSize="20sp">
         </TextView>
         <EditText
             android:id="@+id/editTextIpAddress"
@@ -46,7 +45,7 @@
             android:layout_height="wrap_content"
             android:text="@string/port_number"
             android:layout_weight="1"
-            android:textSize="20dp">
+            android:textSize="20sp">
         </TextView>
         <EditText
             android:id="@+id/editTextPort"
@@ -69,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/printer_test_button"
-            android:backgroundTint="@color/buttonTrazins"
+            android:background="@drawable/button_rounded_corners"
             android:textColor="@color/white">
 
         </Button>

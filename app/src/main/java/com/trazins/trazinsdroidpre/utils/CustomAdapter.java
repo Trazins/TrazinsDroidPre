@@ -1,4 +1,4 @@
-package com.trazins.trazinsdroidpre;
+package com.trazins.trazinsdroidpre.utils;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.trazins.trazinsdroidpre.R;
 import com.trazins.trazinsdroidpre.models.materialmodel.MaterialOutputModel;
 
 import java.util.List;

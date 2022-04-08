@@ -12,10 +12,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,13 +23,13 @@ import com.threepin.fireexit_wcf.FireExitClient;
 import com.trazins.trazinsdroidpre.models.usermodel.UserInputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 import com.trazins.trazinsdroidpre.scanner.DataWedgeInterface;
+import com.trazins.trazinsdroidpre.surgicalprocessactivities.SurgicalProcessActivity;
 import com.trazins.trazinsdroidpre.utils.ConnectionParameters;
 import com.trazins.trazinsdroidpre.utils.ErrorLogWriter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -41,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String PROFILE2 = "TrazinsMultiActivity_Profile2";
     private static final String PROFILE3 = "TrazinsMultiActivity_Profile3";
     private static final String PROFILE4 = "TrazinsMultiActivity_Profile4";
+
+    private String activityName;
 
     TextView editTextAutResult;
     Button buttonAutResult;
@@ -60,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
 
         handler = new Handler(Looper.getMainLooper());
 
+        this.activityName= this.getClass().getSimpleName();
+
         editTextAutResult = findViewById(R.id.editAutResult);
         buttonAutResult = findViewById(R.id.buttonAutResult);
         imageViewAutResult= findViewById(R.id.imageViewUser);
@@ -75,7 +76,8 @@ public class MainActivity extends AppCompatActivity {
         buttonShowErrorLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent i = new Intent(getApplicationContext(),ShowErrorLogActivity.class);
+                startActivity(i);
             }
         });
 
@@ -176,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
                 userOutputModelLogged = client.call(userOutputModelLogged);
             } catch (Exception e) {
                 e.printStackTrace();
-                ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext());
+                ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(), activityName);
                 return e.getMessage();
             }
             return userOutputModelLogged;
@@ -235,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     displayScanResult(intent, "via Broadcast");
                 }catch (Exception e){
-                    ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext());
+                    ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(), activityName);
                 }
             }
         }

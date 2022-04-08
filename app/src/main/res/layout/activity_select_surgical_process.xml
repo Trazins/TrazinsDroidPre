@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".surgicalprocessactivities.SelectSurgicalProcessActivity">
+
+    <LinearLayout
+        android:id="@+id/MainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textViewSPSelectUserName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/user"/>
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/medium_grey"
+            android:contentDescription="@string/global_image_description"
+            android:paddingLeft="5dp"
+            android:paddingTop="1dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="0dp"
+            android:scaleType="fitXY"
+            android:src="@android:drawable/divider_horizontal_dark" />
+
+        <!-- Size to TC21 346 dp -->
+        <!-- Size to TC20 248 dp -->
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toTopOf="@+id/bottomShipmentNavigationMenu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/MainLayout">
+
+            <ListView
+                android:id="@+id/listViewSelectSurgicalProcess"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:choiceMode="singleChoice" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomSurgicalSelectNavigationMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/medium_grey"
+        app:itemIconTint="@color/buttonTrazins"
+        app:itemTextColor="@color/buttonTrazins"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:menu="@menu/menu_select_surgical_process">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

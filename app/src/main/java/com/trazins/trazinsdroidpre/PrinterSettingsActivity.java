@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.trazins.trazinsdroidpre.utils.ErrorLogWriter;
 import com.trazins.trazinsdroidpre.utils.SettingsHelper;
 import com.trazins.trazinsdroidpre.utils.ThreadSleeper;
 import com.zebra.sdk.comm.BluetoothConnection;
@@ -28,6 +29,7 @@ public class PrinterSettingsActivity extends AppCompatActivity {
     TextView textViewTestInfo;
     Button buttonTest;
 
+    String activityName;
     //Impresora Zebra conectada a la red
     private ZebraPrinter printer;
 
@@ -38,6 +40,8 @@ public class PrinterSettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_printer_settings);
+
+        this.activityName= this.getClass().getSimpleName();
 
         editTextIp = findViewById(R.id.editTextIpAddress);
         editTextIp.setText(SettingsHelper.getIp(this));
@@ -108,6 +112,7 @@ public class PrinterSettingsActivity extends AppCompatActivity {
             SettingsHelper.savePort(getPortNumber(),this);
         }catch (NumberFormatException e){
             e.printStackTrace();
+            ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
             setStatus(getText(R.string.invalid_data).toString(), Color.RED );
             return null;
         }
@@ -119,6 +124,7 @@ public class PrinterSettingsActivity extends AppCompatActivity {
             ThreadSleeper.sleep(1000);
         }catch (ConnectionException e){
             e.printStackTrace();
+            ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
             setStatus(getText(R.string.connection_error).toString(),Color.RED);
             ThreadSleeper.sleep(1000);
             disconnect();
@@ -133,12 +139,14 @@ public class PrinterSettingsActivity extends AppCompatActivity {
                 setStatus(getText(R.string.printer_language).toString() + pl, Color.BLUE);
             } catch (ConnectionException e) {
                 e.printStackTrace();
+                ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
                 setStatus(getText(R.string.unknown_printer_language).toString(), Color.RED);
                 printer = null;
                 ThreadSleeper.sleep(1000);
                 disconnect();
             } catch (ZebraPrinterLanguageUnknownException e) {
                 e.printStackTrace();
+                ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
                 setStatus(getText(R.string.unknown_printer_language).toString(), Color.RED);
                 printer = null;
                 ThreadSleeper.sleep(1000);
@@ -157,6 +165,7 @@ public class PrinterSettingsActivity extends AppCompatActivity {
 
         }catch (ConnectionException e) {
             e.printStackTrace();
+            ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
             Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
         finally{
@@ -188,6 +197,7 @@ public class PrinterSettingsActivity extends AppCompatActivity {
             setStatus(getText(R.string.not_connected).toString(),Color.RED);
         } catch (ConnectionException e) {
             e.printStackTrace();
+            ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
             setStatus(getText(R.string.connection_error).toString(),Color.RED);
         }
         finally {

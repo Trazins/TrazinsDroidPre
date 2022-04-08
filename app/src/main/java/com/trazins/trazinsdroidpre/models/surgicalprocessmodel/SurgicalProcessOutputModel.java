@@ -1,9 +1,8 @@
 package com.trazins.trazinsdroidpre.models.surgicalprocessmodel;
 
-import android.text.Editable;
-
 import java.io.Serializable;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SurgicalProcessOutputModel implements Serializable {
     public int HisId;
@@ -12,5 +11,17 @@ public class SurgicalProcessOutputModel implements Serializable {
     public String RecordNumber;
     public String InterventionDate;
     public String EntryUser;
+    public String OperationRoomName;
+    public List<SurgicalProcessOutputModel> SurgicalProcessList = new ArrayList<SurgicalProcessOutputModel>();
     public boolean Result;
+
+    public SurgicalProcessOutputModel(){}
+
+    public SurgicalProcessOutputModel(
+            String operationRoomName, String interventionCode, String recordNumber, String interventionDate ){
+        this.OperationRoomName = operationRoomName;
+        this.InterventionCode = interventionCode;
+        this.RecordNumber = recordNumber;
+        this.InterventionDate = interventionDate;
+    }
 }
