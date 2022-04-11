@@ -26,6 +26,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.threepin.fireexit_wcf.Configurator;
 import com.threepin.fireexit_wcf.FireExitClient;
 import com.trazins.trazinsdroidpre.R;
+import com.trazins.trazinsdroidpre.SurgicalProcessActivity;
 import com.trazins.trazinsdroidpre.models.operationroom.OperationRoomInputModel;
 import com.trazins.trazinsdroidpre.models.operationroom.OperationRoomOutputModel;
 import com.trazins.trazinsdroidpre.models.surgicalprocessmodel.SurgicalProcessOutputModel;

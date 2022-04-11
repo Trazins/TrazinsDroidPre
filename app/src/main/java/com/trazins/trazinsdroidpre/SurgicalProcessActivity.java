@@ -1,4 +1,4 @@
-package com.trazins.trazinsdroidpre.surgicalprocessactivities;
+package com.trazins.trazinsdroidpre;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,8 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.threepin.fireexit_wcf.Configurator;
 import com.threepin.fireexit_wcf.FireExitClient;
 import com.trazins.trazinsdroidpre.utils.CustomAdapter;
-import com.trazins.trazinsdroidpre.MaterialPostCounterActivity;
-import com.trazins.trazinsdroidpre.R;
+import com.trazins.trazinsdroidpre.surgicalprocessactivities.MaterialPostCounterActivity;
 import com.trazins.trazinsdroidpre.models.materialmodel.MaterialInputModel;
 import com.trazins.trazinsdroidpre.models.materialmodel.MaterialOutputModel;
 import com.trazins.trazinsdroidpre.models.surgicalprocessmodel.SurgicalProcessInputModel;
@@ -37,10 +36,10 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+//No puede estar en un subpaquete porque sino el datawedge no lo reconoce
 public class SurgicalProcessActivity extends AppCompatActivity {
 
     MaterialOutputModel materialSelected = new MaterialOutputModel();
@@ -88,6 +87,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
         //Usuario loggeado
         this.userLogged = (UserOutputModel)getIntent().getSerializableExtra("userLogged");
         this.surgicalProcess = (SurgicalProcessOutputModel)getIntent().getSerializableExtra("surgicalProcess");
+
         textViewUserName = findViewById(R.id.textViewSPUserName);
         textViewUserName.setText(getString(R.string.identified_user) + " " + userLogged.UserName);
         textViewElements = findViewById(R.id.textViewSPMaterialCounter);
@@ -110,8 +110,16 @@ public class SurgicalProcessActivity extends AppCompatActivity {
                     closeScreenWithResult();
 
                 }else if(item.getItemId()==R.id.start_counter){
+                    if(materialSelected.MaterialType==null){
+                        return false;
+                    }
                     //Abrir pantalla de recuento
-                    openMPCActivity();
+                    if(materialSelected.getMaterialType().equals("C")){
+                        openMPCActivity();
+                    }else{
+                        Toast.makeText(getApplicationContext(), R.string.set_not_selected, Toast.LENGTH_LONG).show();
+                    }
+
                 }else{
                     removeSelected();
                 }
@@ -130,6 +138,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
     private void openMPCActivity(){
         Intent i = new Intent(getApplicationContext(), MaterialPostCounterActivity.class);
         i.putExtra("userLogged", this.userLogged);
+        //Enviar datos de la caja
         startActivity(i);
     }
 
@@ -143,6 +152,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
             Toast.makeText(getBaseContext(), e.getMessage(),Toast.LENGTH_LONG).show();
         }
     }
+
     private void removeSelected(){
         CustomAdapter adapter = new CustomAdapter(this, removeData(materialSelected));
         ListViewMaterials.setAdapter(adapter);
@@ -270,6 +280,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
             });
         }
     }
+
     private void processData(Object modelResult) {
         String modelType = modelResult.getClass().getSimpleName();
         switch(modelType){

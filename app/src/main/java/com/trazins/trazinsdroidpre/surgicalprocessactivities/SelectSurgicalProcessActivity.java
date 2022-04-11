@@ -66,12 +66,6 @@ public class SelectSurgicalProcessActivity extends AppCompatActivity {
 
         SPListView = findViewById(R.id.listViewSelectSurgicalProcess);
 
-        try {
-            new SurgicalProcessAsyncClass().execute();
-        }catch (Exception e){
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -88,6 +82,22 @@ public class SelectSurgicalProcessActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        try {
+            new SurgicalProcessAsyncClass().execute();
+        }catch (Exception e){
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        SPList.clear();
     }
 
     private void openSurgicalProcessPreviousDataActivity(SurgicalProcessOutputModel selectedsurgicalProcess) {

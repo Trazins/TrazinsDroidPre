@@ -14,15 +14,14 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".surgicalprocessactivities.SelectSurgicalProcessActivity"></activity>
         <activity android:name=".ShowErrorLogActivity" />
-        <activity android:name=".PrinterSettingsActivity" /> <!-- activity android:name=".settingsactivities.PrinterSettingsActivity" / -->
-        <activity android:name=".MaterialPostCounterActivity" />
+        <activity android:name=".PrinterSettingsActivity" />
+        <activity android:name=".surgicalprocessactivities.MaterialPostCounterActivity" />
         <activity android:name=".surgicalprocessactivities.SurgicalProcessPreviousDataActivity" />
-        <activity android:name=".surgicalprocessactivities.SurgicalProcessActivity" />
+        <activity android:name=".SurgicalProcessActivity" />
         <activity android:name=".ShipmentActivity" />
         <activity android:name=".SelectionActivity" />
         <activity android:name=".LocateActivity" />
-        <activity android:name=".MainActivity"
-            android:noHistory="true">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

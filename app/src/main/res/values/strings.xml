@@ -14,6 +14,7 @@
     <string name="empty_data">Debe rellenar los datos obligatorios</string>
     <string name="result">Resultado:</string>
     <string name="status">Estado:</string>
+    <string name="start_counter">Iniciar</string>
 
     //Main Activity
     <string name="app_name">Trazins DROID</string>
@@ -64,6 +65,7 @@
     <string name="select_intervention_date">Seleccione la fecha de la intervención</string>
     <string name="error_operating_room">Error al cargar los quirófanos</string>
     <string name="add_materials">Añadir material</string>
+    <string name="set_not_selected">No ha seleccionado una caja</string>
 
     //Selection Activity
     <string name="selection_activity_title">Seleccione un proceso</string>
@@ -77,6 +79,8 @@
     <string name="post_count">Recuento Post:</string>
     <string name="verified_post_count">Verificar recuento</string>
     <string name="remarks">Observaciones</string>
+    <string name="theoretical_counter">Teórico:</string>
+
 
     //PrinterSettingsActivity
     <string name="printer_test_button">Probar conexión</string>

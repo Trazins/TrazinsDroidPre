@@ -1,10 +1,10 @@
-package com.trazins.trazinsdroidpre.utils;
+package com.trazins.trazinsdroidpre.surgicalprocessactivities;
 
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.trazins.trazinsdroidpre.MaterialPostCounterActivity;
+import com.trazins.trazinsdroidpre.surgicalprocessactivities.MaterialPostCounterActivity;
 import com.zebra.rfid.api3.ACCESS_OPERATION_CODE;
 import com.zebra.rfid.api3.ACCESS_OPERATION_STATUS;
 import com.zebra.rfid.api3.Antennas;
@@ -30,7 +30,7 @@ import com.zebra.rfid.api3.TriggerInfo;
 
 import java.util.ArrayList;
 
-public class RFIDHandler implements Readers.RFIDReaderEventHandler {
+class RFIDHandler implements Readers.RFIDReaderEventHandler {
 
     final static String TAG = "RFID_SAMPLE";
     // RFID Reader
@@ -140,15 +140,15 @@ public class RFIDHandler implements Readers.RFIDReaderEventHandler {
     //  Activity life cycle behavior
     //
 
-    public String onResume() {
+    String onResume() {
         return connect();
     }
 
-    public void onPause() {
+    void onPause() {
         disconnect();
     }
 
-    public void onDestroy() {
+    void onDestroy() {
         dispose();
     }
 
@@ -158,10 +158,15 @@ public class RFIDHandler implements Readers.RFIDReaderEventHandler {
 
     private void InitSDK() {
         Log.d(TAG, "InitSDK");
-        if (readers == null) {
-            new CreateInstanceTask().execute();
-        } else
-            new ConnectionTask().execute();
+        try{
+            if (readers == null) {
+                new CreateInstanceTask().execute();
+            } else
+                new ConnectionTask().execute();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     // Enumerates SDK based on host device
@@ -356,7 +361,7 @@ public class RFIDHandler implements Readers.RFIDReaderEventHandler {
         }
     }
 
-    public synchronized void performInventory() {
+    synchronized void performInventory() {
         // check reader connection
         if (!isReaderConnected())
             return;
@@ -369,7 +374,7 @@ public class RFIDHandler implements Readers.RFIDReaderEventHandler {
         }
     }
 
-    public synchronized void stopInventory() {
+    synchronized void stopInventory() {
         // check reader connection
         if (!isReaderConnected())
             return;
@@ -443,7 +448,7 @@ public class RFIDHandler implements Readers.RFIDReaderEventHandler {
         }
     }
 
-    public interface ResponseHandlerInterface {
+    interface ResponseHandlerInterface {
         void handleTagdata(TagData[] tagData);
 
         void handleTriggerPress(boolean pressed);

@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 import com.trazins.trazinsdroidpre.surgicalprocessactivities.SelectSurgicalProcessActivity;
-import com.trazins.trazinsdroidpre.surgicalprocessactivities.SurgicalProcessActivity;
-import com.trazins.trazinsdroidpre.surgicalprocessactivities.SurgicalProcessPreviousDataActivity;
 
 public class SelectionActivity extends AppCompatActivity {
 

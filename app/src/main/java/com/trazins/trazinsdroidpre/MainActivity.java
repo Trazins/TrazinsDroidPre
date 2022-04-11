@@ -23,7 +23,6 @@ import com.threepin.fireexit_wcf.FireExitClient;
 import com.trazins.trazinsdroidpre.models.usermodel.UserInputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 import com.trazins.trazinsdroidpre.scanner.DataWedgeInterface;
-import com.trazins.trazinsdroidpre.surgicalprocessactivities.SurgicalProcessActivity;
 import com.trazins.trazinsdroidpre.utils.ConnectionParameters;
 import com.trazins.trazinsdroidpre.utils.ErrorLogWriter;
 

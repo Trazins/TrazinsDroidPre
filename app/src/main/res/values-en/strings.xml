@@ -13,6 +13,7 @@
     <string name="empty_data">Complete mandatory fields</string>
     <string name="result">Result:</string>
     <string name="status">Status:</string>
+    <string name="start_counter">Iniciar</string>
 
     //Main Activity
     <string name="app_name">Trazins DROID</string>
@@ -63,6 +64,7 @@
     <string name="select_intervention_date">Select intervention date</string>
     <string name="error_operating_room">Fail loading operating rooms</string>
     <string name="add_materials">Add material</string>
+    <string name="set_not_selected">Set not selected</string>
 
     //Selection Activity
     <string name="selection_activity_title">Select a Process</string>
@@ -76,6 +78,7 @@
     <string name="post_count">Post counter:</string>
     <string name="verified_post_count">Verified post counter</string>
     <string name="remarks">Remarks</string>
+    <string name="theoretical_counter">Theoretical counter:</string>
 
     //PrinterSettingsActivity
     <string name="printer_test_button">Test</string>
