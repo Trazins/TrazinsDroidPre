@@ -9,22 +9,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.trazins.trazinsdroidpre.R;
-import com.trazins.trazinsdroidpre.models.materialmodel.MaterialOutputModel;
 import com.trazins.trazinsdroidpre.models.sp_materialmodel.SP_MaterialOutputModel;
+import com.trazins.trazinsdroidpre.models.surgicalprocessmodel.SurgicalProcessOutputModel;
 
 import java.util.List;
 
-public class CustomAdapter extends BaseAdapter {
-    Context context;
-    List<MaterialOutputModel> lst;
+public class SPMaterialCustomAdapter extends BaseAdapter {
 
-    public CustomAdapter(Context context, List<MaterialOutputModel> lst) {
+    Context context;
+    List<SP_MaterialOutputModel> lst;
+
+    public SPMaterialCustomAdapter(Context context, List<SP_MaterialOutputModel> lst) {
         this.context = context;
         this.lst = lst;
     }
 
     @Override
-    public int getCount() {
+    public int getCount()  {
         return lst.size();
     }
 
@@ -44,7 +45,8 @@ public class CustomAdapter extends BaseAdapter {
         TextView TextViewNombre;
         TextView TextViewDes;
 
-        MaterialOutputModel c = lst.get(position);
+        SP_MaterialOutputModel c = lst.get(position);
+
         if(convertView == null)
             convertView = LayoutInflater.from(context).inflate(R.layout.listview_materials_item, null);
         ImageViewContacto = convertView.findViewById(R.id.imageViewMaterialType);
@@ -56,5 +58,6 @@ public class CustomAdapter extends BaseAdapter {
         TextViewDes.setText(c.Id);
 
         return convertView;
+
     }
 }

@@ -4,25 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".surgicalprocessactivities.SelectSurgicalProcessActivity">
+    tools:context=".ShowInstrumentListActivity">
 
     <LinearLayout
-        android:id="@+id/MainLayout"
+        android:id="@+id/linearLayoutMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:orientation="vertical">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textViewSPSelectUserName"
+            android:id="@+id/textViewInstrumentListTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/user"/>
+            android:text="@string/instrument_list_activity_title"
+            android:textSize="20sp"/>
+        <TextView
+            android:id="@+id/textViewToLocateTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/to_locate_title"
+            android:textSize="20sp"/>
         <ImageView
-            android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/medium_grey"
@@ -33,30 +39,14 @@
             android:paddingBottom="0dp"
             android:scaleType="fitXY"
             android:src="@android:drawable/divider_horizontal_dark" />
-
-        <!-- Size to TC21 346 dp -->
-        <!-- Size to TC20 248 dp -->
-        <LinearLayout
-            android:id="@+id/linearLayout2"
+        <ListView
+            android:id="@+id/listViewInstrumentList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintBottom_toTopOf="@+id/bottomShipmentNavigationMenu"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/MainLayout">
-
-            <ListView
-                android:id="@+id/listViewSelectSurgicalProcess"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:choiceMode="singleChoice" />
-        </LinearLayout>
-
-
+            android:choiceMode="singleChoice" />
     </LinearLayout>
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomSurgicalSelectNavigationMenu"
+        android:id="@+id/bottomInstrumentListActivity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -66,9 +56,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menu_select_surgical_process">
-
+        app:menu="@menu/menu_instrument_list_activity">
     </com.google.android.material.bottomnavigation.BottomNavigationView>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,9 +4,4 @@
         android:id="@+id/go_back"
         android:title="@string/go_back"
         android:icon="@drawable/ic_arrow_back"/>
-    <item
-        android:id="@+id/validate_counter"
-        android:title="@string/verified_post_count"
-        android:icon= "@drawable/ic_verified"/>
-
 </menu>

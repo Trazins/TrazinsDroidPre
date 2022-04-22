@@ -50,7 +50,7 @@
             tools:text="@string/set_title" />
 
         <TextView
-            android:id="@+id/textViewMPCResult"
+            android:id="@+id/textViewMPCSetName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/set_name_default"
@@ -132,15 +132,29 @@
                 android:textSize="20sp" />
 
         </LinearLayout>
-
-        <Button
-            android:id="@+id/buttonStartPreCounter"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:text="@string/start_counter"
-            android:background="@drawable/button_rounded_corners"
-            android:textColor="@color/white"/>
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/buttonStartPreCounter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/start_counter"
+                android:background="@drawable/button_rounded_corners"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/buttonValidatePreCounter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/validate_counter"
+                android:background="@drawable/button_rounded_corner_grey"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
 
         <ImageView
             android:layout_width="match_parent"
@@ -177,14 +191,29 @@
                 android:textColor="@android:color/darker_gray"
                 android:textSize="20sp" />
         </LinearLayout>
-        <Button
-            android:id="@+id/buttonStartPostCounter"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:text="@string/start_counter"
-            android:background="@drawable/button_rounded_corners"
-            android:textColor="@color/white"/>
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/buttonStartPostCounter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/start_counter"
+                android:background="@drawable/button_rounded_corners"
+                android:textColor="@color/white"/>
+            <Button
+                android:id="@+id/buttonValidatePostCounter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/validate_counter"
+                android:background="@drawable/button_rounded_corner_grey"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+
 
         <ImageView
             android:layout_width="match_parent"
@@ -205,6 +234,7 @@
             android:text="@string/remarks"
             android:textSize="15sp" />
         <EditText
+            android:id="@+id/editTextMPCRemarks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"

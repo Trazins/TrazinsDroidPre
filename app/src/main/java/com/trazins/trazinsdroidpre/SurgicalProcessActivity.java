@@ -3,6 +3,7 @@ package com.trazins.trazinsdroidpre;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +22,9 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.threepin.fireexit_wcf.Configurator;
 import com.threepin.fireexit_wcf.FireExitClient;
+import com.trazins.trazinsdroidpre.models.sp_materialmodel.SP_MaterialInputModel;
+import com.trazins.trazinsdroidpre.models.sp_materialmodel.SP_MaterialOutputModel;
+import com.trazins.trazinsdroidpre.models.sp_setmodel.SP_SetOutputModel;
 import com.trazins.trazinsdroidpre.utils.CustomAdapter;
 import com.trazins.trazinsdroidpre.surgicalprocessactivities.MaterialPostCounterActivity;
 import com.trazins.trazinsdroidpre.models.materialmodel.MaterialInputModel;
@@ -31,6 +35,7 @@ import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 import com.trazins.trazinsdroidpre.scanner.DataWedgeInterface;
 import com.trazins.trazinsdroidpre.utils.ConnectionParameters;
 import com.trazins.trazinsdroidpre.utils.ErrorLogWriter;
+import com.trazins.trazinsdroidpre.utils.SPMaterialCustomAdapter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -42,11 +47,16 @@ import java.util.List;
 //No puede estar en un subpaquete porque sino el datawedge no lo reconoce
 public class SurgicalProcessActivity extends AppCompatActivity {
 
-    MaterialOutputModel materialSelected = new MaterialOutputModel();
-    List<MaterialOutputModel> lstMaterial = new ArrayList<MaterialOutputModel>();
+    private static final int REQUEST_CODE = 77;
+
+    SP_MaterialOutputModel materialSelected = new SP_MaterialOutputModel();
+    List<SP_MaterialOutputModel> lstMaterial = new ArrayList<SP_MaterialOutputModel>();
+
     //Usuario logeado
     UserOutputModel userLogged;
     SurgicalProcessOutputModel surgicalProcess;
+
+    SP_SetOutputModel recoveredSet = new SP_SetOutputModel();
 
     String activityName;
 
@@ -131,16 +141,49 @@ public class SurgicalProcessActivity extends AppCompatActivity {
     private void closeScreenWithResult(){
         Intent i = getIntent();
         setResult(RESULT_OK,i);
-
         finish();
 
     }
+
     private void openMPCActivity(){
+        SP_SetOutputModel selectedSet = new SP_SetOutputModel();
+        selectedSet.HisId = this.surgicalProcess.HisId;
+        selectedSet.MaterialDescription = this.materialSelected.getMaterialDescription();
+        selectedSet.Id = this.materialSelected.Id;
+        selectedSet.MaterialType = this.materialSelected.MaterialType;
+
         Intent i = new Intent(getApplicationContext(), MaterialPostCounterActivity.class);
         i.putExtra("userLogged", this.userLogged);
+        i.putExtra("selectedSet", selectedSet);
         //Enviar datos de la caja
-        startActivity(i);
+        //startActivity(i);
+        startActivityForResult(i, REQUEST_CODE);
+
     }
+
+    //Para poder procesar la información recibida de la pantalla de recuento
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE) {
+            if(resultCode == RESULT_OK){
+                this.recoveredSet = (SP_SetOutputModel)data.getSerializableExtra("recoveredSet");
+                for(SP_MaterialOutputModel m : lstMaterial){
+                    if(m.getId().equals(recoveredSet.Id)){
+
+                        m.PreCount= recoveredSet.PreCount;
+                        m.PostCount = recoveredSet.PostCount;
+                        m.TheoreticalCounter = recoveredSet.TheoreticalCounter;
+                        m.Remarks = recoveredSet.Remarks;
+
+                    }
+                }
+            }
+            if (resultCode == RESULT_CANCELED) {
+                // Write your code if there's no result
+            }
+        }
+    } //onActivityResult
 
     private void newSurgicalProcess(){
         try{
@@ -154,11 +197,11 @@ public class SurgicalProcessActivity extends AppCompatActivity {
     }
 
     private void removeSelected(){
-        CustomAdapter adapter = new CustomAdapter(this, removeData(materialSelected));
+        SPMaterialCustomAdapter adapter = new SPMaterialCustomAdapter(this, removeData(materialSelected));
         ListViewMaterials.setAdapter(adapter);
     }
 
-    private List<MaterialOutputModel> removeData(MaterialOutputModel material){
+    private List<SP_MaterialOutputModel> removeData(SP_MaterialOutputModel material){
         try{
             lstMaterial.remove(material);
             return lstMaterial;
@@ -225,12 +268,16 @@ public class SurgicalProcessActivity extends AppCompatActivity {
                 surgicalProcessInputModel.OperationRoomId = surgicalProcess.OperationRoomId;
                 surgicalProcessInputModel.EntryUser = userLogged.Login;
 
-                for(MaterialOutputModel m : lstMaterial){
+                for(SP_MaterialOutputModel m : lstMaterial){
                     //Serializamos los materiales.
-                    MaterialInputModel serializableMaterial = new MaterialInputModel();
+                    SP_MaterialInputModel serializableMaterial = new SP_MaterialInputModel();
                     serializableMaterial.MaterialCode = m.Id;
                     serializableMaterial.MaterialType = m.MaterialType;
                     serializableMaterial.MaterialDescription = m.MaterialDescription;
+                    serializableMaterial.PostCount = m.PostCount;
+                    serializableMaterial.PreCount = m.PreCount;
+                    serializableMaterial.TheoreticalCounter = m.TheoreticalCounter;
+                    serializableMaterial.Remarks = m.Remarks;
                     surgicalProcessInputModel.MaterialList.add(serializableMaterial);
                 }
 
@@ -245,21 +292,21 @@ public class SurgicalProcessActivity extends AppCompatActivity {
                 methodName = "GetMaterialData";
                 parameterName = "materialCode";
 
-                MaterialInputModel materialInputModel = new MaterialInputModel();
+                SP_MaterialInputModel materialInputModel = new SP_MaterialInputModel();
                 materialInputModel.MaterialCode = readCode;
 
                 client.configure(new Configurator(
                         ConnectionParameters.NAME_SPACE, ConnectionParameters.CONTRACT_NAME, methodName));
                 client.addParameter(parameterName, materialInputModel);
 
-                resultModel = new MaterialOutputModel();
+                resultModel = new SP_MaterialOutputModel();
             }
 
             try {
                 //Realizamos la llamada al web service para obtener los datos
                 resultModel = client.call(resultModel);
             } catch (Exception e) {
-                ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
+                ErrorLogWriter.writeToLogErrorFile(e.getMessage(), getApplicationContext(),activityName);
                 e.printStackTrace();
             }
             return resultModel;
@@ -284,8 +331,8 @@ public class SurgicalProcessActivity extends AppCompatActivity {
     private void processData(Object modelResult) {
         String modelType = modelResult.getClass().getSimpleName();
         switch(modelType){
-            case "MaterialOutputModel":
-                addMaterialToList((MaterialOutputModel)modelResult);
+            case "SP_MaterialOutputModel":
+                addMaterialToList((SP_MaterialOutputModel)modelResult);
                 break;
             case "SurgicalProcessOutputModel":
                 if(((SurgicalProcessOutputModel)modelResult).Result){
@@ -309,9 +356,9 @@ public class SurgicalProcessActivity extends AppCompatActivity {
         textViewElements.setText(lstMaterial.size()+ " " + getText(R.string.materials_counter));
     }
 
-    private void addMaterialToList(MaterialOutputModel modelResult) {
+    private void addMaterialToList(SP_MaterialOutputModel modelResult) {
         try{
-            CustomAdapter adapter = new CustomAdapter(this, GetData(modelResult));
+            SPMaterialCustomAdapter adapter = new SPMaterialCustomAdapter(this, GetData(modelResult));
             ListViewMaterials.setAdapter(adapter);
             //Ponemos el color del selector igual que el del fondo para que no parezca que selecciona el primer
             //elemento
@@ -357,7 +404,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
         new SurgicalProcessMyAsyncClass().execute();
     };
 
-    private List<MaterialOutputModel> GetData(MaterialOutputModel material) {
+    private List<SP_MaterialOutputModel> GetData(SP_MaterialOutputModel material) {
         try {
             int materialImageType=0;
             switch (material.MaterialType){
@@ -378,13 +425,13 @@ public class SurgicalProcessActivity extends AppCompatActivity {
             //Hay que insertar el primer elemento
             if(lstMaterial.size()==0){
                 lstMaterial.add(
-                        new MaterialOutputModel(material.Id, materialImageType,material.MaterialDescription,material.MaterialType));
+                        new SP_MaterialOutputModel(material.Id, materialImageType,material.MaterialDescription,material.MaterialType));
             }else {
                 if(existsInList(material.Id)){
                     Toast.makeText(getBaseContext(), R.string.material_exists_list, Toast.LENGTH_LONG).show();
                 }else{
                     lstMaterial.add(
-                            new MaterialOutputModel(material.Id, materialImageType,material.MaterialDescription, material.MaterialType));
+                            new SP_MaterialOutputModel(material.Id, materialImageType,material.MaterialDescription, material.MaterialType));
                 }
             }
             textViewElements.setText(lstMaterial.size() + " " + getText(R.string.materials_counter));
@@ -399,7 +446,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
 
     //Comprobamos que el material no exista en la lista
     private boolean existsInList(String materialId){
-        for(MaterialOutputModel m : lstMaterial){
+        for(SP_MaterialOutputModel m : lstMaterial){
             if(m.getId().equals(materialId)){
                 return true;
             }

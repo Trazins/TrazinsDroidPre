@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SurgicalProcessOutputModel implements Serializable {
-    public int HisId;
+    public Integer HisId;
     public int OperationRoomId;
     public String InterventionCode;
     public String RecordNumber;

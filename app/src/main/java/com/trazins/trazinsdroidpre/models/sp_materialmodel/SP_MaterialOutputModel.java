@@ -1,15 +1,16 @@
-package com.trazins.trazinsdroidpre.models.materialmodel;
+package com.trazins.trazinsdroidpre.models.sp_materialmodel;
+
+import com.trazins.trazinsdroidpre.models.materialmodel.MaterialOutputModel;
 
 import java.io.Serializable;
 
-public class MaterialOutputModel implements Serializable{
+public class SP_MaterialOutputModel extends MaterialOutputModel implements Serializable {
 
-    public String Id;
-    public String MaterialDescription;
-    public String MaterialType;
-    public String HosId;
-    public String ChId;
-    public int Image;
+    public Integer HisId;
+    public int TheoreticalCounter;
+    public Integer PreCount;
+    public Integer PostCount;
+    public String Remarks;
 
     public String getId() {
         return Id;
@@ -59,23 +60,21 @@ public class MaterialOutputModel implements Serializable{
         this.Image = image;
     }
 
-    public MaterialOutputModel(String id, int image, String materialDescription, String materialType) {
+    public SP_MaterialOutputModel() {
+    }
+
+    public SP_MaterialOutputModel(String id, int image, String materialDescription, String materialType) {
         this.Id = id;
         this.MaterialDescription = materialDescription;
         this.Image = image;
         this.MaterialType = materialType;
     }
 
-    public MaterialOutputModel() {
-    }
-
-    public MaterialOutputModel(String id, String materialDescription, String materialType, String hosId, String chId) {
+    public SP_MaterialOutputModel(String id, String materialDescription, String materialType, String hosId, String chId) {
         this.Id = id;
         this.MaterialDescription = materialDescription;
         this.MaterialType = materialType;
         this.HosId = hosId;
         this.ChId = chId;
     }
-
-
 }

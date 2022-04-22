@@ -15,6 +15,7 @@
     <string name="result">Resultado:</string>
     <string name="status">Estado:</string>
     <string name="start_counter">Iniciar</string>
+    <string name="validate_counter">Validar</string>
 
     //Main Activity
     <string name="app_name">Trazins DROID</string>
@@ -80,7 +81,13 @@
     <string name="verified_post_count">Verificar recuento</string>
     <string name="remarks">Observaciones</string>
     <string name="theoretical_counter">Teórico:</string>
-
+    <string name="not_pressed_counter_button">Debe pulsar el botón de iniciar</string>
+    <string name="alert_dialog_message">No se han localizado todos los instrumentos.¿Desea ver el listado o validar el recuento?</string>
+    <string name="show_list">Mostrar</string>
+    <string name="alert_dialog_title">Atención</string>
+    <string name="alert_dialog_validate_counter">Validar recuento</string>
+    <string name="instrument_list_activity_title">Listado de instrumentos</string>
+    <string name="to_locate_title">pendientes de localizar:</string>
 
     //PrinterSettingsActivity
     <string name="printer_test_button">Probar conexión</string>
