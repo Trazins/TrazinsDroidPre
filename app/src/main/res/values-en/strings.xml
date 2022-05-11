@@ -48,6 +48,7 @@
     <string name="trolley">Trolley:</string>
     <string name="trolley_hint">Scan trolley label</string>
     <string name="located_trolley">Selected trolley cannot be used because it is located</string>
+    <string name= "steri_shipment">sterilization shipment</string>
 
     //Surgical Process Activities
     <string name="surgical_information_title">Surgical process information</string>

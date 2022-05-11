@@ -49,6 +49,7 @@
     <string name="trolley">Carro:</string>
     <string name="trolley_hint">Lea la etiqueta del carro</string>
     <string name="located_trolley">El carro seleccionado no se puede usar porque está ubicado</string>
+    <string name= "steri_shipment">Envío a esterilización</string>
 
     //Surgical Process Activities
     <string name="surgical_information_title">Datos del proceso quirúrgico</string>

@@ -9,18 +9,19 @@
     <LinearLayout
         android:id="@+id/MainLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:orientation="vertical">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/textViewSPSelectUserName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/user"/>
+            android:text="@string/user" />
+
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
@@ -49,12 +50,11 @@
             <ListView
                 android:id="@+id/listViewSelectSurgicalProcess"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:choiceMode="singleChoice" />
         </LinearLayout>
-
-
     </LinearLayout>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomSurgicalSelectNavigationMenu"
         android:layout_width="match_parent"

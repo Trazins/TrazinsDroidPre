@@ -171,8 +171,10 @@ public class MaterialPostCounterActivity extends AppCompatActivity  implements R
                     Intent i = new Intent(getApplicationContext(), SurgicalProcessActivity.class);
                     i.putExtra("recoveredSet", selectedSet);
                     setResult(RESULT_OK,i);
+                }else{
                     finish();
                 }
+
                 return false;
             }
         });

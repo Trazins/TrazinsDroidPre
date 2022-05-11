@@ -124,17 +124,17 @@
             android:textColor="@color/buttonTrazins"
             app:layout_columnWeight="1"            />
         <Button
-            android:id="@+id/buttonOtherMenu"
+            android:id="@+id/buttonSteriShipment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@color/white"
-            android:drawableTop="@drawable/ic_menu_otheroption_48"
+            android:drawableTop="@drawable/ic_baseline_local_laundry_service_48"
             android:onClick="openSelectedActivity"
-            android:text="@string/other_mode"
+            android:text="@string/steri_shipment"
             android:textColor="@color/buttonTrazins"
-            app:layout_columnWeight="1"
-            android:visibility="invisible"/>
+            android:textAlignment="center"
+            app:layout_columnWeight="1"/>
 
 
     </androidx.gridlayout.widget.GridLayout>

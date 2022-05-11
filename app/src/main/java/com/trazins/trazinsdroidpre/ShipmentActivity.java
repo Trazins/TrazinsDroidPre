@@ -54,6 +54,7 @@ public class ShipmentActivity extends AppCompatActivity {
     //region Variables
 
     String activityName;
+
     //Lista que muestra los resultados por pantalla
     ListView ListViewMaterials;
 
@@ -76,6 +77,7 @@ public class ShipmentActivity extends AppCompatActivity {
     //Material seleccionado en la lista
     MaterialOutputModel materialSelected = new MaterialOutputModel();
 
+    //Conexión con la impresora para imprimir la etiqueta.
     Connection printerConnection;
 
     //Lectura obtenida en el scanner
@@ -86,14 +88,17 @@ public class ShipmentActivity extends AppCompatActivity {
     //Usuario logeado
     UserOutputModel userLogged;
 
+    //Sirve para crear una entrada o salida de material.
+    boolean isCentral;
+
     //Controles
     BottomNavigationView btm;
     TextView textViewShipmentResult, textViewUserName, textViewElements, textViewTrolleyName;
 
+
     IntentFilter filter = new IntentFilter();
 
     Handler handler;
-    ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     //endregion
 
@@ -123,6 +128,7 @@ public class ShipmentActivity extends AppCompatActivity {
 
         //Usuario loggeado
         this.userLogged = (UserOutputModel)getIntent().getSerializableExtra("userLogged");
+        this.isCentral = (boolean)getIntent().getSerializableExtra("isCentral");
         textViewUserName = findViewById(R.id.textViewShipmentUserName);
         textViewUserName.setText(getString(R.string.identified_user) + " " + userLogged.UserName);
 
@@ -241,6 +247,7 @@ public class ShipmentActivity extends AppCompatActivity {
                 createShipment = new ShipmentInputModel();
                 createShipment.OriginId = finalOrigin.OriginId;
                 createShipment.EntryUser = userLogged.Login;
+                createShipment.IsCentral = isCentral;
                 if(finalTrolley!= null)
                     createShipment.TrolleyCode = finalTrolley.TrolleyCode;
                 for(MaterialOutputModel m : lstMaterial){
@@ -454,6 +461,21 @@ public class ShipmentActivity extends AppCompatActivity {
         return label.getBytes();
     }
 
+    //Método para desconectar la impresora
+    public void disconnect() {
+        try {
+
+            if (printerConnection != null) {
+                printerConnection.close();
+            }
+
+        } catch (ConnectionException e) {
+            ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
+            Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+        }
+
+    }
+
     private void cleanControlsViews() {
         lstMaterial.clear();
         ListViewMaterials.setAdapter(null);
@@ -562,19 +584,6 @@ public class ShipmentActivity extends AppCompatActivity {
         return false;
     }
 
-    //Método para desconectar la impresora
-    public void disconnect() {
-        try {
 
-            if (printerConnection != null) {
-                printerConnection.close();
-            }
-
-        } catch (ConnectionException e) {
-            ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
-            Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_LONG).show();
-        }
-
-    }
 
 }
