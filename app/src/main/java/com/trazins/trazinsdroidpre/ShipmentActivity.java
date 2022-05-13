@@ -153,6 +153,10 @@ public class ShipmentActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        if(isCentral){
+            new SteriShipmentAsyncClass().execute();
+        }
     }
 
     //Es necesario crear un hilo nuevo pro la conexión TCP
@@ -222,7 +226,7 @@ public class ShipmentActivity extends AppCompatActivity {
         //txtActiveProfile.setText(event.activeProfile);
     };
 
-    //Clase que gestiona la conexión con el web service
+    //Clase que gestiona la conexión con el web service y los envíos.
     class ShipmentMyAsyncClass extends AsyncTask {
         @Override
         protected Object doInBackground(Object[] objects) {
@@ -268,7 +272,8 @@ public class ShipmentActivity extends AppCompatActivity {
 
             }else{
                 //Determinamos que tipo de objeto es el código leido
-                if(readCode.startsWith("O")){
+                //Si es envio a esteri, el origen sale por defecto esterilización.
+                if(readCode.startsWith("O") && !isCentral){
                     methodName = "GetOrigin";
                     parameterName = "originCode";
 
@@ -367,6 +372,55 @@ public class ShipmentActivity extends AppCompatActivity {
                     break;
             }
 
+        }
+    }
+
+    //Classe para recuperar el origen esterilización
+    class SteriShipmentAsyncClass extends AsyncTask{
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            String methodName = "GetOrigin";
+            String parameterName = "originCode";
+
+            //Variable para almacenar el resultado de la petición
+            OriginOutputModel resultModel = new OriginOutputModel();
+
+            OriginInputModel originInputModel = new OriginInputModel();
+            originInputModel.IsCentral = isCentral;
+
+            //Desplegar el servicio:
+            //Usamos la librería Fireexit para la gestión de la serialización.
+            FireExitClient client = new FireExitClient(
+                    ConnectionParameters.SOAP_ADDRESS[ConnectionParameters.SET_URL_CONNECTION]);
+
+            client.configure(new Configurator(
+                    ConnectionParameters.NAME_SPACE, ConnectionParameters.CONTRACT_NAME, methodName));
+            client.addParameter(parameterName, originInputModel);
+
+            try {
+                //Realizamos la llamada al web service para obtener los datos
+                resultModel = client.call(resultModel);
+            } catch (Exception e) {
+                e.printStackTrace();
+                ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
+            }
+            return resultModel;
+        }
+
+        @Override
+        protected void onPostExecute(Object modelResult) {
+            super.onPostExecute(modelResult);
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    if(modelResult!= null){
+                        finalOrigin = (OriginOutputModel)modelResult;
+                        textViewShipmentResult.setText(((OriginOutputModel) modelResult).OriginDescription);
+                    }else{
+                        Toast.makeText(getBaseContext(), getText(R.string.unidentified_code), Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
         }
     }
 
