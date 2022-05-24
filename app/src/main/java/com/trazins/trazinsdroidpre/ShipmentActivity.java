@@ -89,7 +89,7 @@ public class ShipmentActivity extends AppCompatActivity {
     UserOutputModel userLogged;
 
     //Sirve para crear una entrada o salida de material.
-    boolean isCentral;
+    boolean toCentral;
 
     //Controles
     BottomNavigationView btm;
@@ -128,7 +128,7 @@ public class ShipmentActivity extends AppCompatActivity {
 
         //Usuario loggeado
         this.userLogged = (UserOutputModel)getIntent().getSerializableExtra("userLogged");
-        this.isCentral = (boolean)getIntent().getSerializableExtra("isCentral");
+        this.toCentral = (boolean)getIntent().getSerializableExtra("toCentral");
         textViewUserName = findViewById(R.id.textViewShipmentUserName);
         textViewUserName.setText(getString(R.string.identified_user) + " " + userLogged.UserName);
 
@@ -153,10 +153,6 @@ public class ShipmentActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-        if(isCentral){
-            new SteriShipmentAsyncClass().execute();
-        }
     }
 
     //Es necesario crear un hilo nuevo pro la conexión TCP
@@ -251,7 +247,7 @@ public class ShipmentActivity extends AppCompatActivity {
                 createShipment = new ShipmentInputModel();
                 createShipment.OriginId = finalOrigin.OriginId;
                 createShipment.EntryUser = userLogged.Login;
-                createShipment.IsCentral = isCentral;
+                createShipment.ToCentral = toCentral;
                 if(finalTrolley!= null)
                     createShipment.TrolleyCode = finalTrolley.TrolleyCode;
                 for(MaterialOutputModel m : lstMaterial){
@@ -272,8 +268,7 @@ public class ShipmentActivity extends AppCompatActivity {
 
             }else{
                 //Determinamos que tipo de objeto es el código leido
-                //Si es envio a esteri, el origen sale por defecto esterilización.
-                if(readCode.startsWith("O") && !isCentral){
+                if(readCode.startsWith("O")){
                     methodName = "GetOrigin";
                     parameterName = "originCode";
 
@@ -372,55 +367,6 @@ public class ShipmentActivity extends AppCompatActivity {
                     break;
             }
 
-        }
-    }
-
-    //Classe para recuperar el origen esterilización
-    class SteriShipmentAsyncClass extends AsyncTask{
-        @Override
-        protected Object doInBackground(Object[] objects) {
-            String methodName = "GetOrigin";
-            String parameterName = "originCode";
-
-            //Variable para almacenar el resultado de la petición
-            OriginOutputModel resultModel = new OriginOutputModel();
-
-            OriginInputModel originInputModel = new OriginInputModel();
-            originInputModel.IsCentral = isCentral;
-
-            //Desplegar el servicio:
-            //Usamos la librería Fireexit para la gestión de la serialización.
-            FireExitClient client = new FireExitClient(
-                    ConnectionParameters.SOAP_ADDRESS[ConnectionParameters.SET_URL_CONNECTION]);
-
-            client.configure(new Configurator(
-                    ConnectionParameters.NAME_SPACE, ConnectionParameters.CONTRACT_NAME, methodName));
-            client.addParameter(parameterName, originInputModel);
-
-            try {
-                //Realizamos la llamada al web service para obtener los datos
-                resultModel = client.call(resultModel);
-            } catch (Exception e) {
-                e.printStackTrace();
-                ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
-            }
-            return resultModel;
-        }
-
-        @Override
-        protected void onPostExecute(Object modelResult) {
-            super.onPostExecute(modelResult);
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    if(modelResult!= null){
-                        finalOrigin = (OriginOutputModel)modelResult;
-                        textViewShipmentResult.setText(((OriginOutputModel) modelResult).OriginDescription);
-                    }else{
-                        Toast.makeText(getBaseContext(), getText(R.string.unidentified_code), Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
         }
     }
 

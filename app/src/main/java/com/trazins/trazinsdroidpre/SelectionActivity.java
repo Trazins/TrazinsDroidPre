@@ -45,14 +45,14 @@ public class SelectionActivity extends AppCompatActivity {
                 break;
             case R.id.buttonShipmentMenu:
                 i = new Intent(getApplicationContext(), ShipmentActivity.class);
-                i.putExtra("isCentral", false);
+                i.putExtra("toCentral", false);
                 break;
             case R.id.buttonSurgicalProcess:
                 i = new Intent(getApplicationContext(), SelectSurgicalProcessActivity.class);
                 break;
             case R.id.buttonSteriShipment:
                 i = new Intent(getApplicationContext(), ShipmentActivity.class);
-                i.putExtra("isCentral", true);
+                i.putExtra("toCentral", true);
                 break;
             default:
                 break;

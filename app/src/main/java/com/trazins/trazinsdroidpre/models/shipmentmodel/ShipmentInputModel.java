@@ -10,6 +10,6 @@ public class ShipmentInputModel implements Serializable {
     public int OriginId;
     public String EntryUser;
     public List<MaterialInputModel> MatList = new ArrayList<MaterialInputModel>();
-    public boolean IsCentral = false;
+    public boolean ToCentral = false;
     public String TrolleyCode;
 }
