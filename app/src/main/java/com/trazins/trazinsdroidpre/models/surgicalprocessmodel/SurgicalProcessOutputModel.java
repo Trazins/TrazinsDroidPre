@@ -18,7 +18,8 @@ public class SurgicalProcessOutputModel implements Serializable {
     public SurgicalProcessOutputModel(){}
 
     public SurgicalProcessOutputModel(
-            String operationRoomName, String interventionCode, String recordNumber, String interventionDate ){
+            Integer hisId, String operationRoomName, String interventionCode, String recordNumber, String interventionDate ){
+        this.HisId = hisId;
         this.OperationRoomName = operationRoomName;
         this.InterventionCode = interventionCode;
         this.RecordNumber = recordNumber;

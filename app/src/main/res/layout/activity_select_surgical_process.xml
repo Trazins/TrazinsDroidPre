@@ -46,17 +46,14 @@
 
         </LinearLayout>
 
-        <!-- Size to TC21 346 dp -->
-        <!-- Size to TC20 248 dp -->
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="490dp"
             app:layout_constraintBottom_toTopOf="@+id/bottomShipmentNavigationMenu"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/MainLayout">
+            app:layout_constraintStart_toStartOf="parent" >
 
             <ListView
                 android:id="@+id/listViewSelectSurgicalProcess"
@@ -77,6 +74,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MainLayout"
         app:menu="@menu/menu_select_surgical_process">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>

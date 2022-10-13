@@ -48,6 +48,9 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
     private Spinner spinnerOperationRoom;
     private BottomNavigationView bnv;
     List<OperationRoomOutputModel> OperationRoomList;
+
+    private boolean isUpdate = false;
+
     //Usuario logeado
     UserOutputModel userLogged;
 
@@ -79,17 +82,19 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
         this.userLogged = (UserOutputModel)getIntent().getSerializableExtra("userLogged");
         this.surgicalProcess =(SurgicalProcessOutputModel)getIntent().getSerializableExtra("surgicalProcess");
 
-        //Así sabemos si el foco viene de uno nuevo o una modificación de uno ya creado
-        if(this.surgicalProcess == null){
-            this.surgicalProcess = new SurgicalProcessOutputModel();
-        }
-
         textViewUserName = findViewById(R.id.textViewSPUserName);
         textViewUserName.setText(getString(R.string.identified_user) + " " + userLogged.UserName);
 
         OperationRoomList = new ArrayList<OperationRoomOutputModel>();
 
         new OperationRoomAsyncClass().execute();
+
+        //Así sabemos si el foco viene de uno nuevo o una modificación de uno ya creado
+        if(this.surgicalProcess == null){
+            this.surgicalProcess = new SurgicalProcessOutputModel();
+        }else{
+            setValuesOfRecoveredSP(this.surgicalProcess);
+        }
 
         editTextInterventionDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,7 +148,8 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
         Intent i = new Intent(getApplicationContext(), SurgicalProcessActivity.class);
         i.putExtra("surgicalProcess", this.surgicalProcess);
         i.putExtra("userLogged", this.userLogged);
-        //startActivity(i);
+        i.putExtra("isUpdate", this.isUpdate);
+
         startActivityForResult(i,REQUEST_CODE);
     }
 
@@ -191,8 +197,31 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
         editTextInterventionCode.setText("");
         editTextInterventionDate.setText("");
         spinnerOperationRoom.setSelection(0);
+        this.isUpdate = false;
+        surgicalProcess = null;
     }
 
+    //Añadimos la info a los controles de la vista
+    private void setValuesOfRecoveredSP(SurgicalProcessOutputModel surgicalProcess) {
+        editTextRecordNumber.setText(surgicalProcess.RecordNumber);
+        editTextInterventionCode.setText(surgicalProcess.InterventionCode);
+        editTextInterventionDate.setText(surgicalProcess.InterventionDate);
+
+        this.isUpdate = true;
+        //El control spinner hay que hacerlo después de recuperar los datos de bd
+        //para que el valor del control se actualice.
+
+    }
+
+    private void selectValue(Spinner spinner, String oprName) {
+       for(OperationRoomOutputModel op : OperationRoomList){
+           if(op.OpName.equals(oprName)){
+                int index = OperationRoomList.indexOf(op);
+                spinner.setSelection(index);
+           }
+       }
+
+    }
     //Solo realizamos la consulta para obtener los quirófanos de BD
     class OperationRoomAsyncClass extends AsyncTask{
 
@@ -247,12 +276,16 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
                 adapter = new ArrayAdapter(
                         getBaseContext(), R.layout.spinner_list, OperationRoomList);
                 spinnerOperationRoom.setAdapter(adapter);
+                selectValue(spinnerOperationRoom, surgicalProcess.OperationRoomName);
+
 
             }catch(Exception e){
                 ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
                 Toast.makeText(getBaseContext(), e.getMessage(),Toast.LENGTH_LONG).show();
             }
         }
+
+
 
     }
 }

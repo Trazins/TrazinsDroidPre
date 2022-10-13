@@ -62,6 +62,9 @@ public class SurgicalProcessActivity extends AppCompatActivity {
 
     boolean result = false;
 
+    //La usamos para actualizar el registro en lugar de crear uno nuevo.
+    boolean isUpdate = false;
+
     //Lectura obtenida en el scanner
     String readCode;
 
@@ -97,6 +100,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
         //Usuario loggeado
         this.userLogged = (UserOutputModel)getIntent().getSerializableExtra("userLogged");
         this.surgicalProcess = (SurgicalProcessOutputModel)getIntent().getSerializableExtra("surgicalProcess");
+        this.isUpdate = getIntent().getBooleanExtra("isUpdate", false);
 
         textViewUserName = findViewById(R.id.textViewSPUserName);
         textViewUserName.setText(getString(R.string.identified_user) + " " + userLogged.UserName);
@@ -244,6 +248,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
         protected Object doInBackground(Object[] objects) {
             String methodName;
             String parameterName;
+            String parameterName1;
             //Variable para almacenar el resultado de la petición
             Object resultModel = null;
 
@@ -253,22 +258,24 @@ public class SurgicalProcessActivity extends AppCompatActivity {
                     ConnectionParameters.SOAP_ADDRESS[ConnectionParameters.SET_URL_CONNECTION]);
 
             //Si recibimos la orden de ubicar o de leer etiquetas.
-            if(createNewSurgicalProcess){
+            if(createNewSurgicalProcess) {
                 //Usamos esta variable indicar que vamos a insertar los registros.
                 createNewSurgicalProcess = false;
                 methodName = "SetSurgicalProcess";
                 parameterName = "dataToInsert";
+                parameterName1 = "isUpdate";
 
                 //Probar cambio, añadida descripcion al material
                 SurgicalProcessInputModel surgicalProcessInputModel = new SurgicalProcessInputModel();
 
+                surgicalProcessInputModel.HisId = surgicalProcess.HisId;
                 surgicalProcessInputModel.InterventionCode = surgicalProcess.InterventionCode;
                 surgicalProcessInputModel.RecordNumber = surgicalProcess.RecordNumber;
                 surgicalProcessInputModel.InterventionDate = surgicalProcess.InterventionDate;
                 surgicalProcessInputModel.OperationRoomId = surgicalProcess.OperationRoomId;
                 surgicalProcessInputModel.EntryUser = userLogged.Login;
 
-                for(SP_MaterialOutputModel m : lstMaterial){
+                for (SP_MaterialOutputModel m : lstMaterial) {
                     //Serializamos los materiales.
                     SP_MaterialInputModel serializableMaterial = new SP_MaterialInputModel();
                     serializableMaterial.MaterialCode = m.Id;
@@ -286,6 +293,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
                         ConnectionParameters.NAME_SPACE, ConnectionParameters.CONTRACT_NAME, methodName));
 
                 client.addParameter(parameterName, surgicalProcessInputModel);
+                client.addParameter(parameterName1, isUpdate);
                 resultModel = new SurgicalProcessOutputModel();
 
             }else{

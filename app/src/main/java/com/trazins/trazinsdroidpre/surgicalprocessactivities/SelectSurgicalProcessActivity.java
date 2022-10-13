@@ -82,6 +82,7 @@ public class SelectSurgicalProcessActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if(item.getItemId()==R.id.new_SP){
                     //Abrir la pantalla sin datos
+                    selectedsurgicalProcess = null;
                     openSurgicalProcessPreviousDataActivity(null);
                 }else if(item.getItemId()==R.id.edit_SP){
                     //Abrir la pantalla con datos
@@ -112,11 +113,11 @@ public class SelectSurgicalProcessActivity extends AppCompatActivity {
     }
 
     private void openSurgicalProcessPreviousDataActivity(SurgicalProcessOutputModel selectedsurgicalProcess) {
-        if(selectedsurgicalProcess== null){
-            Intent i = new Intent(getApplicationContext(),SurgicalProcessPreviousDataActivity.class);
-            i.putExtra("userLogged", this.userLogged);
-            startActivity(i);
-        }
+        Intent i = new Intent(getApplicationContext(), SurgicalProcessPreviousDataActivity.class);
+        i.putExtra("userLogged", this.userLogged);
+        i.putExtra("surgicalProcess", this.selectedsurgicalProcess);
+        startActivity(i);
+
     }
 
     class SurgicalProcessAsyncClass extends AsyncTask{
@@ -149,7 +150,7 @@ public class SelectSurgicalProcessActivity extends AppCompatActivity {
             return resultModel;
         }
 
-        //Aqui es donde se realizan las acciones obre la UI
+        //Aqui es donde se realizan las acciones sobre la UI
         @Override
         protected void onPostExecute(Object modelResult) {
             super.onPostExecute(modelResult);
@@ -188,7 +189,7 @@ public class SelectSurgicalProcessActivity extends AppCompatActivity {
     private List<SurgicalProcessOutputModel> GetData(SurgicalProcessOutputModel spmItem) {
         try {
 
-            SPList.add(new SurgicalProcessOutputModel(
+            SPList.add(new SurgicalProcessOutputModel(spmItem.HisId,
                     spmItem.OperationRoomName, spmItem.InterventionCode, spmItem.RecordNumber, spmItem.InterventionDate));
             return SPList;
 
