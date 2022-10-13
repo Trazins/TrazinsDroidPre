@@ -42,7 +42,9 @@
     <string name="add_shipment">Enviar material</string>
     <string name="materials_shipment_title">Material a enviar</string>
     <string name="shipment_title">Destino</string>
+    <string name="shipment_title2">Origen</string>
     <string name="shipment_empty">Lea la etiqueta de destino</string>
+    <string name="shipment_empty2">Lea la etiqueta del origen</string>
     <string name="correct_shipment">Enviado correctamente</string>
     <string name="shipment_error">Envío no realizado</string>
     <string name="send_print_label">Enviar e imprimir</string>

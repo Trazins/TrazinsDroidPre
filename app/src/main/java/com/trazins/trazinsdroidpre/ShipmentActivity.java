@@ -93,7 +93,8 @@ public class ShipmentActivity extends AppCompatActivity {
 
     //Controles
     BottomNavigationView btm;
-    TextView textViewShipmentResult, textViewUserName, textViewElements, textViewTrolleyName;
+    TextView textViewShipmentResult, textViewUserName, textViewElements, textViewTrolleyName,
+            textViewShipmentTitle;
 
 
     IntentFilter filter = new IntentFilter();
@@ -125,12 +126,19 @@ public class ShipmentActivity extends AppCompatActivity {
         textViewShipmentResult = findViewById(R.id.textViewShipmentResult);
         textViewElements = findViewById(R.id.textViewShipmentMaterialCounter);
         textViewTrolleyName = findViewById(R.id.textViewTrolleyName);
+        textViewShipmentTitle = findViewById(R.id.textViewShipmentTitle);
 
         //Usuario loggeado
         this.userLogged = (UserOutputModel)getIntent().getSerializableExtra("userLogged");
         this.toCentral = (boolean)getIntent().getSerializableExtra("toCentral");
         textViewUserName = findViewById(R.id.textViewShipmentUserName);
         textViewUserName.setText(getString(R.string.identified_user) + " " + userLogged.UserName);
+
+        //Pendiente revisar fto.
+        if(toCentral){
+            textViewShipmentTitle.setText(R.string.shipment_title2);
+            textViewShipmentResult.setText(R.string.shipment_empty2);
+        }
 
         filter.addAction(DataWedgeInterface.ACTION_RESULT_DATAWEDGE);
         filter.addCategory(Intent.CATEGORY_DEFAULT);

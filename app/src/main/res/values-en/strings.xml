@@ -41,7 +41,9 @@
     <string name="add_shipment">Send material</string>
     <string name="materials_shipment_title">Material to send</string>
     <string name="shipment_title">Destiny</string>
+    <string name="shipment_title2">Origin</string>
     <string name="shipment_empty">Scan destiny label</string>
+    <string name="shipment_empty2">Scan origin label</string>
     <string name="correct_shipment">Correct shipment</string>
     <string name="shipment_error">Unrealized shipment</string>
     <string name="send_print_label">Send and print label</string>
