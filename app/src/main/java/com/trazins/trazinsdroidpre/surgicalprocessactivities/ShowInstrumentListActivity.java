@@ -1,4 +1,4 @@
-package com.trazins.trazinsdroidpre;
+package com.trazins.trazinsdroidpre.surgicalprocessactivities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.trazins.trazinsdroidpre.R;
 import com.trazins.trazinsdroidpre.models.sp_intrumentmodel.SP_InstrumentOutputModel;
 import com.trazins.trazinsdroidpre.utils.InstrumentListCustomAdapter;
 

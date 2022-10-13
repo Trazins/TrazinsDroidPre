@@ -10,6 +10,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,6 +67,15 @@ public class SelectSurgicalProcessActivity extends AppCompatActivity {
         this.activityName= this.getClass().getSimpleName();
 
         SPListView = findViewById(R.id.listViewSelectSurgicalProcess);
+        SPListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedsurgicalProcess = SPList.get(position);
+
+                SPListView.setSelector(R.color.selection);
+                SPListView.requestLayout();
+            }
+        });
 
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

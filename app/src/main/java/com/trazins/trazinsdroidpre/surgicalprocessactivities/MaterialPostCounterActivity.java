@@ -1,21 +1,18 @@
 package com.trazins.trazinsdroidpre.surgicalprocessactivities;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.ArraySet;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowInsets;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -25,15 +22,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.threepin.fireexit_wcf.Configurator;
 import com.threepin.fireexit_wcf.FireExitClient;
 import com.trazins.trazinsdroidpre.R;
-import com.trazins.trazinsdroidpre.ShowInstrumentListActivity;
 import com.trazins.trazinsdroidpre.SurgicalProcessActivity;
-import com.trazins.trazinsdroidpre.models.materialmodel.MaterialInputModel;
-import com.trazins.trazinsdroidpre.models.materialmodel.MaterialOutputModel;
 import com.trazins.trazinsdroidpre.models.sp_intrumentmodel.SP_InstrumentOutputModel;
 import com.trazins.trazinsdroidpre.models.sp_setmodel.SP_SetInputModel;
 import com.trazins.trazinsdroidpre.models.sp_setmodel.SP_SetOutputModel;
-import com.trazins.trazinsdroidpre.models.surgicalprocessmodel.SurgicalProcessInputModel;
-import com.trazins.trazinsdroidpre.models.surgicalprocessmodel.SurgicalProcessOutputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 import com.trazins.trazinsdroidpre.utils.ConnectionParameters;
 import com.trazins.trazinsdroidpre.utils.ErrorLogWriter;
@@ -41,7 +33,6 @@ import com.zebra.rfid.api3.TagData;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 

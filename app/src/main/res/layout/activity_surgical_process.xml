@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="horizontal"
-    tools:context=".LocateActivity">
+    tools:context=".SurgicalProcessActivity">
 
     <LinearLayout
         android:id="@+id/MainLayout"
@@ -80,7 +80,7 @@
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="346dp"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toTopOf="@+id/bottomSPNavigationMenu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -90,7 +90,7 @@
         <ListView
             android:id="@+id/listViewSPMaterials"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:choiceMode="singleChoice" />
     </LinearLayout>
 
@@ -105,7 +105,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+
         app:menu="@menu/menu_surgical_process">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
