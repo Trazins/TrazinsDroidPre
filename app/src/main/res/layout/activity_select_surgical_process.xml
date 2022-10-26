@@ -74,7 +74,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MainLayout"
+
         app:menu="@menu/menu_select_surgical_process">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
