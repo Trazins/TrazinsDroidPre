@@ -140,6 +140,8 @@ public class SurgicalProcessActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        //Si es una modificación hay que cargar los materiales.
     }
 
     private void closeScreenWithResult(){

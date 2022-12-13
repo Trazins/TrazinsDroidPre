@@ -242,7 +242,7 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
 
             client.configure(new Configurator(
                     ConnectionParameters.NAME_SPACE, ConnectionParameters.CONTRACT_NAME, methodName));
-            client.addParameter(parameterName,operationRoomInputModel );
+            client.addParameter(parameterName, operationRoomInputModel );
             resultModel = new OperationRoomOutputModel();
             try {
                 resultModel = client.call(resultModel);
