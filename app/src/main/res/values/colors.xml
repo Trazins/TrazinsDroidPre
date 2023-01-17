@@ -16,4 +16,6 @@
     <color name="transparent">#00000000</color>
     <color name="light_grey">#ECF4FF</color>
     <color name="green">#5FA45C</color>
+    <color name= "urgent">#FFFF66</color>
+    <color name= "urgent_track">#FFFF00</color>
 </resources>

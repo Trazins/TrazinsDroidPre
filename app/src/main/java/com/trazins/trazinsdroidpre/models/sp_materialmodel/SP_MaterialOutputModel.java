@@ -1,5 +1,7 @@
 package com.trazins.trazinsdroidpre.models.sp_materialmodel;
 
+import android.os.Parcelable;
+
 import com.trazins.trazinsdroidpre.models.materialmodel.MaterialOutputModel;
 
 import java.io.Serializable;

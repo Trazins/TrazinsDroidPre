@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -95,7 +96,7 @@ public class ShipmentActivity extends AppCompatActivity {
     BottomNavigationView btm;
     TextView textViewShipmentResult, textViewUserName, textViewElements, textViewTrolleyName,
             textViewShipmentTitle;
-
+    Switch switchUrgent;
 
     IntentFilter filter = new IntentFilter();
 
@@ -122,6 +123,8 @@ public class ShipmentActivity extends AppCompatActivity {
                 ListViewMaterials.requestLayout();
             }
         });
+
+        switchUrgent = findViewById(R.id.switchSUrgent);
 
         textViewShipmentResult = findViewById(R.id.textViewShipmentResult);
         textViewElements = findViewById(R.id.textViewShipmentMaterialCounter);
@@ -256,6 +259,7 @@ public class ShipmentActivity extends AppCompatActivity {
                 createShipment.OriginId = finalOrigin.OriginId;
                 createShipment.EntryUser = userLogged.Login;
                 createShipment.ToCentral = toCentral;
+                createShipment.Urgent = switchUrgent.isChecked();
                 if(finalTrolley!= null)
                     createShipment.TrolleyCode = finalTrolley.TrolleyCode;
                 for(MaterialOutputModel m : lstMaterial){
@@ -492,6 +496,7 @@ public class ShipmentActivity extends AppCompatActivity {
         textViewTrolleyName.setText("");
         finalOrigin = null;
         finalTrolley = null;
+        switchUrgent.setChecked(false);
     }
 
     private void addMaterialToList(MaterialOutputModel modelResult) {

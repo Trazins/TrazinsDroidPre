@@ -29,6 +29,7 @@ import com.trazins.trazinsdroidpre.R;
 import com.trazins.trazinsdroidpre.SurgicalProcessActivity;
 import com.trazins.trazinsdroidpre.models.operationroom.OperationRoomInputModel;
 import com.trazins.trazinsdroidpre.models.operationroom.OperationRoomOutputModel;
+import com.trazins.trazinsdroidpre.models.sp_materialmodel.SP_MaterialOutputModel;
 import com.trazins.trazinsdroidpre.models.surgicalprocessmodel.SurgicalProcessOutputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 import com.trazins.trazinsdroidpre.utils.ConnectionParameters;
@@ -80,7 +81,12 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
 
         //Usuario loggeado
         this.userLogged = (UserOutputModel)getIntent().getSerializableExtra("userLogged");
+
+        Bundle bun = new Bundle();
+
+        bun = getIntent().getBundleExtra("materialList");
         this.surgicalProcess =(SurgicalProcessOutputModel)getIntent().getSerializableExtra("surgicalProcess");
+        /*this.surgicalProcess.MaterialOutputModelList = (List<SP_MaterialOutputModel>) bun.getSerializable("materialListbun");*/
 
         textViewUserName = findViewById(R.id.textViewSPUserName);
         textViewUserName.setText(getString(R.string.identified_user) + " " + userLogged.UserName);
@@ -222,6 +228,7 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
        }
 
     }
+
     //Solo realizamos la consulta para obtener los quirófanos de BD
     class OperationRoomAsyncClass extends AsyncTask{
 

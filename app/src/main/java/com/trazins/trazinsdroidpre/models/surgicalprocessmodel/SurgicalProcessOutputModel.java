@@ -1,5 +1,7 @@
 package com.trazins.trazinsdroidpre.models.surgicalprocessmodel;
 
+import com.trazins.trazinsdroidpre.models.sp_materialmodel.SP_MaterialOutputModel;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,7 @@ public class SurgicalProcessOutputModel implements Serializable {
     public String EntryUser;
     public String OperationRoomName;
     public List<SurgicalProcessOutputModel> SurgicalProcessList = new ArrayList<SurgicalProcessOutputModel>();
+    public List<SP_MaterialOutputModel> MaterialOutputModelList = new ArrayList<SP_MaterialOutputModel>();
     public boolean Result;
 
     public SurgicalProcessOutputModel(){}

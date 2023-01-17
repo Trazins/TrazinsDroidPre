@@ -50,7 +50,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
     private static final int REQUEST_CODE = 77;
 
     SP_MaterialOutputModel materialSelected = new SP_MaterialOutputModel();
-    List<SP_MaterialOutputModel> lstMaterial = new ArrayList<SP_MaterialOutputModel>();
+    List<SP_MaterialOutputModel> lstMaterial;
 
     //Usuario logeado
     UserOutputModel userLogged;
@@ -84,6 +84,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
         handler = new Handler(Looper.getMainLooper());
 
         this.activityName= this.getClass().getSimpleName();
+        lstMaterial = new ArrayList<SP_MaterialOutputModel>();
 
         ListViewMaterials = findViewById(R.id.listViewSPMaterials);
         ListViewMaterials.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -124,7 +125,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
                     closeScreenWithResult();
 
                 }else if(item.getItemId()==R.id.start_counter){
-                    if(materialSelected.MaterialType==null){
+                    if(materialSelected.MaterialType == null){
                         return false;
                     }
                     //Abrir pantalla de recuento
@@ -142,6 +143,13 @@ public class SurgicalProcessActivity extends AppCompatActivity {
         });
 
         //Si es una modificación hay que cargar los materiales.
+        if(isUpdate){
+
+            for(SP_MaterialOutputModel m : this.surgicalProcess.MaterialOutputModelList){
+                addMaterialToList(m);
+            }
+
+        }
     }
 
     private void closeScreenWithResult(){
@@ -251,6 +259,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
             String methodName;
             String parameterName;
             String parameterName1;
+
             //Variable para almacenar el resultado de la petición
             Object resultModel = null;
 
@@ -298,7 +307,9 @@ public class SurgicalProcessActivity extends AppCompatActivity {
                 client.addParameter(parameterName1, isUpdate);
                 resultModel = new SurgicalProcessOutputModel();
 
-            }else{
+            }
+            else{
+
                 methodName = "GetMaterialData";
                 parameterName = "materialCode";
 

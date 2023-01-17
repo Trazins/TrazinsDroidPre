@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.threepin.fireexit_wcf.Configurator;
 import com.threepin.fireexit_wcf.FireExitClient;
 import com.trazins.trazinsdroidpre.R;
+import com.trazins.trazinsdroidpre.models.sp_materialmodel.SP_MaterialInputModel;
+import com.trazins.trazinsdroidpre.models.sp_materialmodel.SP_MaterialOutputModel;
 import com.trazins.trazinsdroidpre.models.storagemodel.StorageInputModel;
 import com.trazins.trazinsdroidpre.models.storagemodel.StorageOutputModel;
 import com.trazins.trazinsdroidpre.models.surgicalprocessmodel.SurgicalProcessInputModel;
@@ -29,6 +32,7 @@ import com.trazins.trazinsdroidpre.utils.ConnectionParameters;
 import com.trazins.trazinsdroidpre.utils.ErrorLogWriter;
 import com.trazins.trazinsdroidpre.utils.SPCustomAdapter;
 
+import java.io.Serializable;
 import java.nio.channels.AsynchronousChannelGroup;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -47,6 +51,7 @@ public class SelectSurgicalProcessActivity extends AppCompatActivity {
 
     //Proceso quiúrgico seleccionado
     SurgicalProcessOutputModel selectedsurgicalProcess;
+    private boolean getMaterialList = false;
 
     private TextView textViewUserName;
     private BottomNavigationView bnv;
@@ -83,10 +88,10 @@ public class SelectSurgicalProcessActivity extends AppCompatActivity {
                 if(item.getItemId()==R.id.new_SP){
                     //Abrir la pantalla sin datos
                     selectedsurgicalProcess = null;
-                    openSurgicalProcessPreviousDataActivity(null);
+                    openNewSurgicalProcessPreviousDataActivity();
                 }else if(item.getItemId()==R.id.edit_SP){
                     //Abrir la pantalla con datos
-                    openSurgicalProcessPreviousDataActivity(selectedsurgicalProcess);
+                    openSurgicalProcessPreviousDataActivity();
                 }else{
                     onBackPressed();
                 }
@@ -112,11 +117,25 @@ public class SelectSurgicalProcessActivity extends AppCompatActivity {
         SPList.clear();
     }
 
-    private void openSurgicalProcessPreviousDataActivity(SurgicalProcessOutputModel selectedsurgicalProcess) {
+    private void openNewSurgicalProcessPreviousDataActivity(){
         Intent i = new Intent(getApplicationContext(), SurgicalProcessPreviousDataActivity.class);
         i.putExtra("userLogged", this.userLogged);
         i.putExtra("surgicalProcess", this.selectedsurgicalProcess);
         startActivity(i);
+    }
+    private void openSurgicalProcessPreviousDataActivity() {
+        getMaterialList = true;
+
+        new SurgicalProcessAsyncClass().execute();
+
+        /*//Probar
+        Bundle bun = new Bundle();
+        bun.putSerializable("materialsListbun", (Serializable) this.selectedsurgicalProcess.MaterialOutputModelList);
+        Intent i = new Intent(getApplicationContext(), SurgicalProcessPreviousDataActivity.class);
+        i.putExtra("userLogged", this.userLogged);
+        i.putExtra("surgicalProcess", this.selectedsurgicalProcess);
+        i.putExtra("materialList", bun);
+        startActivity(i);*/
 
     }
 
@@ -124,10 +143,14 @@ public class SelectSurgicalProcessActivity extends AppCompatActivity {
         @Override
         protected Object doInBackground(Object[] objects) {
             String methodName = "GetSurgicalProcess";
-            String parameterName = "entryUser";
+            String parameterName = "surgicalProcess";
+            String parameterName1 = "getMaterialList";
 
             SurgicalProcessInputModel surgicalProcessInputModel = new SurgicalProcessInputModel();
+            //Con el usuario obtenemos los datos del hospital
             surgicalProcessInputModel.EntryUser = userLogged.Login;
+            if(getMaterialList)
+                surgicalProcessInputModel.HisId = selectedsurgicalProcess.HisId;
 
             //Desplegar el servicio:
             //Usamos la librería Fireexit para la gestión de la serialización.
@@ -138,6 +161,7 @@ public class SelectSurgicalProcessActivity extends AppCompatActivity {
                     ConnectionParameters.NAME_SPACE, ConnectionParameters.CONTRACT_NAME, methodName));
 
             client.addParameter(parameterName, surgicalProcessInputModel);
+            client.addParameter(parameterName1, getMaterialList);
 
             SurgicalProcessOutputModel resultModel = new SurgicalProcessOutputModel();
             try {
@@ -146,6 +170,7 @@ public class SelectSurgicalProcessActivity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
                 ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
+                getMaterialList = false;
             }
             return resultModel;
         }
@@ -158,7 +183,15 @@ public class SelectSurgicalProcessActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     if(modelResult!= null){
-                        processData((SurgicalProcessOutputModel)modelResult);
+
+                        if(getMaterialList){
+                            selectedsurgicalProcess = (SurgicalProcessOutputModel)modelResult;
+                            openNewSurgicalProcessPreviousDataActivity();
+                        }
+                        else{
+                            processData((SurgicalProcessOutputModel)modelResult);
+                        }
+                        getMaterialList = false;
                     }
                 }
             });

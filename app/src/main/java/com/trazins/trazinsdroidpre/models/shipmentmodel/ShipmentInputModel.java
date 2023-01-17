@@ -11,5 +11,6 @@ public class ShipmentInputModel implements Serializable {
     public String EntryUser;
     public List<MaterialInputModel> MatList = new ArrayList<MaterialInputModel>();
     public boolean ToCentral = false;
+    public boolean Urgent = false;
     public String TrolleyCode;
 }
