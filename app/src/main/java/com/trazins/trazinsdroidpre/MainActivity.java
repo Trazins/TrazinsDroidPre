@@ -31,6 +31,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private static final String PROFILE1 = "TrazinsMultiActivity_Profile1";
@@ -186,17 +187,23 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Object userLogged) {
             super.onPostExecute(userLogged);
-
-            if(userLogged instanceof UserOutputModel){
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        setInformationMessage((UserOutputModel) userLogged);
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    List<UserOutputModel>userlist = ((UserOutputModel)userLogged).UsersList;
+                    if(userlist.size()==1){
+                        setInformationMessage(userlist.get(0));
+                    }else if(userlist.size()>1){
+                        //Mostramos selector de hospital
+                        Intent i = new Intent(getApplicationContext(), HospitalSelectionActivity.class);
+                        i.putExtra("userLogged", ((UserOutputModel) userLogged));
+                        startActivity(i);
+                    }else{
+                        Toast.makeText(getBaseContext(),userLogged.toString(),Toast.LENGTH_LONG).show();
                     }
-                });
-            }else{
-                Toast.makeText(getBaseContext(),userLogged.toString(),Toast.LENGTH_LONG).show();
-            }
+                }
+            });
+
         }
 
         private void setInformationMessage(UserOutputModel userLogged) {

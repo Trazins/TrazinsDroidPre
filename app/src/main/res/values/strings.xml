@@ -17,6 +17,10 @@
     <string name="start_counter">Iniciar</string>
     <string name="validate_counter">Validar</string>
     <string name="urgent">Urgente:</string>
+    <string name="selected">Seleccionar</string>
+
+    //Hospital Selection Activity
+    <string name="list_hospitals_title">Seleccione un hospital:</string>
 
     //Main Activity
     <string name="app_name">Trazins DROID</string>
@@ -25,7 +29,7 @@
     <string name="aut_result">Pendiente autenticación</string>
     <string name="correct_user">Autenticación correcta</string>
     <string name="incorrect_user"><font fgcolor='#FFFF3B30'>Usuario incorrecto</font></string>
-    <string name="app_version">Versión 1.01</string>
+    <string name="app_version">Versión 1.02</string>
 
     //Locate Activity
     <string name="location_title">Ubicación</string>
@@ -52,7 +56,7 @@
     <string name="trolley">Carro:</string>
     <string name="trolley_hint">Lea la etiqueta del carro</string>
     <string name="located_trolley">El carro seleccionado no se puede usar porque está ubicado</string>
-    <string name= "steri_shipment">Envío a esterilización</string>
+    <string name="steri_shipment">Envío a esterilización</string>
 
     //Surgical Process Activities
     <string name="surgical_information_title">Datos del proceso quirúrgico</string>

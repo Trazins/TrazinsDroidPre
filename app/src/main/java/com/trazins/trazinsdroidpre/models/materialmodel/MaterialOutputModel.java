@@ -59,14 +59,14 @@ public class MaterialOutputModel implements Serializable{
         this.Image = image;
     }
 
+    public MaterialOutputModel() {
+    }
+
     public MaterialOutputModel(String id, int image, String materialDescription, String materialType) {
         this.Id = id;
         this.MaterialDescription = materialDescription;
         this.Image = image;
         this.MaterialType = materialType;
-    }
-
-    public MaterialOutputModel() {
     }
 
     public MaterialOutputModel(String id, String materialDescription, String materialType, String hosId, String chId) {

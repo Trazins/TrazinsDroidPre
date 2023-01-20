@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".surgicalprocessactivities.ShowInstrumentListActivity"></activity>
+        <activity android:name=".HospitalSelectionActivity"></activity>
+        <activity android:name=".surgicalprocessactivities.ShowInstrumentListActivity" />
         <activity android:name=".surgicalprocessactivities.SelectSurgicalProcessActivity" />
         <activity android:name=".ShowErrorLogActivity" />
         <activity android:name=".PrinterSettingsActivity" />

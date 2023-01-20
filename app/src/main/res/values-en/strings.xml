@@ -16,6 +16,10 @@
     <string name="start_counter">Iniciar</string>
     <string name="validate_counter">Validate</string>
     <string name="urgent">Urgent:</string>
+    <string name="selected">Selected</string>
+
+    //Hospital Selection Activity
+    <string name="list_hospitals_title">Select a hospital:</string>
 
     //Main Activity
     <string name="app_name">Trazins DROID</string>
