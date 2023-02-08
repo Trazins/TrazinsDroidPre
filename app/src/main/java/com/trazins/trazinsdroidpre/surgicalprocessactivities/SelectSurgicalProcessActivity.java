@@ -148,7 +148,7 @@ public class SelectSurgicalProcessActivity extends AppCompatActivity {
 
             SurgicalProcessInputModel surgicalProcessInputModel = new SurgicalProcessInputModel();
             //Con el usuario obtenemos los datos del hospital
-            surgicalProcessInputModel.EntryUser = userLogged.Login;
+            surgicalProcessInputModel.HosId = userLogged.HosId;
             if(getMaterialList)
                 surgicalProcessInputModel.HisId = selectedsurgicalProcess.HisId;
 

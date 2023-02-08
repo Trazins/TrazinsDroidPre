@@ -16,7 +16,8 @@ public class ConnectionParameters {
             /*6*/ "http://DC0GPREIIS003:8051/Android/TrazinsDroidService.svc",      //Navarra PRE
             /*7*/ "http://DC0GPROIIS003:8051/Android/TrazinsDroidService.svc",      //Navarra PRO
             /*8*/ "http://141.94.195.33:8066/Android/TrazinsDroidService.svc",      //Teruel
-            /*9*/ "http://10.208.8.26:8040/Android/TrazinsDroidService.svc"         //Chihuahua
+            /*9*/ "http://10.208.8.26:8040/Android/TrazinsDroidService.svc",        //Chihuahua
+            /*10*/ "http://10.14.0.61:8020/Android/TrazinsDroidService.svc"         //Tauli
     };
 
     //Datos de conexión del webservice

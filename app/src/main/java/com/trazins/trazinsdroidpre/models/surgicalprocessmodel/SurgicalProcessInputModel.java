@@ -13,7 +13,8 @@ public class SurgicalProcessInputModel implements Serializable {
     public String InterventionCode;
     public String RecordNumber;
     public String InterventionDate;
-    public String EntryUser;
+    public String HosId;
     public String OperationRoomName;
     public List<SP_MaterialInputModel> MaterialList = new ArrayList<SP_MaterialInputModel>();
+    public String EntryUser;
 }

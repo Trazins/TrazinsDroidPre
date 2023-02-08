@@ -145,7 +145,7 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
             interventionDate = df.format(currentDate);
         }
 
-        this.surgicalProcess.EntryUser = this.userLogged.Login;
+        this.surgicalProcess.HosId = this.userLogged.HosId;
         this.surgicalProcess.InterventionCode = interventionCode ;
         this.surgicalProcess.RecordNumber = recordNumber;
         this.surgicalProcess.InterventionDate = interventionDate;
@@ -240,12 +240,12 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
             Object resultModel = null;
 
             OperationRoomInputModel operationRoomInputModel = new OperationRoomInputModel();
-            operationRoomInputModel.UserLogged = userLogged.Login;
+            operationRoomInputModel.HosId = userLogged.HosId;
 
             FireExitClient client = new FireExitClient(
                     ConnectionParameters.SOAP_ADDRESS[ConnectionParameters.SET_URL_CONNECTION]);
             methodName = "GetOperationRoomList";
-            parameterName = "userlogged";
+            parameterName = "hosId";
 
             client.configure(new Configurator(
                     ConnectionParameters.NAME_SPACE, ConnectionParameters.CONTRACT_NAME, methodName));

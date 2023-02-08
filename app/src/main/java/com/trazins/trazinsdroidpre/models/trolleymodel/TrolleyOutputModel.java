@@ -11,5 +11,6 @@ public class TrolleyOutputModel extends MaterialOutputModel {
     public String TrolleyCode;
     public Integer LocateId;
     public String TrolleyName;
+    public String HosId;
     public List<TrolleyOutputModel> TrolleyContent = new ArrayList<TrolleyOutputModel>();
 }

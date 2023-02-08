@@ -21,6 +21,7 @@
 
     //Hospital Selection Activity
     <string name="list_hospitals_title">Seleccione un hospital:</string>
+    <string name="hospital_not_selected">No ha seleccionado ningún hospital</string>
 
     //Main Activity
     <string name="app_name">Trazins DROID</string>

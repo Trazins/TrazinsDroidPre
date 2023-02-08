@@ -257,9 +257,10 @@ public class ShipmentActivity extends AppCompatActivity {
                 //Mapeamos el registro a insertar
                 createShipment = new ShipmentInputModel();
                 createShipment.OriginId = finalOrigin.OriginId;
-                createShipment.EntryUser = userLogged.Login;
+                createShipment.HosId = userLogged.HosId;
                 createShipment.ToCentral = toCentral;
                 createShipment.Urgent = switchUrgent.isChecked();
+                createShipment.EntryUser = userLogged.Login;
                 if(finalTrolley!= null)
                     createShipment.TrolleyCode = finalTrolley.TrolleyCode;
                 for(MaterialOutputModel m : lstMaterial){
@@ -286,6 +287,7 @@ public class ShipmentActivity extends AppCompatActivity {
 
                     OriginInputModel originInputModel = new OriginInputModel();
                     originInputModel.originCode = readCode;
+                    originInputModel.HosId = userLogged.HosId;
 
                     //Según el código hay que usar una clase de web service o otra;
                     client.configure(new Configurator(
@@ -301,6 +303,7 @@ public class ShipmentActivity extends AppCompatActivity {
 
                         TrolleyInputModel trolleyInputModel = new TrolleyInputModel();
                         trolleyInputModel.TrolleyCode = readCode;
+                        trolleyInputModel.HosId = userLogged.HosId;
 
                         client.configure(new Configurator(
                                 ConnectionParameters.NAME_SPACE,ConnectionParameters.CONTRACT_NAME, methodName));
@@ -351,6 +354,7 @@ public class ShipmentActivity extends AppCompatActivity {
             String modelType = modelResult.getClass().getSimpleName();
             switch(modelType){
                 case "OriginOutputModel":
+                    //PDTE, comprobar que el hosid del usuario es el mismo que el del origen?
                     finalOrigin = (OriginOutputModel)modelResult;
                     textViewShipmentResult.setText(((OriginOutputModel) modelResult).OriginDescription);
                     break;

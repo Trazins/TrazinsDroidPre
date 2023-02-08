@@ -8,7 +8,7 @@ import java.util.List;
 public class OperationRoomOutputModel {
     public int OpId;
     public String OpName;
-    public String UserLogged;
+    public String HosId;
     public List<OperationRoomOutputModel> OpList = new ArrayList<OperationRoomOutputModel>();
 
     @NonNull

@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 import com.threepin.fireexit_wcf.Configurator;
 import com.threepin.fireexit_wcf.FireExitClient;
+import com.trazins.trazinsdroidpre.models.sp_materialmodel.SP_MaterialOutputModel;
+import com.trazins.trazinsdroidpre.models.sp_setmodel.SP_SetOutputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserInputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 import com.trazins.trazinsdroidpre.scanner.DataWedgeInterface;
@@ -39,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String PROFILE3 = "TrazinsMultiActivity_Profile3";
     private static final String PROFILE4 = "TrazinsMultiActivity_Profile4";
 
+    private static final int REQUEST_CODE = 77;
+
     private String activityName;
 
     TextView editTextAutResult;
@@ -46,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
     ImageButton buttonShowErrorLog;
     ImageView imageViewAutResult;
     Handler handler;
+
+    UserOutputModel selectedHospitalUser = new UserOutputModel();
 
     IntentFilter filter = new IntentFilter();
 
@@ -197,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
                         //Mostramos selector de hospital
                         Intent i = new Intent(getApplicationContext(), HospitalSelectionActivity.class);
                         i.putExtra("userLogged", ((UserOutputModel) userLogged));
-                        startActivity(i);
+                        startActivityForResult(i,REQUEST_CODE);
                     }else{
                         Toast.makeText(getBaseContext(),userLogged.toString(),Toast.LENGTH_LONG).show();
                     }
@@ -206,21 +212,23 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        private void setInformationMessage(UserOutputModel userLogged) {
-            if(userLogged.Login!=null){
-                //textViewAutResult.setText(((UserOutputModel) userLogged).UserName);
-                //Por si primero no leen bien el código que les aparezca correcto.
-                buttonAutResult.setTextColor(getResources().getColor(R.color.green));
-                buttonAutResult.setText(R.string.correct_user);
-                Intent switchActivity = new Intent(getApplicationContext(), SelectionActivity.class);
-                switchActivity.putExtra("userLogged",((UserOutputModel) userLogged));
-                startActivity(switchActivity);
-            }
-            else{
-                //textViewAutResult.setText(R.string.incorrect_user);
-                buttonAutResult.setTextColor(getResources().getColor(R.color.red));
-                buttonAutResult.setText(R.string.incorrect_user);
-            }
+
+    }
+
+    private void setInformationMessage(UserOutputModel userLogged) {
+        if(userLogged.Login!=null){
+            //textViewAutResult.setText(((UserOutputModel) userLogged).UserName);
+            //Por si primero no leen bien el código que les aparezca correcto.
+            buttonAutResult.setTextColor(getResources().getColor(R.color.green));
+            buttonAutResult.setText(R.string.correct_user);
+            Intent switchActivity = new Intent(getApplicationContext(), SelectionActivity.class);
+            switchActivity.putExtra("userLogged",((UserOutputModel) userLogged));
+            startActivity(switchActivity);
+        }
+        else{
+            //textViewAutResult.setText(R.string.incorrect_user);
+            buttonAutResult.setTextColor(getResources().getColor(R.color.red));
+            buttonAutResult.setText(R.string.incorrect_user);
         }
     }
 
@@ -331,4 +339,19 @@ public class MainActivity extends AppCompatActivity {
 
         //Toast.makeText(getApplicationContext(), "Created profiles.  Check DataWedge app UI.", Toast.LENGTH_LONG).show();
     }
+
+    //Para poder procesar la información recibida de la pantalla de recuento
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE) {
+            if(resultCode == RESULT_OK){
+                this.selectedHospitalUser = (UserOutputModel) data.getSerializableExtra("selectedHospitalUser");
+                setInformationMessage(selectedHospitalUser);
+            }
+            if (resultCode == RESULT_CANCELED) {
+                // Write your code if there's no result
+            }
+        }
+    } //onActivityResult
 }

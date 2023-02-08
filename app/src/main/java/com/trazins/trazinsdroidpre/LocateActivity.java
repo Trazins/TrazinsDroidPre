@@ -207,6 +207,7 @@ public class LocateActivity extends AppCompatActivity {
                 }
                 storageInputModel.LocationId = String.valueOf(finalLocation.LocateId);
                 storageInputModel.EntryUser = userLogged.Login;
+                storageInputModel.HosId = userLogged.HosId;
                 for(MaterialOutputModel m : lstMaterial){
                     //Serializamos los materiales.
                     MaterialInputModel serializableMaterial = new MaterialInputModel();
@@ -231,6 +232,9 @@ public class LocateActivity extends AppCompatActivity {
 
                     LocateInputModel locateInputModelData = new LocateInputModel();
                     locateInputModelData.StorageCode = readCode;
+                    //Por si es necesario filtrar por ubicaciones del propio hospital
+                    locateInputModelData.HosId = userLogged.HosId;
+                    locateInputModelData.EntryUser = userLogged.Login;
 
                     //Según el código hay que usar una clase de web service o otra;
                     client.configure(new Configurator(
@@ -245,6 +249,7 @@ public class LocateActivity extends AppCompatActivity {
                         parameterName = "trolleyCode";
                         TrolleyInputModel trolleyInputModel = new TrolleyInputModel();
                         trolleyInputModel.TrolleyCode = readCode;
+                        trolleyInputModel.HosId = userLogged.HosId;
 
                         client.configure(new Configurator(
                                 ConnectionParameters.NAME_SPACE, ConnectionParameters.CONTRACT_NAME, methodName));

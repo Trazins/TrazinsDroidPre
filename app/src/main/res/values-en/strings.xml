@@ -20,6 +20,7 @@
 
     //Hospital Selection Activity
     <string name="list_hospitals_title">Select a hospital:</string>
+    <string name="hospital_not_selected">Hospital not selected</string>
 
     //Main Activity
     <string name="app_name">Trazins DROID</string>

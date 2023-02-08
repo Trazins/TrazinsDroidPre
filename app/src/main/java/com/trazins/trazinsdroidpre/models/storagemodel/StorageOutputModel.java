@@ -10,5 +10,6 @@ public class StorageOutputModel {
     public String MaterialId;
     public String MaterialType;
     public String EntryUser;
+    public String HosId;
     public boolean Result;
 }

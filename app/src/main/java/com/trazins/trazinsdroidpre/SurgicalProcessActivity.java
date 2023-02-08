@@ -170,7 +170,6 @@ public class SurgicalProcessActivity extends AppCompatActivity {
         i.putExtra("userLogged", this.userLogged);
         i.putExtra("selectedSet", selectedSet);
         //Enviar datos de la caja
-        //startActivity(i);
         startActivityForResult(i, REQUEST_CODE);
 
     }
@@ -284,6 +283,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
                 surgicalProcessInputModel.RecordNumber = surgicalProcess.RecordNumber;
                 surgicalProcessInputModel.InterventionDate = surgicalProcess.InterventionDate;
                 surgicalProcessInputModel.OperationRoomId = surgicalProcess.OperationRoomId;
+                surgicalProcessInputModel.HosId = userLogged.HosId;
                 surgicalProcessInputModel.EntryUser = userLogged.Login;
 
                 for (SP_MaterialOutputModel m : lstMaterial) {

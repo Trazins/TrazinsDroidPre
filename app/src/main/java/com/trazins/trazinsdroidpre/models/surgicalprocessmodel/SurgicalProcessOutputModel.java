@@ -12,7 +12,7 @@ public class SurgicalProcessOutputModel implements Serializable {
     public String InterventionCode;
     public String RecordNumber;
     public String InterventionDate;
-    public String EntryUser;
+    public String HosId;
     public String OperationRoomName;
     public List<SurgicalProcessOutputModel> SurgicalProcessList = new ArrayList<SurgicalProcessOutputModel>();
     public List<SP_MaterialOutputModel> MaterialOutputModelList = new ArrayList<SP_MaterialOutputModel>();
