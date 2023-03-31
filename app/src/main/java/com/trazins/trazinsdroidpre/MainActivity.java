@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
                 ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(), activityName);
-                return e.getMessage();
+                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
             return userOutputModelLogged;
         }
