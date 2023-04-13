@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.trazins.trazinsdroidpre.R;
@@ -44,6 +45,7 @@ public class SPCustomAdapter extends BaseAdapter {
         TextView TextViewRecordNum;
         TextView TextViewOperatingRoom;
         TextView TextViewInterventionDate;
+        Switch SwitchUrgent;
 
         SurgicalProcessOutputModel c = lst.get(position);
         if(convertView == null)
@@ -53,11 +55,13 @@ public class SPCustomAdapter extends BaseAdapter {
         TextViewRecordNum = convertView.findViewById(R.id.textViewLstRecordNum);
         TextViewOperatingRoom = convertView.findViewById(R.id.textViewLstOperatingRoom);
         TextViewInterventionDate = convertView.findViewById(R.id.textViewLstInterventionDate);
+        SwitchUrgent = convertView.findViewById(R.id.switchUrgent);
 
         TextViewInterventionCode.setText(c.InterventionCode);
         TextViewRecordNum.setText(c.RecordNumber);
         TextViewOperatingRoom.setText(c.OperationRoomName);
         TextViewInterventionDate.setText(c.InterventionDate);
+        SwitchUrgent.setChecked(c.Urgent);
 
         return convertView;
     }

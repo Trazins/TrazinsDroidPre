@@ -133,7 +133,7 @@
                 android:textStyle="bold"
                 android:background="@color/light_grey"/>
             <Switch
-                android:id="@+id/switchSUrgent"
+                android:id="@+id/switchSPUrgent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:trackTint="@drawable/switchtracksp"

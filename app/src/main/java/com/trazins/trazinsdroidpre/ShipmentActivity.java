@@ -141,7 +141,6 @@ public class ShipmentActivity extends AppCompatActivity {
         textViewUserName = findViewById(R.id.textViewShipmentUserName);
         textViewUserName.setText(getString(R.string.identified_user) + " " + userLogged.UserName);
 
-        //Pendiente revisar fto.
         if(toCentral){
             textViewShipmentTitle.setText(R.string.shipment_title2);
             textViewShipmentResult.setText(R.string.shipment_empty2);

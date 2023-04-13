@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -48,6 +49,8 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
     private TextView textViewUserName;
     private Spinner spinnerOperationRoom;
     private BottomNavigationView bnv;
+
+    private Switch switchUrgent;
     List<OperationRoomOutputModel> OperationRoomList;
 
     private boolean isUpdate = false;
@@ -78,13 +81,14 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
         editTextInterventionDate.setInputType(InputType.TYPE_NULL);
         spinnerOperationRoom = findViewById(R.id.spinnerOperationRoom);
         bnv = findViewById(R.id.bottomSPPDNavigationMenu);
+        switchUrgent = findViewById(R.id.switchSPUrgent);
 
         //Usuario loggeado
         this.userLogged = (UserOutputModel)getIntent().getSerializableExtra("userLogged");
 
-        Bundle bun = new Bundle();
+        //Bundle bun = new Bundle();
 
-        bun = getIntent().getBundleExtra("materialList");
+        //bun = getIntent().getBundleExtra("materialList");
         this.surgicalProcess =(SurgicalProcessOutputModel)getIntent().getSerializableExtra("surgicalProcess");
         /*this.surgicalProcess.MaterialOutputModelList = (List<SP_MaterialOutputModel>) bun.getSerializable("materialListbun");*/
 
@@ -150,6 +154,7 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
         this.surgicalProcess.RecordNumber = recordNumber;
         this.surgicalProcess.InterventionDate = interventionDate;
         this.surgicalProcess.OperationRoomId = operationRoom.OpId;
+        this.surgicalProcess.Urgent = switchUrgent.isChecked();
 
         Intent i = new Intent(getApplicationContext(), SurgicalProcessActivity.class);
         i.putExtra("surgicalProcess", this.surgicalProcess);
@@ -203,6 +208,7 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
         editTextInterventionCode.setText("");
         editTextInterventionDate.setText("");
         spinnerOperationRoom.setSelection(0);
+        switchUrgent.setChecked(false);
         this.isUpdate = false;
         surgicalProcess = null;
     }
@@ -212,6 +218,7 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
         editTextRecordNumber.setText(surgicalProcess.RecordNumber);
         editTextInterventionCode.setText(surgicalProcess.InterventionCode);
         editTextInterventionDate.setText(surgicalProcess.InterventionDate);
+        switchUrgent.setChecked(surgicalProcess.Urgent);
 
         this.isUpdate = true;
         //El control spinner hay que hacerlo después de recuperar los datos de bd
