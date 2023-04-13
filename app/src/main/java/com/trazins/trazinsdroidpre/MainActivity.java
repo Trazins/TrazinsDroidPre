@@ -6,6 +6,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -58,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
     //Variable que almacena el código leído por el lector.
     String readCode = "";
 
+    Boolean isConnected;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +75,11 @@ public class MainActivity extends AppCompatActivity {
         buttonAutResult = findViewById(R.id.buttonAutResult);
         imageViewAutResult= findViewById(R.id.imageViewUser);
         buttonShowErrorLog = findViewById(R.id.buttonShowErrorLog);
+
+        isConnected = isNetworkConnected(this);
+        if(!isNetworkConnected(this)){
+            Toast.makeText(this, R.string.wifi_not_conected, Toast.LENGTH_LONG).show();
+        }
 
         buttonAutResult.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,14 +99,17 @@ public class MainActivity extends AppCompatActivity {
         editTextAutResult.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if(event.getAction()==KeyEvent.ACTION_DOWN && keyCode== KeyEvent.KEYCODE_ENTER){
-                    readCode = editTextAutResult.getText().toString();
-                    new MyAsyncClass().execute();
-                    editTextAutResult.setText("");
-                    editTextAutResult.setVisibility(View.INVISIBLE);
-                    return true;
+                if (isConnected) {
+                    if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                        readCode = editTextAutResult.getText().toString();
+                        new MyAsyncClass().execute();
+                        editTextAutResult.setText("");
+                        editTextAutResult.setVisibility(View.INVISIBLE);
+                        return true;
+                    }
                 }
                 return false;
+
             }
         });
 
@@ -106,6 +118,8 @@ public class MainActivity extends AppCompatActivity {
         filter.addAction(DataWedgeInterface.ACTIVITY_INTENT_FILTER_ACTION);
 
         createProfileForeachActivity();
+
+
     }
 
     private void createProfileForeachActivity() {
@@ -128,6 +142,13 @@ public class MainActivity extends AppCompatActivity {
         Code128Value = "true";
         EAN13Value = "false";
         CreateProfile(PROFILE4, Code128Value, EAN13Value);
+    }
+
+    public static boolean isNetworkConnected(Context context) {
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 
     @Override
@@ -164,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
     class MyAsyncClass extends AsyncTask{
         @Override
         protected Object doInBackground(Object[] objects) {
+
             //Usamos los mismos nombres en las clases para que la serialización se realice correctamente
             UserInputModel userInputModelData = new UserInputModel();
             userInputModelData.SignatureCode = readCode;
@@ -185,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
                 ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(), activityName);
-                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
             return userOutputModelLogged;
         }
@@ -209,10 +231,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
-
         }
-
-
     }
 
     private void setInformationMessage(UserOutputModel userLogged) {
@@ -262,7 +281,8 @@ public class MainActivity extends AppCompatActivity {
         String decodedData = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_data));
 
         readCode = decodedData;
-        new MyAsyncClass().execute();
+        if(isConnected)
+            new MyAsyncClass().execute();
     };
 
     //Crea los archivos para la aplicación Datawedge de Zebra

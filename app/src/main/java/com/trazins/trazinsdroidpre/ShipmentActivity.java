@@ -8,12 +8,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -147,6 +151,7 @@ public class ShipmentActivity extends AppCompatActivity {
         filter.addCategory(Intent.CATEGORY_DEFAULT);
         filter.addAction(DataWedgeInterface.ACTIVITY_INTENT_FILTER_ACTION);
 
+
         btm = findViewById(R.id.bottomShipmentNavigationMenu);
         btm.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -166,7 +171,7 @@ public class ShipmentActivity extends AppCompatActivity {
         });
     }
 
-    //Es necesario crear un hilo nuevo pro la conexión TCP
+    //Es necesario crear un hilo nuevo para la conexión TCP
     private void setLocateAndPrint() {
         new Thread(new Runnable() {
             @Override

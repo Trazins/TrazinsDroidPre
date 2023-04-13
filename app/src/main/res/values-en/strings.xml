@@ -29,7 +29,8 @@
     <string name="aut_result">Authentication pending</string>
     <string name="correct_user">Succesfully autentication</string>
     <string name="incorrect_user"><font fgcolor='#FFFF3B30'>Incorrect user</font></string>
-    <string name="app_version">Version 1.01</string>
+    <string name="app_version">Version 1.03</string>
+    <string name="wifi_not_conected">Wifi not connected</string>
 
     //Locate Activity
     <string name="location_title">Location</string>

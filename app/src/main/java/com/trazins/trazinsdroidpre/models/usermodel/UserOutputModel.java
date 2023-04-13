@@ -10,5 +10,7 @@ public class UserOutputModel implements Serializable {
     public String Login;
     public String HosId;
     public String HospitalName;
+
+    public Integer AndroidVersion;
     public List<UserOutputModel> UsersList = new ArrayList<UserOutputModel>();
 }

@@ -78,6 +78,7 @@
     </LinearLayout>
 
     <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/gridLayoutSelectionMenu"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_gravity="center"
@@ -98,7 +99,8 @@
             android:onClick="openSelectedActivity"
             android:text="@string/add_location"
             android:textColor="@color/buttonTrazins"
-            app:layout_columnWeight="1" />
+            app:layout_columnWeight="1"
+            android:tag="v1"/>
 
         <Button
             android:id="@+id/buttonShipmentMenu"
@@ -110,7 +112,8 @@
             android:onClick="openSelectedActivity"
             android:text="@string/add_shipment"
             android:textColor="@color/buttonTrazins"
-            app:layout_columnWeight="1" />
+            app:layout_columnWeight="1"
+            android:tag="v1"/>
 
         <Button
             android:id="@+id/buttonSurgicalProcess"
@@ -122,7 +125,8 @@
             android:onClick="openSelectedActivity"
             android:text="@string/surgical_process_title"
             android:textColor="@color/buttonTrazins"
-            app:layout_columnWeight="1"            />
+            app:layout_columnWeight="1"
+            android:tag="v2"/>
         <Button
             android:id="@+id/buttonSteriShipment"
             android:layout_width="wrap_content"
@@ -134,7 +138,8 @@
             android:text="@string/steri_shipment"
             android:textColor="@color/buttonTrazins"
             android:textAlignment="center"
-            app:layout_columnWeight="1"/>
+            app:layout_columnWeight="1"
+            android:tag="v1"/>
 
 
     </androidx.gridlayout.widget.GridLayout>

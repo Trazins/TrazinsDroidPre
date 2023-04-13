@@ -223,7 +223,8 @@ public class SelectSurgicalProcessActivity extends AppCompatActivity {
         try {
 
             SPList.add(new SurgicalProcessOutputModel(spmItem.HisId,
-                    spmItem.OperationRoomName, spmItem.InterventionCode, spmItem.RecordNumber, spmItem.InterventionDate));
+                    spmItem.OperationRoomName, spmItem.InterventionCode, spmItem.RecordNumber,
+                    spmItem.InterventionDate, spmItem.Urgent));
             return SPList;
 
         }catch (Exception e){

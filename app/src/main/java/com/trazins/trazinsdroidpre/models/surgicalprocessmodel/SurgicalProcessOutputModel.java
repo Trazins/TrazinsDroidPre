@@ -14,6 +14,8 @@ public class SurgicalProcessOutputModel implements Serializable {
     public String InterventionDate;
     public String HosId;
     public String OperationRoomName;
+
+    public boolean Urgent;
     public List<SurgicalProcessOutputModel> SurgicalProcessList = new ArrayList<SurgicalProcessOutputModel>();
     public List<SP_MaterialOutputModel> MaterialOutputModelList = new ArrayList<SP_MaterialOutputModel>();
     public boolean Result;
@@ -21,11 +23,13 @@ public class SurgicalProcessOutputModel implements Serializable {
     public SurgicalProcessOutputModel(){}
 
     public SurgicalProcessOutputModel(
-            Integer hisId, String operationRoomName, String interventionCode, String recordNumber, String interventionDate ){
+            Integer hisId, String operationRoomName, String interventionCode, String recordNumber,
+            String interventionDate, Boolean urgent ){
         this.HisId = hisId;
         this.OperationRoomName = operationRoomName;
         this.InterventionCode = interventionCode;
         this.RecordNumber = recordNumber;
         this.InterventionDate = interventionDate;
+        this.Urgent = urgent;
     }
 }
