@@ -33,6 +33,8 @@ import com.zebra.rfid.api3.TagData;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -65,6 +67,9 @@ public class MaterialPostCounterActivity extends AppCompatActivity  implements R
 
     //Lista para almacenar los resultados sin duplicadades de códigos.
     private Set<SP_InstrumentOutputModel> TotalCounterList = new ArraySet<>(InstrumentList);
+
+    //probar cambio por error en la sentencia de arriba
+    //private Set<SP_InstrumentOutputModel> TotalCounterList = new HashSet<SP_InstrumentOutputModel>(InstrumentList);
 
     RFIDHandler rfidHandler;
 

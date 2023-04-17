@@ -75,6 +75,8 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
 
         this.activityName= this.getClass().getSimpleName();
 
+        //ajustar tamaño porque la fecha de intervención no se ve
+
         editTextInterventionCode = findViewById(R.id.editTextInterventionCode);
         editTextRecordNumber = findViewById(R.id.editTextRecordNumber);
         editTextInterventionDate = findViewById(R.id.editTextInterventionDate);
@@ -86,11 +88,7 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
         //Usuario loggeado
         this.userLogged = (UserOutputModel)getIntent().getSerializableExtra("userLogged");
 
-        //Bundle bun = new Bundle();
-
-        //bun = getIntent().getBundleExtra("materialList");
         this.surgicalProcess =(SurgicalProcessOutputModel)getIntent().getSerializableExtra("surgicalProcess");
-        /*this.surgicalProcess.MaterialOutputModelList = (List<SP_MaterialOutputModel>) bun.getSerializable("materialListbun");*/
 
         textViewUserName = findViewById(R.id.textViewSPUserName);
         textViewUserName.setText(getString(R.string.identified_user) + " " + userLogged.UserName);
@@ -210,7 +208,7 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
         spinnerOperationRoom.setSelection(0);
         switchUrgent.setChecked(false);
         this.isUpdate = false;
-        surgicalProcess = null;
+        surgicalProcess = new SurgicalProcessOutputModel();
     }
 
     //Añadimos la info a los controles de la vista

@@ -10,4 +10,6 @@ public class SP_MaterialInputModel  extends MaterialInputModel implements Serial
     public Integer TheoreticalCounter;
     public Integer HisId;
     public String Remarks;
+
+    public Boolean ChemicalControl;
 }

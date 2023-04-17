@@ -14,6 +14,8 @@ public class SP_MaterialOutputModel extends MaterialOutputModel implements Seria
     public Integer PostCount;
     public String Remarks;
 
+    public Boolean ChemicalControl = false;
+
     public String getId() {
         return Id;
     }
@@ -65,11 +67,13 @@ public class SP_MaterialOutputModel extends MaterialOutputModel implements Seria
     public SP_MaterialOutputModel() {
     }
 
-    public SP_MaterialOutputModel(String id, int image, String materialDescription, String materialType) {
+    public SP_MaterialOutputModel(String id, int image, String materialDescription,
+                                  String materialType, Boolean chemicalControl) {
         this.Id = id;
         this.MaterialDescription = materialDescription;
         this.Image = image;
         this.MaterialType = materialType;
+        this.ChemicalControl = chemicalControl;
     }
 
     public SP_MaterialOutputModel(String id, String materialDescription, String materialType, String hosId, String chId) {
@@ -79,4 +83,6 @@ public class SP_MaterialOutputModel extends MaterialOutputModel implements Seria
         this.HosId = hosId;
         this.ChId = chId;
     }
+
+
 }

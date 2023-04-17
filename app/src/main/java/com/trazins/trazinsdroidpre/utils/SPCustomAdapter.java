@@ -1,7 +1,9 @@
 package com.trazins.trazinsdroidpre.utils;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -45,23 +47,37 @@ public class SPCustomAdapter extends BaseAdapter {
         TextView TextViewRecordNum;
         TextView TextViewOperatingRoom;
         TextView TextViewInterventionDate;
+        TextView TextViewUrgent;
         Switch SwitchUrgent;
 
         SurgicalProcessOutputModel c = lst.get(position);
+
+        String deviceModel = Build.MODEL;
+
+        //Según el tipo de dispositivo usar un listviewitem u otro
         if(convertView == null)
-            convertView = LayoutInflater.from(context).inflate(R.layout.listview_surgical_process_item, null);
+            if(deviceModel.equals("TC20")){
+                convertView = LayoutInflater.from(context).inflate(R.layout.listview_surgical_process_item_tc20, null);
+                TextViewUrgent = convertView.findViewById(R.id.textViewLstUrgent);
+                if(c.Urgent)
+                    TextViewUrgent.setText(R.string.urgent_yes);
+                else
+                    TextViewUrgent.setText(R.string.no);
+            }else{
+                convertView = LayoutInflater.from(context).inflate(R.layout.listview_surgical_process_item, null);
+                SwitchUrgent = convertView.findViewById(R.id.switchUrgent);
+                SwitchUrgent.setChecked(c.Urgent);
+            }
 
         TextViewInterventionCode = convertView.findViewById(R.id.textViewLstInterventionCode);
         TextViewRecordNum = convertView.findViewById(R.id.textViewLstRecordNum);
         TextViewOperatingRoom = convertView.findViewById(R.id.textViewLstOperatingRoom);
         TextViewInterventionDate = convertView.findViewById(R.id.textViewLstInterventionDate);
-        SwitchUrgent = convertView.findViewById(R.id.switchUrgent);
 
         TextViewInterventionCode.setText(c.InterventionCode);
         TextViewRecordNum.setText(c.RecordNumber);
         TextViewOperatingRoom.setText(c.OperationRoomName);
         TextViewInterventionDate.setText(c.InterventionDate);
-        SwitchUrgent.setChecked(c.Urgent);
 
         return convertView;
     }

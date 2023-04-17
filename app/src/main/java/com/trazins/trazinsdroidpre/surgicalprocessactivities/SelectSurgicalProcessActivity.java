@@ -71,6 +71,8 @@ public class SelectSurgicalProcessActivity extends AppCompatActivity {
 
         this.activityName= this.getClass().getSimpleName();
 
+        //Hacer responsive la listview
+
         SPListView = findViewById(R.id.listViewSelectSurgicalProcess);
         SPListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -118,6 +120,7 @@ public class SelectSurgicalProcessActivity extends AppCompatActivity {
     }
 
     private void openNewSurgicalProcessPreviousDataActivity(){
+
         Intent i = new Intent(getApplicationContext(), SurgicalProcessPreviousDataActivity.class);
         i.putExtra("userLogged", this.userLogged);
         i.putExtra("surgicalProcess", this.selectedsurgicalProcess);
@@ -125,6 +128,9 @@ public class SelectSurgicalProcessActivity extends AppCompatActivity {
     }
     private void openSurgicalProcessPreviousDataActivity() {
         getMaterialList = true;
+
+        if(selectedsurgicalProcess== null)
+            return;
 
         new SurgicalProcessAsyncClass().execute();
 

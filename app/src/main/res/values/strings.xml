@@ -18,6 +18,8 @@
     <string name="validate_counter">Validar</string>
     <string name="urgent">Urgente:</string>
     <string name="selected">Seleccionar</string>
+    <string name="urgent_yes"><font fgcolor='#FFFF3B30'>Si</font></string>
+    <string name="no" translatable="false">No</string>
 
     //Hospital Selection Activity
     <string name="list_hospitals_title">Seleccione un hospital:</string>
@@ -67,7 +69,7 @@
     <string name="record_number">Número de historia:</string>
     <string name="materials_surgical_process_title">Material utilizado</string>
     <string name="start_post_counter">Iniciar recuento</string>
-    <string name="add_surgical_process">Crear proceso quirúrgico</string>
+    <string name="add_surgical_process">Guardar</string>
     <string name="new_surgical_process">Nuevo</string>
     <string name="edit_surgical_process">Modificar</string>
     <string name="operating_room">Quirófano:</string>
@@ -77,6 +79,7 @@
     <string name="error_operating_room">Error al cargar los quirófanos</string>
     <string name="add_materials">Añadir material</string>
     <string name="set_not_selected">No ha seleccionado una caja</string>
+    <string name="chemical_control">Control químico</string>
 
     //Selection Activity
     <string name="selection_activity_title">Seleccione un proceso</string>

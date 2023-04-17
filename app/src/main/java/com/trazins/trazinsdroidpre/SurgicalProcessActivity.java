@@ -87,6 +87,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
         lstMaterial = new ArrayList<SP_MaterialOutputModel>();
 
         ListViewMaterials = findViewById(R.id.listViewSPMaterials);
+        ListViewMaterials.setClickable(true);
         ListViewMaterials.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
@@ -95,6 +96,19 @@ public class SurgicalProcessActivity extends AppCompatActivity {
                 //Habilitamos el selector de item en el listado.
                 ListViewMaterials.setSelector(R.color.selection);
                 ListViewMaterials.requestLayout();
+            }
+        });
+
+        ListViewMaterials.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                materialSelected = lstMaterial.get(position);
+
+                materialSelected.ChemicalControl = !materialSelected.ChemicalControl;
+                ListViewMaterials.setSelector(R.color.selection);
+                changeChemicalControlValue();
+                ListViewMaterials.requestLayout();
+                return false;
             }
         });
 
@@ -209,6 +223,11 @@ public class SurgicalProcessActivity extends AppCompatActivity {
         }
     }
 
+    private void changeChemicalControlValue(){
+        SPMaterialCustomAdapter adapter = new SPMaterialCustomAdapter(this, lstMaterial);
+        ListViewMaterials.setAdapter(adapter);
+    }
+
     private void removeSelected(){
         SPMaterialCustomAdapter adapter = new SPMaterialCustomAdapter(this, removeData(materialSelected));
         ListViewMaterials.setAdapter(adapter);
@@ -297,6 +316,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
                     serializableMaterial.PreCount = m.PreCount;
                     serializableMaterial.TheoreticalCounter = m.TheoreticalCounter;
                     serializableMaterial.Remarks = m.Remarks;
+                    serializableMaterial.ChemicalControl = m.ChemicalControl;
                     surgicalProcessInputModel.MaterialList.add(serializableMaterial);
                 }
 
@@ -447,13 +467,15 @@ public class SurgicalProcessActivity extends AppCompatActivity {
             //Hay que insertar el primer elemento
             if(lstMaterial.size()==0){
                 lstMaterial.add(
-                        new SP_MaterialOutputModel(material.Id, materialImageType,material.MaterialDescription,material.MaterialType));
+                        new SP_MaterialOutputModel(material.Id, materialImageType,
+                                material.MaterialDescription,material.MaterialType, material.ChemicalControl));
             }else {
                 if(existsInList(material.Id)){
                     Toast.makeText(getBaseContext(), R.string.material_exists_list, Toast.LENGTH_LONG).show();
                 }else{
                     lstMaterial.add(
-                            new SP_MaterialOutputModel(material.Id, materialImageType,material.MaterialDescription, material.MaterialType));
+                            new SP_MaterialOutputModel(material.Id, materialImageType,material.MaterialDescription,
+                                    material.MaterialType, material.ChemicalControl));
                 }
             }
             textViewElements.setText(lstMaterial.size() + " " + getText(R.string.materials_counter));

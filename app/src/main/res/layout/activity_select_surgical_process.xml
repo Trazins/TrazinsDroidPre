@@ -50,7 +50,7 @@
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="490dp"
-            app:layout_constraintBottom_toTopOf="@+id/bottomShipmentNavigationMenu"
+            app:layout_constraintBottom_toTopOf="@+id/bottomSurgicalSelectNavigationMenu"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent" >
