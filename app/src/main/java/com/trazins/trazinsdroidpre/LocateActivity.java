@@ -406,14 +406,17 @@ public class LocateActivity extends AppCompatActivity {
         try {
             int materialImageType=0;
             switch (material.MaterialType){
-                case "C":
+                case "S":
                     materialImageType = R.drawable.ic_set_icon;
                     break;
-                case "A":
+                case "I":
                     materialImageType = R.drawable.ic_instrument_icon;
                     break;
                 case "G":
                     materialImageType = R.drawable.ic_generic_icon;
+                    break;
+                case "L":
+                    materialImageType = R.drawable.ic_loan_icon;
                     break;
                 default:
                     materialImageType = 0;
