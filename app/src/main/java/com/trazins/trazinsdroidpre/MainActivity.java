@@ -22,8 +22,6 @@ import android.widget.Toast;
 
 import com.threepin.fireexit_wcf.Configurator;
 import com.threepin.fireexit_wcf.FireExitClient;
-import com.trazins.trazinsdroidpre.models.sp_materialmodel.SP_MaterialOutputModel;
-import com.trazins.trazinsdroidpre.models.sp_setmodel.SP_SetOutputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserInputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 import com.trazins.trazinsdroidpre.scanner.DataWedgeInterface;
@@ -60,7 +58,14 @@ public class MainActivity extends AppCompatActivity {
     //Variable que almacena el código leído por el lector.
     String readCode = "";
 
-    Boolean isConnected;
+    private Boolean isConnected;
+    public Boolean getConnected() {
+        return isNetworkConnected(getApplicationContext());
+    }
+
+    public void setConnected(Boolean connected) {
+        isConnected = connected;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +81,8 @@ public class MainActivity extends AppCompatActivity {
         imageViewAutResult= findViewById(R.id.imageViewUser);
         buttonShowErrorLog = findViewById(R.id.buttonShowErrorLog);
 
-        isConnected = isNetworkConnected(this);
-        if(!isNetworkConnected(this)){
+        //setConnected(isNetworkConnected(this));
+        if(!getConnected()){
             Toast.makeText(this, R.string.wifi_not_conected, Toast.LENGTH_LONG).show();
         }
 
@@ -99,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         editTextAutResult.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (isConnected) {
+                if (getConnected()) {
                     if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                         readCode = editTextAutResult.getText().toString();
                         new MyAsyncClass().execute();
@@ -118,8 +123,6 @@ public class MainActivity extends AppCompatActivity {
         filter.addAction(DataWedgeInterface.ACTIVITY_INTENT_FILTER_ACTION);
 
         createProfileForeachActivity();
-
-
     }
 
     private void createProfileForeachActivity() {
@@ -220,29 +223,33 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
                     List<UserOutputModel>userlist = ((UserOutputModel)userLogged).UsersList;
                     if(userlist.size()==1){
-                        setInformationMessage(userlist.get(0));
+                        setInformationMessage(userlist.get(0), true);
                     }else if(userlist.size()>1){
                         //Mostramos selector de hospital
+                        setInformationMessage(userlist.get(0), false);
                         Intent i = new Intent(getApplicationContext(), HospitalSelectionActivity.class);
                         i.putExtra("userLogged", ((UserOutputModel) userLogged));
                         startActivityForResult(i,REQUEST_CODE);
                     }else{
-                        Toast.makeText(getBaseContext(),userLogged.toString(),Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getBaseContext(),userLogged.toString(),Toast.LENGTH_LONG).show();
+                        setInformationMessage((UserOutputModel) userLogged, false);
                     }
                 }
             });
         }
     }
 
-    private void setInformationMessage(UserOutputModel userLogged) {
+    private void setInformationMessage(UserOutputModel userLogged, boolean openSelectionActivity) {
         if(userLogged.Login!=null){
             //textViewAutResult.setText(((UserOutputModel) userLogged).UserName);
             //Por si primero no leen bien el código que les aparezca correcto.
             buttonAutResult.setTextColor(getResources().getColor(R.color.green));
             buttonAutResult.setText(R.string.correct_user);
-            Intent switchActivity = new Intent(getApplicationContext(), SelectionActivity.class);
-            switchActivity.putExtra("userLogged",((UserOutputModel) userLogged));
-            startActivity(switchActivity);
+            if(openSelectionActivity){
+                Intent switchActivity = new Intent(getApplicationContext(), SelectionActivity.class);
+                switchActivity.putExtra("userLogged",((UserOutputModel) userLogged));
+                startActivity(switchActivity);
+            }
         }
         else{
             //textViewAutResult.setText(R.string.incorrect_user);
@@ -281,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
         String decodedData = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_data));
 
         readCode = decodedData;
-        if(isConnected)
+        if(getConnected())
             new MyAsyncClass().execute();
     };
 
@@ -367,7 +374,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == REQUEST_CODE) {
             if(resultCode == RESULT_OK){
                 this.selectedHospitalUser = (UserOutputModel) data.getSerializableExtra("selectedHospitalUser");
-                setInformationMessage(selectedHospitalUser);
+                setInformationMessage(selectedHospitalUser, true);
             }
             if (resultCode == RESULT_CANCELED) {
                 // Write your code if there's no result
