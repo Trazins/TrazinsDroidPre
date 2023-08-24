@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -66,7 +67,7 @@ public class MaterialPostCounterActivity extends AppCompatActivity  implements R
     private List<SP_InstrumentOutputModel> InstrumentList = new ArrayList<>();
 
     //Lista para almacenar los resultados sin duplicadades de códigos.
-    private Set<SP_InstrumentOutputModel> TotalCounterList = new ArraySet<>(InstrumentList);
+    private Set<SP_InstrumentOutputModel> TotalCounterList;
 
     //probar cambio por error en la sentencia de arriba
     //private Set<SP_InstrumentOutputModel> TotalCounterList = new HashSet<SP_InstrumentOutputModel>(InstrumentList);
@@ -79,6 +80,10 @@ public class MaterialPostCounterActivity extends AppCompatActivity  implements R
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_material_post_counter);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                TotalCounterList = new ArraySet<>(InstrumentList);
+            }
 
         handler = new Handler(Looper.getMainLooper());
         //Usuario loggeado

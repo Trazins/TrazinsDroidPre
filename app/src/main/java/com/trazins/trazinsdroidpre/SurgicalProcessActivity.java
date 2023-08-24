@@ -143,7 +143,8 @@ public class SurgicalProcessActivity extends AppCompatActivity {
                         return false;
                     }
                     //Abrir pantalla de recuento
-                    if(materialSelected.getMaterialType().equals("C")){
+                    Toast.makeText(getApplicationContext(), materialSelected.getMaterialType(), Toast.LENGTH_LONG).show();
+                    if(materialSelected.getMaterialType().equals("S")){
                         openMPCActivity();
                     }else{
                         Toast.makeText(getApplicationContext(), R.string.set_not_selected, Toast.LENGTH_LONG).show();
@@ -162,7 +163,6 @@ public class SurgicalProcessActivity extends AppCompatActivity {
             for(SP_MaterialOutputModel m : this.surgicalProcess.MaterialOutputModelList){
                 addMaterialToList(m);
             }
-
         }
     }
 
@@ -170,7 +170,6 @@ public class SurgicalProcessActivity extends AppCompatActivity {
         Intent i = getIntent();
         setResult(RESULT_OK,i);
         finish();
-
     }
 
     private void openMPCActivity(){
@@ -185,7 +184,6 @@ public class SurgicalProcessActivity extends AppCompatActivity {
         i.putExtra("selectedSet", selectedSet);
         //Enviar datos de la caja
         startActivityForResult(i, REQUEST_CODE);
-
     }
 
     //Para poder procesar la información recibida de la pantalla de recuento
@@ -215,6 +213,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
     private void newSurgicalProcess(){
         try{
             createNewSurgicalProcess = true;
+
             new SurgicalProcessMyAsyncClass().execute().toString();
 
         }catch(Exception e){

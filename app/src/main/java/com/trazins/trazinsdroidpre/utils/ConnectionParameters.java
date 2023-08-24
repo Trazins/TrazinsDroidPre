@@ -3,7 +3,7 @@ package com.trazins.trazinsdroidpre.utils;
 public class ConnectionParameters {
 
     //Selector de conexión
-    public static final int SET_URL_CONNECTION = 4;
+    public static final int SET_URL_CONNECTION = 11;
 
     //Listado de url de conexión para los web service
     public static final String [] SOAP_ADDRESS = new String[]{
@@ -17,7 +17,8 @@ public class ConnectionParameters {
             /*7*/ "http://DC0GPROIIS003:8051/Android/TrazinsDroidService.svc",      //Navarra PRO
             /*8*/ "http://141.94.195.33:8066/Android/TrazinsDroidService.svc",      //Teruel
             /*9*/ "http://10.208.8.26:8040/Android/TrazinsDroidService.svc",        //Chihuahua
-            /*10*/ "http://10.14.0.61:8020/Android/TrazinsDroidService.svc"         //Tauli
+            /*10*/ "http://10.14.0.61:8020/Android/TrazinsDroidService.svc",        //Tauli
+            /*11*/ "http://141.94.195.33:8079/Android/TrazinsDroidService.svc"      //Garraf
     };
 
     //Datos de conexión del webservice
