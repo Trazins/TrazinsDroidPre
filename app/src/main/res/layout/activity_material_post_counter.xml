@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/set_title"
-            android:textSize="18sp"
+            android:textSize="14sp"
             tools:text="@string/set_title" />
 
         <TextView
@@ -57,7 +57,7 @@
             android:paddingStart="35dp"
             android:paddingEnd="0dp"
             android:textAlignment="textStart"
-            android:textSize="25sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:paddingBottom="15dp"/>
 

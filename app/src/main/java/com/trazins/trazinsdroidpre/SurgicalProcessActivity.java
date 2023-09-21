@@ -143,7 +143,6 @@ public class SurgicalProcessActivity extends AppCompatActivity {
                         return false;
                     }
                     //Abrir pantalla de recuento
-                    Toast.makeText(getApplicationContext(), materialSelected.getMaterialType(), Toast.LENGTH_LONG).show();
                     if(materialSelected.getMaterialType().equals("S")){
                         openMPCActivity();
                     }else{

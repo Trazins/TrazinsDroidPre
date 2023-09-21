@@ -30,7 +30,7 @@ import com.trazins.trazinsdroidpre.models.sp_setmodel.SP_SetOutputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 import com.trazins.trazinsdroidpre.utils.ConnectionParameters;
 import com.trazins.trazinsdroidpre.utils.ErrorLogWriter;
-import com.zebra.rfid.api3.TagData;
+import com.zebra.rfid.api3.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -67,10 +67,10 @@ public class MaterialPostCounterActivity extends AppCompatActivity  implements R
     private List<SP_InstrumentOutputModel> InstrumentList = new ArrayList<>();
 
     //Lista para almacenar los resultados sin duplicadades de códigos.
-    private Set<SP_InstrumentOutputModel> TotalCounterList;
+    //private Set<SP_InstrumentOutputModel> TotalCounterList;
 
     //probar cambio por error en la sentencia de arriba
-    //private Set<SP_InstrumentOutputModel> TotalCounterList = new HashSet<SP_InstrumentOutputModel>(InstrumentList);
+    private Set<SP_InstrumentOutputModel> TotalCounterList = new HashSet<SP_InstrumentOutputModel>(InstrumentList);
 
     RFIDHandler rfidHandler;
 
@@ -115,6 +115,7 @@ public class MaterialPostCounterActivity extends AppCompatActivity  implements R
             public void onClick(View v) {
                 startCounter = true;
                 preCounter = true;
+
                 textViewPreCountTitle.setBackgroundColor(getResources().getColor(R.color.green));
                 textViewPreCountRes.setBackgroundColor(getResources().getColor(R.color.green));
                 TotalCounterList.clear();
@@ -172,6 +173,7 @@ public class MaterialPostCounterActivity extends AppCompatActivity  implements R
                     Intent i = new Intent(getApplicationContext(), SurgicalProcessActivity.class);
                     i.putExtra("recoveredSet", selectedSet);
                     setResult(RESULT_OK,i);
+                    finish();
                 }else{
                     finish();
                 }
@@ -179,6 +181,9 @@ public class MaterialPostCounterActivity extends AppCompatActivity  implements R
                 return false;
             }
         });
+
+        //Recuperar la información de la caja
+        new SPGetDataMyAsyncClass().execute();
 
         rfidHandler = new RFIDHandler();
         try{
@@ -188,10 +193,9 @@ public class MaterialPostCounterActivity extends AppCompatActivity  implements R
             e.printStackTrace();
             ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(), activityName);
         }
-
-        //Recuperar la información de la caja
-        new SPGetDataMyAsyncClass().execute();
     }
+
+
 
     //Gestionamos los resultados del escaneo y de los recuentos
     private void setCounterResult(boolean counterType ) {

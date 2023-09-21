@@ -1,6 +1,7 @@
 package com.trazins.trazinsdroidpre.surgicalprocessactivities;
 
 import android.os.AsyncTask;
+import android.os.Build;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ import com.zebra.rfid.api3.TagData;
 import com.zebra.rfid.api3.TriggerInfo;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 class RFIDHandler implements Readers.RFIDReaderEventHandler {
 
@@ -45,7 +47,7 @@ class RFIDHandler implements Readers.RFIDReaderEventHandler {
     // general
     private int MAX_POWER = 270;
     // In case of RFD8500 change reader name with intended device below from list of paired RFD8500
-    String readername = "RFD8500123";
+    String readername = "RFD4030-G00B700-E8";
 
     void onCreate(MaterialPostCounterActivity activity) {
         // application context
@@ -177,10 +179,17 @@ class RFIDHandler implements Readers.RFIDReaderEventHandler {
             // Based on support available on host device choose the reader type
             InvalidUsageException invalidUsageException = null;
             try {
-                readers = new Readers(context, ENUM_TRANSPORT.SERVICE_SERIAL);
+                String model = Build.MODEL;
+                if(model.toUpperCase()=="TC20")
+                    readers = new Readers(context, ENUM_TRANSPORT.SERVICE_SERIAL);
+                else
+                    readers = new Readers(context, ENUM_TRANSPORT.ALL);
+
                 availableRFIDReaderList = readers.GetAvailableRFIDReaderList();
+
             } catch (InvalidUsageException e) {
                 e.printStackTrace();
+                String des = e.getInfo();
                 invalidUsageException = e;
             }
             if (invalidUsageException != null) {
@@ -222,6 +231,7 @@ class RFIDHandler implements Readers.RFIDReaderEventHandler {
         try {
             if (readers != null) {
                 readers.attach(this);
+
                 if (readers.GetAvailableRFIDReaderList() != null) {
                     availableRFIDReaderList = readers.GetAvailableRFIDReaderList();
                     if (availableRFIDReaderList.size() != 0) {
