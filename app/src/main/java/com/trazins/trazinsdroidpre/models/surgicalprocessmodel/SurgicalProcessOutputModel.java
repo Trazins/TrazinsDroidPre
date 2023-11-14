@@ -19,6 +19,7 @@ public class SurgicalProcessOutputModel implements Serializable {
     public List<SurgicalProcessOutputModel> SurgicalProcessList = new ArrayList<SurgicalProcessOutputModel>();
     public List<SP_MaterialOutputModel> MaterialOutputModelList = new ArrayList<SP_MaterialOutputModel>();
     public boolean Result;
+    public boolean RealTime;
 
     public SurgicalProcessOutputModel(){}
 

@@ -120,7 +120,6 @@ public class SelectSurgicalProcessActivity extends AppCompatActivity {
     }
 
     private void openNewSurgicalProcessPreviousDataActivity(){
-
         Intent i = new Intent(getApplicationContext(), SurgicalProcessPreviousDataActivity.class);
         i.putExtra("userLogged", this.userLogged);
         i.putExtra("surgicalProcess", this.selectedsurgicalProcess);

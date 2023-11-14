@@ -18,4 +18,5 @@ public class SurgicalProcessInputModel implements Serializable {
     public boolean Urgent;
     public List<SP_MaterialInputModel> MaterialList = new ArrayList<SP_MaterialInputModel>();
     public String EntryUser;
+    public boolean RealTime;
 }

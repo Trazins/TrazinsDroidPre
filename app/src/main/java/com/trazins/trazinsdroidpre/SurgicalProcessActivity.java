@@ -303,6 +303,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
                 surgicalProcessInputModel.HosId = userLogged.HosId;
                 surgicalProcessInputModel.EntryUser = userLogged.Login;
                 surgicalProcessInputModel.Urgent = surgicalProcess.Urgent;
+                surgicalProcessInputModel.RealTime = surgicalProcess.RealTime;
 
                 for (SP_MaterialOutputModel m : lstMaterial) {
                     //Serializamos los materiales.

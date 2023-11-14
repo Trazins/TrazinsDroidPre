@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
         handler = new Handler(Looper.getMainLooper());
 
-        this.activityName= this.getClass().getSimpleName();
+        this.activityName = this.getClass().getSimpleName();
 
         editTextAutResult = findViewById(R.id.editAutResult);
         buttonAutResult = findViewById(R.id.buttonAutResult);
@@ -114,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 return false;
-
             }
         });
 
@@ -132,18 +131,12 @@ public class MainActivity extends AppCompatActivity {
         CreateProfile(PROFILE1, Code128Value, EAN13Value);
 
         // Create Profile 2 for LocateActivity:
-        Code128Value = "true";
-        EAN13Value = "false";
         CreateProfile(PROFILE2, Code128Value, EAN13Value);
 
         //Create Profile 3 for ShipmentActivity
-        Code128Value = "true";
-        EAN13Value = "false";
         CreateProfile(PROFILE3, Code128Value, EAN13Value);
 
         //Create Profile 4 for SurgicalProcessActivity
-        Code128Value = "true";
-        EAN13Value = "false";
         CreateProfile(PROFILE4, Code128Value, EAN13Value);
     }
 

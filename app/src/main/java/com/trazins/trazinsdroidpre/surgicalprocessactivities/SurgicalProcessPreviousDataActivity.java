@@ -142,13 +142,16 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
             return;
         }
         if(TextUtils.isEmpty(interventionDate)){
+            //Si el usuario no ha elegido fecha, se establece la fecha actual
+            //y creamos también registroES (setShipmentData)
             Date currentDate = new Date();
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             interventionDate = df.format(currentDate);
+            this.surgicalProcess.RealTime = true;
         }
 
         this.surgicalProcess.HosId = this.userLogged.HosId;
-        this.surgicalProcess.InterventionCode = interventionCode ;
+        this.surgicalProcess.InterventionCode = interventionCode;
         this.surgicalProcess.RecordNumber = recordNumber;
         this.surgicalProcess.InterventionDate = interventionDate;
         this.surgicalProcess.OperationRoomId = operationRoom.OpId;
@@ -168,7 +171,6 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
                 calendar.set(Calendar.YEAR,year);
                 calendar.set(Calendar.MONTH, month);
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
