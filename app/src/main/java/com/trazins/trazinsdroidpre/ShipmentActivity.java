@@ -99,7 +99,7 @@ public class ShipmentActivity extends AppCompatActivity {
     //Controles
     BottomNavigationView btm;
     TextView textViewShipmentResult, textViewUserName, textViewElements, textViewTrolleyName,
-            textViewShipmentTitle;
+            textViewShipmentTitle, txtHospital;
     Switch switchUrgent;
 
     IntentFilter filter = new IntentFilter();
@@ -129,7 +129,7 @@ public class ShipmentActivity extends AppCompatActivity {
         });
 
         switchUrgent = findViewById(R.id.switchSUrgent);
-
+        txtHospital = findViewById(R.id.textViewHospital);
         textViewShipmentResult = findViewById(R.id.textViewShipmentResult);
         textViewElements = findViewById(R.id.textViewShipmentMaterialCounter);
         textViewTrolleyName = findViewById(R.id.textViewTrolleyName);
@@ -140,6 +140,7 @@ public class ShipmentActivity extends AppCompatActivity {
         this.toCentral = (boolean)getIntent().getSerializableExtra("toCentral");
         textViewUserName = findViewById(R.id.textViewShipmentUserName);
         textViewUserName.setText(getString(R.string.identified_user) + " " + userLogged.UserName);
+        txtHospital.setText("Hospital:" + " " + userLogged.HospitalName);
 
         if(toCentral){
             textViewShipmentTitle.setText(R.string.shipment_title2);

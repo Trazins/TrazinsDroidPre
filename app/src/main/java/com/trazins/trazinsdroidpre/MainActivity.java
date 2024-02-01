@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String PROFILE2 = "TrazinsMultiActivity_Profile2";
     private static final String PROFILE3 = "TrazinsMultiActivity_Profile3";
     private static final String PROFILE4 = "TrazinsMultiActivity_Profile4";
+    private static final String PROFILE5 = "TrazinsMultiActivity_Profile5";
 
     private static final int REQUEST_CODE = 77;
 
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     Handler handler;
 
     UserOutputModel selectedHospitalUser = new UserOutputModel();
+    UserOutputModel listaDeHospitales = new UserOutputModel();
 
     IntentFilter filter = new IntentFilter();
 
@@ -138,6 +140,9 @@ public class MainActivity extends AppCompatActivity {
 
         //Create Profile 4 for SurgicalProcessActivity
         CreateProfile(PROFILE4, Code128Value, EAN13Value);
+
+        //Create Profile 5 for HospitalShipmentActivity
+        CreateProfile(PROFILE5, Code128Value, EAN13Value);
     }
 
     public static boolean isNetworkConnected(Context context) {
@@ -251,6 +256,26 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void setInformationMessage(UserOutputModel userLogged, UserOutputModel listaDeHospitales, boolean openSelectionActivity) {
+        if(userLogged.Login!=null){
+            //textViewAutResult.setText(((UserOutputModel) userLogged).UserName);
+            //Por si primero no leen bien el código que les aparezca correcto.
+            buttonAutResult.setTextColor(getResources().getColor(R.color.green));
+            buttonAutResult.setText(R.string.correct_user);
+            if(openSelectionActivity){
+                Intent switchActivity = new Intent(getApplicationContext(), SelectionActivity.class);
+                switchActivity.putExtra("userLogged",((UserOutputModel) userLogged));
+                switchActivity.putExtra("listaDeHospitales",((UserOutputModel) listaDeHospitales));
+                startActivity(switchActivity);
+            }
+        }
+        else{
+            //textViewAutResult.setText(R.string.incorrect_user);
+            buttonAutResult.setTextColor(getResources().getColor(R.color.red));
+            buttonAutResult.setText(R.string.incorrect_user);
+        }
+    }
+
     private BroadcastReceiver myBroadCastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -323,8 +348,10 @@ public class MainActivity extends AppCompatActivity {
         else if(profileName.equals(PROFILE3)){
             activityName = ShipmentActivity.class.getSimpleName();
         }
-        else{
+        else if(profileName.equals(PROFILE4)){
             activityName = SurgicalProcessActivity.class.getSimpleName();
+        }else{
+            activityName = HospitalShipment.class.getSimpleName();
         }
 
         String activityPackageName = getPackageName() + "." + activityName;
@@ -367,7 +394,8 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == REQUEST_CODE) {
             if(resultCode == RESULT_OK){
                 this.selectedHospitalUser = (UserOutputModel) data.getSerializableExtra("selectedHospitalUser");
-                setInformationMessage(selectedHospitalUser, true);
+                this.listaDeHospitales = (UserOutputModel) data.getSerializableExtra("listaDeHospitales");
+                setInformationMessage(selectedHospitalUser, listaDeHospitales, true);
             }
             if (resultCode == RESULT_CANCELED) {
                 // Write your code if there's no result

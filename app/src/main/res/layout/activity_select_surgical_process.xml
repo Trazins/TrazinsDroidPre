@@ -23,12 +23,26 @@
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout2">
 
-            <TextView
-                android:id="@+id/textViewSPSelectUserName"
+            <LinearLayout
+                android:id="@+id/userHospitalLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="top"
-                android:text="@string/user" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewShipmentUserName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/identified_user" />
+
+                <TextView
+                    android:id="@+id/textViewHospital"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/selected_hospital" />
+
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/imageView"

@@ -53,7 +53,7 @@ public class SelectSurgicalProcessActivity extends AppCompatActivity {
     SurgicalProcessOutputModel selectedsurgicalProcess;
     private boolean getMaterialList = false;
 
-    private TextView textViewUserName;
+    private TextView textViewUserName, txtHospital;
     private BottomNavigationView bnv;
 
     @Override
@@ -65,10 +65,11 @@ public class SelectSurgicalProcessActivity extends AppCompatActivity {
 
         //Usuario loggeado
         this.userLogged = (UserOutputModel)getIntent().getSerializableExtra("userLogged");
-        textViewUserName = findViewById(R.id.textViewSPSelectUserName);
+        textViewUserName = findViewById(R.id.textViewShipmentUserName);
         textViewUserName.setText(getString(R.string.identified_user) + " " + userLogged.UserName);
         bnv = findViewById(R.id.bottomSurgicalSelectNavigationMenu);
-
+        txtHospital = findViewById(R.id.textViewHospital);
+        txtHospital.setText("Hospital:" + " " + userLogged.HospitalName);
         this.activityName= this.getClass().getSimpleName();
 
         //Hacer responsive la listview

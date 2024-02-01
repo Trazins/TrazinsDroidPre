@@ -30,7 +30,7 @@
     <string name="aut_result">Authentication pending</string>
     <string name="correct_user">Succesfully autentication</string>
     <string name="incorrect_user"><font fgcolor='#FFFF3B30'>Incorrect user</font></string>
-    <string name="app_version">Version 1.03</string>
+    <string name="app_version">Version 1.04</string>
     <string name="wifi_not_conected">Wifi not connected</string>
 
     //Locate Activity
@@ -60,6 +60,21 @@
     <string name="located_trolley">Selected trolley cannot be used because it is located</string>
     <string name= "steri_shipment">sterilization shipment</string>
 
+    //Hospital Shipment
+    <string name="add_hospital_shipment">Shipment between hospitals</string>
+    <string name="materials_hospital_shipment_title">Material to send</string>
+    <string name="hospital_shipment_title">Destination</string>
+    <string name="hospital_shipment_title2">Origin</string>
+    <string name="hospital_shipment_empty">Read the destination label</string>
+    <string name="hospital_shipment_empty2">Read the source label</string>
+    <string name="correct_hospital_shipment">Submitted successfully</string>
+    <string name="hospital_shipment_error">Shipment not made</string>
+    <string name="hospital_send_print_label">Send and print</string>
+    <string name="hospital_trolley">Trolley:</string>
+    <string name="hospital_trolley_hint">Read the car label</string>
+    <string name="hospital_located_trolley">The selected cart cannot be used because it is located</string>
+    <string name="hospital_steri_shipment">Sending to sterilization</string>
+
     //Surgical Process Activities
     <string name="surgical_information_title">Surgical process information</string>
     <string name="surgical_process_title">Surgical process</string>
@@ -82,6 +97,7 @@
     //Selection Activity
     <string name="selection_activity_title">Select a Process</string>
     <string name="identified_user">User: </string>
+    <string name="selected_hospital">Hospital: </string>
     <string name="other_mode">Other option</string>
 
     //Material Post-Counter Activity

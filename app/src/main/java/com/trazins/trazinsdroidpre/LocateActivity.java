@@ -71,7 +71,7 @@ public class LocateActivity extends AppCompatActivity {
 
     //Controles
     BottomNavigationView btm;
-    TextView textViewLocationResult, textViewUserName, textViewElements, textViewLocationDetails;
+    TextView textViewLocationResult, textViewUserName, textViewElements, textViewLocationDetails, txtHospital;
 
     IntentFilter filter = new IntentFilter();
 
@@ -104,8 +104,10 @@ public class LocateActivity extends AppCompatActivity {
 
         //Usuario loggeado
         this.userLogged = (UserOutputModel)getIntent().getSerializableExtra("userLogged");
-        textViewUserName = findViewById(R.id.textViewUserName);
+        textViewUserName = findViewById(R.id.textViewShipmentUserName);
+        txtHospital = findViewById(R.id.textViewHospital);
         textViewUserName.setText(getString(R.string.identified_user) + " " + userLogged.UserName);
+        txtHospital.setText("Hospital:" + " " + userLogged.HospitalName);
 
         filter.addAction(DataWedgeInterface.ACTION_RESULT_DATAWEDGE);
         filter.addCategory(Intent.CATEGORY_DEFAULT);

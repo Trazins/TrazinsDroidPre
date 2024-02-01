@@ -9,6 +9,7 @@ import java.util.List;
 public class ShipmentInputModel implements Serializable {
     public int OriginId;
     public String HosId;
+    public String HosIdDestination;
     public List<MaterialInputModel> MatList = new ArrayList<MaterialInputModel>();
     public boolean ToCentral = false;
     public boolean Urgent = false;

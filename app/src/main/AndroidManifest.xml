@@ -18,7 +18,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".HospitalSelectionActivity"></activity>
+        <activity
+            android:name=".HospitalShipment"
+            android:exported="false" />
+        <activity android:name=".HospitalSelectionActivity" />
         <activity android:name=".surgicalprocessactivities.ShowInstrumentListActivity" />
         <activity android:name=".surgicalprocessactivities.SelectSurgicalProcessActivity" />
         <activity android:name=".ShowErrorLogActivity" />
@@ -29,7 +32,8 @@
         <activity android:name=".ShipmentActivity" />
         <activity android:name=".SelectionActivity" />
         <activity android:name=".LocateActivity" />
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

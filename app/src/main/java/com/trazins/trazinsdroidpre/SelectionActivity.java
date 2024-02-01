@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -19,7 +20,7 @@ import java.util.List;
 
 public class SelectionActivity extends AppCompatActivity {
 
-    private TextView txtUserName;
+    private TextView txtUserName, txtHospital;
 
     private Button btnLocateMenu, btnShipmentMenu, btnSPMenu, btnSteriShipMenu;
 
@@ -31,12 +32,16 @@ public class SelectionActivity extends AppCompatActivity {
 
     private ImageButton imbSettings;
     private UserOutputModel userLogged;
+    private UserOutputModel listaDeHospitales;
+    List<UserOutputModel> lstHosUser = new ArrayList<UserOutputModel>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selection);
 
         txtUserName = findViewById(R.id.textViewSelectionActivityUserName);
+        txtHospital = findViewById(R.id.textViewHospital);
         imbSettings = findViewById(R.id.buttonSettings);
         btnLocateMenu = findViewById(R.id.buttonLocateMenu);
         btnShipmentMenu = findViewById(R.id.buttonShipmentMenu);
@@ -45,9 +50,12 @@ public class SelectionActivity extends AppCompatActivity {
         glMainMenu = findViewById(R.id.gridLayoutSelectionMenu);
 
         this.userLogged = (UserOutputModel)getIntent().getSerializableExtra("userLogged");
+        this.listaDeHospitales = (UserOutputModel)getIntent().getSerializableExtra("listaDeHospitales");
+        this.lstHosUser = userLogged.UsersList;
 
         getAllButtons(glMainMenu);
         txtUserName.setText(getString(R.string.identified_user) + " " + userLogged.UserName);
+        txtHospital.setText("Hospital:" + " " + userLogged.HospitalName);
 
         imbSettings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,11 +101,15 @@ public class SelectionActivity extends AppCompatActivity {
                 i = new Intent(getApplicationContext(), ShipmentActivity.class);
                 i.putExtra("toCentral", true);
                 break;
+            case R.id.buttonHospitalShipmentMenu:
+                i = new Intent(getApplicationContext(), HospitalShipment.class);
+                i.putExtra("toCentral", true);
             default:
                 break;
         }
 
         i.putExtra("userLogged", this.userLogged);
+        i.putExtra("listaDeHospitales", this.listaDeHospitales);
         startActivity(i);
     }
 }
