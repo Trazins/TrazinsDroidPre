@@ -3,7 +3,7 @@ package com.trazins.trazinsdroidpre.utils;
 public class ConnectionParameters {
 
     //Selector de conexión
-    public static final int SET_URL_CONNECTION = 13;
+    public static final int SET_URL_CONNECTION = 0;
 
     //Listado de url de conexión para los web service
     public static final String [] SOAP_ADDRESS = new String[]{
