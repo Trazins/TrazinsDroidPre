@@ -12,5 +12,8 @@ public class StorageInputModel implements Serializable {
     public List<MaterialInputModel> MatList = new ArrayList<MaterialInputModel>();
     public String EntryUser;
     public String TrolleyCode;
+
     public String HosId;
+
+    public Boolean AutoReception;
 }

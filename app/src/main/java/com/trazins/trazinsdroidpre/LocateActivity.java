@@ -210,6 +210,7 @@ public class LocateActivity extends AppCompatActivity {
                 storageInputModel.LocationId = String.valueOf(finalLocation.LocateId);
                 storageInputModel.EntryUser = userLogged.Login;
                 storageInputModel.HosId = userLogged.HosId;
+                storageInputModel.AutoReception = userLogged.AutoReception;
                 for(MaterialOutputModel m : lstMaterial){
                     //Serializamos los materiales.
                     MaterialInputModel serializableMaterial = new MaterialInputModel();

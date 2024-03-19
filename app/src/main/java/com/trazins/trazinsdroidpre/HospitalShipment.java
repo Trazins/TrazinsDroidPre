@@ -139,7 +139,6 @@ public class HospitalShipment extends AppCompatActivity {
             }
         });
 
-
         textViewElements = findViewById(R.id.textViewShipmentMaterialCounter);
         textViewShipmentTitle = findViewById(R.id.textViewShipmentTitle);
         txtHospital = findViewById(R.id.textViewHospital);
