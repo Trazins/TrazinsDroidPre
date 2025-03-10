@@ -58,7 +58,7 @@
     <string name="trolley">Trolley:</string>
     <string name="trolley_hint">Scan trolley label</string>
     <string name="located_trolley">Selected trolley cannot be used because it is located</string>
-    <string name= "steri_shipment">sterilization shipment</string>
+    <string name="no_materials_found">No materials found</string>
 
     //Hospital Shipment
     <string name="add_hospital_shipment">Shipment between hospitals</string>
@@ -80,6 +80,7 @@
     <string name="surgical_process_title">Surgical process</string>
     <string name="intervention_code">Intervention code:</string>
     <string name="record_number">Record number:</string>
+    <string name="delivery_note">Delivery note:</string>
     <string name="materials_surgical_process_title">Materials used</string>
     <string name="start_post_counter">Start post-counter</string>
     <string name="add_surgical_process">Save</string>

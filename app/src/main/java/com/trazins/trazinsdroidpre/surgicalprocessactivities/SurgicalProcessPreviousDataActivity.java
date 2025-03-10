@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -45,7 +46,7 @@ import java.util.List;
 public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE = 77;
-    private EditText editTextRecordNumber, editTextInterventionCode, editTextInterventionDate;
+    private EditText editTextRecordNumber, editTextInterventionCode, editTextDeliveryNote, editTextInterventionDate;
     private TextView textViewUserName;
     private Spinner spinnerOperationRoom;
     private BottomNavigationView bnv;
@@ -79,11 +80,32 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
 
         editTextInterventionCode = findViewById(R.id.editTextInterventionCode);
         editTextRecordNumber = findViewById(R.id.editTextRecordNumber);
+//        editTextDeliveryNote = findViewById(R.id.editTextDeliveryNote);
+
         editTextInterventionDate = findViewById(R.id.editTextInterventionDate);
         editTextInterventionDate.setInputType(InputType.TYPE_NULL);
         spinnerOperationRoom = findViewById(R.id.spinnerOperationRoom);
         bnv = findViewById(R.id.bottomSPPDNavigationMenu);
         switchUrgent = findViewById(R.id.switchSPUrgent);
+
+        LinearLayout layoutRegularization = findViewById(R.id.layoutRegularization);
+        TextView textViewInterventionDate = findViewById(R.id.textViewInterventionDate);
+        EditText editTextInterventionDate = findViewById(R.id.editTextInterventionDate);
+
+        layoutRegularization.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Muestra los campos
+//                textViewInterventionDate.setVisibility(View.VISIBLE);
+//                editTextInterventionDate.setVisibility(View.VISIBLE);
+
+                // O, si quieres alternar (mostrar/ocultar), podrías usar:
+                 int currentVisibility = textViewInterventionDate.getVisibility();
+                 int newVisibility = (currentVisibility == View.VISIBLE) ? View.GONE : View.VISIBLE;
+                 textViewInterventionDate.setVisibility(newVisibility);
+                 editTextInterventionDate.setVisibility(newVisibility);
+            }
+        });
 
         //Usuario loggeado
         this.userLogged = (UserOutputModel)getIntent().getSerializableExtra("userLogged");
@@ -130,6 +152,7 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
 
         String interventionCode = editTextInterventionCode.getText().toString();
         String recordNumber = editTextRecordNumber.getText().toString();
+//        String deliveryNote = editTextDeliveryNote.getText().toString();
         String interventionDate = editTextInterventionDate.getText().toString();
 
         //Comprobamos que los campos obligatorios tienen datos
@@ -141,6 +164,10 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
             editTextRecordNumber.setError(getText(R.string.empty_data));
             return;
         }
+//        if(TextUtils.isEmpty(deliveryNote)){
+//            editTextDeliveryNote.setError(getText(R.string.empty_data));
+//            return;
+//        }
         if(TextUtils.isEmpty(interventionDate)){
             //Si el usuario no ha elegido fecha, se establece la fecha actual
             //y creamos también registroES (setShipmentData)
@@ -156,6 +183,7 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
         this.surgicalProcess.InterventionDate = interventionDate;
         this.surgicalProcess.OperationRoomId = operationRoom.OpId;
         this.surgicalProcess.Urgent = switchUrgent.isChecked();
+//        this.surgicalProcess.DeliveryNote = deliveryNote;
 
         Intent i = new Intent(getApplicationContext(), SurgicalProcessActivity.class);
         i.putExtra("surgicalProcess", this.surgicalProcess);
@@ -205,6 +233,7 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
 
     private void cleanControls(){
         editTextRecordNumber.setText("");
+//        editTextDeliveryNote.setText("");
         editTextInterventionCode.setText("");
         editTextInterventionDate.setText("");
         spinnerOperationRoom.setSelection(0);
@@ -216,6 +245,7 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
     //Añadimos la info a los controles de la vista
     private void setValuesOfRecoveredSP(SurgicalProcessOutputModel surgicalProcess) {
         editTextRecordNumber.setText(surgicalProcess.RecordNumber);
+//        editTextDeliveryNote.setText(surgicalProcess.DeliveryNote);
         editTextInterventionCode.setText(surgicalProcess.InterventionCode);
         editTextInterventionDate.setText(surgicalProcess.InterventionDate);
         switchUrgent.setChecked(surgicalProcess.Urgent);
@@ -298,8 +328,5 @@ public class SurgicalProcessPreviousDataActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), e.getMessage(),Toast.LENGTH_LONG).show();
             }
         }
-
-
-
     }
 }

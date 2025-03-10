@@ -46,7 +46,7 @@ public class SPMaterialCustomAdapter extends BaseAdapter {
         TextView TextViewName;
         TextView TextViewDes;
         TextView TextViewChemicalControl;
-        Switch SwitchChemicalControl;
+        Switch SwitchChemicalControl = null;
 
         SP_MaterialOutputModel c = lst.get(position);
 
@@ -73,6 +73,17 @@ public class SPMaterialCustomAdapter extends BaseAdapter {
         ImageViewMaterial.setImageResource(c.Image);
         TextViewName.setText(c.MaterialDescription);
         TextViewDes.setText(c.Id);
+
+        // Actualizar el estado del Switch
+        SwitchChemicalControl.setChecked(c.ChemicalControl);
+
+        // Configurar el listener del Switch
+        SwitchChemicalControl.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            // Actualizar el modelo
+            c.ChemicalControl = isChecked;
+
+            // Puedes añadir lógica adicional aquí, como notificar cambios a un servidor o base de datos
+        });
 
         return convertView;
 

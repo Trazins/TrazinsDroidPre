@@ -67,8 +67,7 @@
                     android:switchPadding="10dp"
                     android:text="@string/chemical_control"
                     android:thumbTint="@drawable/switchthumbcc"
-                    android:trackTint="@drawable/switchtrackcc"
-                    android:enabled="false"/>
+                    android:trackTint="@drawable/switchtrackcc"/>
 
             </LinearLayout>
         </LinearLayout>

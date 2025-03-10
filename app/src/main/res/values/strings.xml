@@ -61,6 +61,7 @@
     <string name="trolley_hint">Lea la etiqueta del carro</string>
     <string name="located_trolley">El carro seleccionado no se puede usar porque está ubicado</string>
     <string name="steri_shipment">Envío a esterilización</string>
+    <string name="no_materials_found">Material no encontrado</string>
 
     //Hospital Shipment
     <string name="add_hospital_shipment">Envío entre hospitales</string>
@@ -82,6 +83,7 @@
     <string name="surgical_process_title">Proceso quirúrgico</string>
     <string name="intervention_code">Código de intervención:</string>
     <string name="record_number">Número de historia:</string>
+    <string name="delivery_note">Número de albarán:</string>
     <string name="materials_surgical_process_title">Material utilizado</string>
     <string name="start_post_counter">Iniciar recuento</string>
     <string name="add_surgical_process">Guardar</string>

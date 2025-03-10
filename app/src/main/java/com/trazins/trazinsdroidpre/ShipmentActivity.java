@@ -12,11 +12,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Switch;
@@ -27,6 +29,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.threepin.fireexit_wcf.Configurator;
 import com.threepin.fireexit_wcf.FireExitClient;
 import com.trazins.trazinsdroidpre.models.materialmodel.MaterialInputModel;
+import com.trazins.trazinsdroidpre.models.materialmodel.MaterialOutputListModel;
 import com.trazins.trazinsdroidpre.models.materialmodel.MaterialOutputModel;
 import com.trazins.trazinsdroidpre.models.originmodel.OriginInputModel;
 import com.trazins.trazinsdroidpre.models.originmodel.OriginOutputModel;
@@ -53,6 +56,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import android.widget.EditText;
 
 public class ShipmentActivity extends AppCompatActivity {
 
@@ -169,6 +173,31 @@ public class ShipmentActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        // Obtener referencias al nuevo EditText y Button para simular el escaneo
+        EditText etSimulatedCode = findViewById(R.id.etSimulatedCode);
+        Button btnSimulateScan = findViewById(R.id.btnSimulateScan);
+        btnSimulateScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String code = etSimulatedCode.getText().toString().trim();
+                if (code.isEmpty()) {
+                    Toast.makeText(ShipmentActivity.this, "Ingrese un código simulado", Toast.LENGTH_SHORT).show();
+                } else {
+                    simulateScan(code);
+                }
+            }
+        });
+    }
+
+    // Método que simula el escaneo de una etiqueta
+    private void simulateScan(String code) {
+        // Crea un Intent con la acción esperada por el BroadcastReceiver
+        Intent intent = new Intent(DataWedgeInterface.ACTIVITY_INTENT_FILTER_ACTION);
+        // Usa la misma clave definida en los recursos para el dato escaneado
+        intent.putExtra(getResources().getString(R.string.datawedge_intent_key_data), code);
+        // Llama al método que procesa el escaneo
+        displayScanResult(intent, "Simulated");
     }
 
     //Es necesario crear un hilo nuevo para la conexión TCP
@@ -315,7 +344,7 @@ public class ShipmentActivity extends AppCompatActivity {
                         client.addParameter(parameterName, trolleyInputModel);
                         resultModel = new TrolleyOutputModel();
                     }else{
-                        methodName = "GetMaterialData";
+                        methodName = "GetMaterialDataList";
                         parameterName = "materialCode";
 
                         MaterialInputModel materialInputModel = new MaterialInputModel();
@@ -325,7 +354,9 @@ public class ShipmentActivity extends AppCompatActivity {
                                 ConnectionParameters.NAME_SPACE, ConnectionParameters.CONTRACT_NAME, methodName));
                         client.addParameter(parameterName, materialInputModel);
 
-                        resultModel = new MaterialOutputModel();
+//                        resultModel = new MaterialOutputModel();
+                        resultModel = new MaterialOutputListModel();
+
                     }
                 }
             }
@@ -364,8 +395,19 @@ public class ShipmentActivity extends AppCompatActivity {
                     textViewShipmentResult.setText(((OriginOutputModel) modelResult).OriginDescription);
                     break;
 
-                case "MaterialOutputModel":
-                    addMaterialToList((MaterialOutputModel)modelResult);
+//                case "MaterialOutputModel":
+//                    addMaterialToList((MaterialOutputModel)modelResult);
+//                    break;
+                case "MaterialOutputListModel":
+                    // Aquí se recibe la respuesta con varios materiales
+                    MaterialOutputListModel container = (MaterialOutputListModel) modelResult;
+                    if (container.getMaterialList() != null && !container.getMaterialList().isEmpty()) {
+                        for (MaterialOutputModel material : container.getMaterialList()) {
+                            addMaterialToList(material);
+                        }
+                    } else {
+                        Toast.makeText(getBaseContext(), getString(R.string.no_materials_found), Toast.LENGTH_LONG).show();
+                    }
                     break;
 
                 case "ShipmentOutputModel":
@@ -551,6 +593,7 @@ public class ShipmentActivity extends AppCompatActivity {
         //String decodedSource = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_source));
         String decodedData = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_data));
         //String decodedLabelType = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_label_type));
+        Log.d("ScanSimulation", "Código recibido: " + decodedData);
         readCode = decodedData;
 
         new ShipmentMyAsyncClass().execute();

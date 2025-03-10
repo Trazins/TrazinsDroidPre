@@ -298,6 +298,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
                 surgicalProcessInputModel.HisId = surgicalProcess.HisId;
                 surgicalProcessInputModel.InterventionCode = surgicalProcess.InterventionCode;
                 surgicalProcessInputModel.RecordNumber = surgicalProcess.RecordNumber;
+//                surgicalProcessInputModel.DeliveryNote = surgicalProcess.DeliveryNote;
                 surgicalProcessInputModel.InterventionDate = surgicalProcess.InterventionDate;
                 surgicalProcessInputModel.OperationRoomId = surgicalProcess.OperationRoomId;
                 surgicalProcessInputModel.HosId = userLogged.HosId;

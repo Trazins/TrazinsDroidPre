@@ -11,6 +11,7 @@ public class SurgicalProcessOutputModel implements Serializable {
     public int OperationRoomId;
     public String InterventionCode;
     public String RecordNumber;
+//    public String DeliveryNote;
     public String InterventionDate;
     public String HosId;
     public String OperationRoomName;

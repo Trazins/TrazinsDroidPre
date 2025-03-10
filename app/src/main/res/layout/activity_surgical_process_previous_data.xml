@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".surgicalprocessactivities.SurgicalProcessPreviousDataActivity">
+
     <LinearLayout
         android:id="@+id/MainLayout"
         android:layout_width="match_parent"
@@ -41,9 +42,9 @@
             android:id="@+id/textViewSPTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
             android:text="@string/surgical_information_title"
             android:textSize="18sp"
-            android:paddingBottom="5dp"
             tools:text="@string/surgical_information_title" />
 
         <TextView
@@ -51,107 +52,195 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/light_grey"
+            android:paddingBottom="10dp"
             android:text="@string/intervention_code"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_columnWeight="1"
-            android:paddingBottom="10dp"/>
+            app:layout_columnWeight="1" />
 
         <EditText
             android:id="@+id/editTextInterventionCode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:paddingBottom="10dp"
+            android:maxLength="20"
             android:maxLines="1"
+            android:paddingBottom="10dp"
             android:singleLine="true"
-            android:maxLength="20"/>
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/textViewRecordNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/light_grey"
+            android:paddingBottom="10dp"
             android:text="@string/record_number"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:background="@color/light_grey"
-            android:paddingBottom="10dp"/>
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/editTextRecordNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:maxLines="1"
-            android:singleLine="true"
             android:maxLength="20"
-            android:paddingBottom="10dp"/>
+            android:maxLines="1"
+            android:paddingBottom="10dp"
+            android:singleLine="true"
+            android:textSize="18sp" />
+
+<!--        <TextView-->
+<!--            android:id="@+id/textViewDeliveryNote"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@color/light_grey"-->
+<!--            android:paddingBottom="10dp"-->
+<!--            android:text="@string/delivery_note"-->
+<!--            android:textSize="18sp"-->
+<!--            android:textStyle="bold" />-->
+
+<!--        <EditText-->
+<!--            android:id="@+id/editTextDeliveryNote"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:maxLength="20"-->
+<!--            android:maxLines="1"-->
+<!--            android:paddingBottom="10dp"-->
+<!--            android:singleLine="true"-->
+<!--            android:textSize="18sp" />-->
+
         <TextView
             android:id="@+id/textViewOperatingRoom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/light_grey"
+            android:paddingBottom="10dp"
             android:text="@string/operating_room"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:background="@color/light_grey"
-            android:paddingBottom="10dp"/>
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/spinnerOperationRoom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
             android:layout_gravity="center_vertical"
-            android:paddingBottom="10dp"/>
-            <!-- Pendiente ajustar tamaño -->
+            android:paddingBottom="10dp"
+            android:textSize="18sp" />
+        <!-- Pendiente ajustar tamaño -->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:background="@color/light_grey"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
+            android:background="@color/light_grey"
+            android:orientation="horizontal"
             android:paddingBottom="5dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:background="@color/light_grey"
                 android:gravity="start|center_vertical"
                 android:text="@string/urgent"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:background="@color/light_grey"/>
+                android:textStyle="bold" />
+
             <Switch
                 android:id="@+id/switchSPUrgent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:trackTint="@drawable/switchtracksp"
-                android:thumbTint="@drawable/switchthumbsp" />
+                android:thumbTint="@drawable/switchthumbsp"
+                android:trackTint="@drawable/switchtracksp" />
 
         </LinearLayout>
 
+        <!--        <TextView-->
+        <!--            android:id="@+id/textViewInterventionDate"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="@string/intervention_date"-->
+        <!--            android:textSize="18sp"-->
+        <!--            android:textStyle="bold"-->
+        <!--            android:background="@color/light_grey"-->
+        <!--            android:paddingBottom="5dp"-->
+        <!--            android:layout_marginTop="5dp"/>-->
+        <!--        <EditText-->
+        <!--            android:id="@+id/editTextInterventionDate"-->
+        <!--            android:inputType="none"-->
+        <!--            android:hint="@string/select_intervention_date"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:focusableInTouchMode="false"-->
+        <!--            android:textSize="18sp"-->
+        <!--            android:maxLines="1"-->
+        <!--            android:singleLine="true"-->
+        <!--            android:maxLength="20"-->
+        <!--            android:paddingBottom="10dp"/>-->
+        <!--
+            NUEVO BLOQUE: REGULARIZACIÓN (icono y texto)
+            Al pulsar, mostramos los campos de fecha y hora.
+        -->
+        <LinearLayout
+            android:id="@+id/layoutRegularization"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@color/light_grey"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <!-- Icono de reloj -->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/global_image_description"
+                android:padding="8dp"
+                android:src="@drawable/baseline_access_time_24" />
+
+            <!-- Texto REGULARIZACIÓN -->
+            <TextView
+                android:id="@+id/textViewRegularizationLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="REGULARIZACIÓN"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!--
+            Estos campos se muestran inicialmente ocultos (visibility="gone").
+            Se harán visibles al pulsar sobre el LinearLayout de 'REGULARIZACIÓN'.
+        -->
         <TextView
             android:id="@+id/textViewInterventionDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@color/light_grey"
+            android:paddingBottom="5dp"
             android:text="@string/intervention_date"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:background="@color/light_grey"
-            android:paddingBottom="5dp"
-            android:layout_marginTop="5dp"/>
+            android:visibility="gone" />
+
         <EditText
             android:id="@+id/editTextInterventionDate"
-            android:inputType="none"
-            android:hint="@string/select_intervention_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="false"
-            android:textSize="18sp"
-            android:maxLines="1"
-            android:singleLine="true"
+            android:hint="@string/select_intervention_date"
+            android:inputType="none"
             android:maxLength="20"
-            android:paddingBottom="10dp"/>
+            android:maxLines="1"
+            android:paddingBottom="10dp"
+            android:singleLine="true"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
     </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
