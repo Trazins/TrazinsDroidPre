@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -59,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
 
     //Variable que almacena el código leído por el lector.
     String readCode = "";
+
+    private static final String TAG = "MainActivity";
 
     private Boolean isConnected;
     public Boolean getConnected() {
@@ -206,6 +209,7 @@ public class MainActivity extends AppCompatActivity {
                 //Realizamos la llamada al web service para obtener los datos
                 userOutputModelLogged = client.call(userOutputModelLogged);
             } catch (Exception e) {
+                Log.e(TAG, "Error en Object doInBackground", e);
                 e.printStackTrace();
                 ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(), activityName);
                 //Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();

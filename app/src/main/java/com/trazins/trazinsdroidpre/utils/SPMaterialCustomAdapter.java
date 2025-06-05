@@ -42,50 +42,47 @@ public class SPMaterialCustomAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView ImageViewMaterial;
-        TextView TextViewName;
-        TextView TextViewDes;
-        TextView TextViewChemicalControl;
-        Switch SwitchChemicalControl = null;
+        ImageView imageViewMaterial;
+        TextView textViewName;
+        TextView textViewDes;
+        TextView textViewChemicalControl;
+        Switch switchChemicalControl;
 
         SP_MaterialOutputModel c = lst.get(position);
-
         String deviceModel = Build.MODEL;
 
-        if(convertView == null)
-            if(deviceModel.equals("TC20")){
-                convertView = LayoutInflater.from(context).inflate(R.layout.listview_sp_materials_item_tc20, null);
-                TextViewChemicalControl = convertView.findViewById(R.id.textViewLstChemicalControl);
-                if(c.ChemicalControl)
-                    TextViewChemicalControl.setText(R.string.urgent_yes);
-                else
-                    TextViewChemicalControl.setText(R.string.no);
-            }else{
-                convertView = LayoutInflater.from(context).inflate(R.layout.listview_sp_materials_item, null);
-                SwitchChemicalControl = convertView.findViewById(R.id.switchMaterialListItem);
-                SwitchChemicalControl.setChecked(c.ChemicalControl);
+        if (convertView == null) {
+            if (deviceModel.equals("TC20")) {
+                convertView = LayoutInflater.from(context).inflate(R.layout.listview_sp_materials_item_tc20, parent, false);
+            } else {
+                convertView = LayoutInflater.from(context).inflate(R.layout.listview_sp_materials_item, parent, false);
             }
+        }
 
-        ImageViewMaterial = convertView.findViewById(R.id.imageViewMaterialType);
-        TextViewName = convertView.findViewById(R.id.textViewDescription);
-        TextViewDes = convertView.findViewById(R.id.textViewId);
+        imageViewMaterial = convertView.findViewById(R.id.imageViewMaterialType);
+        textViewName = convertView.findViewById(R.id.textViewDescription);
+        textViewDes = convertView.findViewById(R.id.textViewId);
 
-        ImageViewMaterial.setImageResource(c.Image);
-        TextViewName.setText(c.MaterialDescription);
-        TextViewDes.setText(c.Id);
+        imageViewMaterial.setImageResource(c.Image);
+        textViewName.setText(c.MaterialDescription);
+        textViewDes.setText(c.Id);
 
-        // Actualizar el estado del Switch
-        SwitchChemicalControl.setChecked(c.ChemicalControl);
-
-        // Configurar el listener del Switch
-        SwitchChemicalControl.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            // Actualizar el modelo
-            c.ChemicalControl = isChecked;
-
-            // Puedes añadir lógica adicional aquí, como notificar cambios a un servidor o base de datos
-        });
+        if (deviceModel.equals("TC20")) {
+            textViewChemicalControl = convertView.findViewById(R.id.textViewLstChemicalControl);
+            if (textViewChemicalControl != null) {
+                textViewChemicalControl.setText(c.ChemicalControl ? R.string.urgent_yes : R.string.no);
+            }
+        } else {
+            switchChemicalControl = convertView.findViewById(R.id.switchMaterialListItem);
+            if (switchChemicalControl != null) {
+                switchChemicalControl.setOnCheckedChangeListener(null); // Evita callback al reciclar la vista
+                switchChemicalControl.setChecked(c.ChemicalControl);
+                switchChemicalControl.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    c.ChemicalControl = isChecked;
+                });
+            }
+        }
 
         return convertView;
-
     }
 }

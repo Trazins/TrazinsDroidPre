@@ -43,9 +43,11 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.util.Log;
 
 //No puede estar en un subpaquete porque sino el datawedge no lo reconoce
 public class SurgicalProcessActivity extends AppCompatActivity {
+    private static final String TAG = "SurgicalProcessActivity";
 
     private static final int REQUEST_CODE = 77;
 
@@ -216,6 +218,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
             new SurgicalProcessMyAsyncClass().execute().toString();
 
         }catch(Exception e){
+            Log.e(TAG, "Error en newSurgicalProcess", e);
             ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
             Toast.makeText(getBaseContext(), e.getMessage(),Toast.LENGTH_LONG).show();
         }
@@ -236,6 +239,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
             lstMaterial.remove(material);
             return lstMaterial;
         }catch(Exception e){
+            Log.e(TAG, "Error en removeData", e);
             ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
             Toast.makeText(getBaseContext(), e.getMessage(),Toast.LENGTH_LONG).show();
             return null;
@@ -348,6 +352,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
                 //Realizamos la llamada al web service para obtener los datos
                 resultModel = client.call(resultModel);
             } catch (Exception e) {
+                Log.e(TAG, "Error en SurgicalProcessMyAsyncClass", e);
                 ErrorLogWriter.writeToLogErrorFile(e.getMessage(), getApplicationContext(),activityName);
                 e.printStackTrace();
             }
@@ -407,6 +412,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
             ListViewMaterials.setSelector(R.color.transparent);
 
         }catch(Exception e){
+            Log.e(TAG, "Error en addMaterialToList", e);
             ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
             Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_LONG).show();
         }
@@ -431,6 +437,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
                 try {
                     displayScanResult(intent, "via Broadcast");
                 }catch (Exception e){
+                    Log.e(TAG, "Error en myBroadCastReceiver", e);
                     ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
                 }
             }
@@ -438,13 +445,16 @@ public class SurgicalProcessActivity extends AppCompatActivity {
     };
 
     private void displayScanResult(Intent initiatingIntent, String howDataRecibed){
+        String decodedData = initiatingIntent.getStringExtra(
+                getResources().getString(R.string.datawedge_intent_key_data));
 
-        String decodedData = initiatingIntent.getStringExtra(getResources().getString(R.string.datawedge_intent_key_data));
+        if (BuildConfig.DEBUG) {
+            Log.d(TAG, "Código leído: " + decodedData + " [" + howDataRecibed + "]");
+        }
 
         readCode = decodedData;
-
         new SurgicalProcessMyAsyncClass().execute();
-    };
+    }
 
     private List<SP_MaterialOutputModel> GetData(SP_MaterialOutputModel material) {
         try {
@@ -463,7 +473,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
                     materialImageType = R.drawable.ic_loan_icon;
                     break;
                 default:
-                    materialImageType = 0;
+                    materialImageType = R.drawable.button_rounded_corner_grey;
                     break;
             }
 
@@ -485,6 +495,7 @@ public class SurgicalProcessActivity extends AppCompatActivity {
 
 
         }catch (Exception e){
+            Log.e(TAG, "Error en GetData", e);
             ErrorLogWriter.writeToLogErrorFile(e.getMessage(),getApplicationContext(),activityName);
             Toast.makeText(getBaseContext(),e.getMessage(),Toast.LENGTH_LONG).show();
         }

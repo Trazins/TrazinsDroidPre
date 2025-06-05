@@ -174,31 +174,31 @@ public class ShipmentActivity extends AppCompatActivity {
             }
         });
 
-        // Obtener referencias al nuevo EditText y Button para simular el escaneo
-        EditText etSimulatedCode = findViewById(R.id.etSimulatedCode);
-        Button btnSimulateScan = findViewById(R.id.btnSimulateScan);
-        btnSimulateScan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String code = etSimulatedCode.getText().toString().trim();
-                if (code.isEmpty()) {
-                    Toast.makeText(ShipmentActivity.this, "Ingrese un código simulado", Toast.LENGTH_SHORT).show();
-                } else {
-                    simulateScan(code);
-                }
-            }
-        });
+//        // Obtener referencias al nuevo EditText y Button para simular el escaneo
+//        EditText etSimulatedCode = findViewById(R.id.etSimulatedCode);
+//        Button btnSimulateScan = findViewById(R.id.btnSimulateScan);
+//        btnSimulateScan.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                String code = etSimulatedCode.getText().toString().trim();
+//                if (code.isEmpty()) {
+//                    Toast.makeText(ShipmentActivity.this, "Ingrese un código simulado", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    simulateScan(code);
+//                }
+//            }
+//        });
     }
 
-    // Método que simula el escaneo de una etiqueta
-    private void simulateScan(String code) {
-        // Crea un Intent con la acción esperada por el BroadcastReceiver
-        Intent intent = new Intent(DataWedgeInterface.ACTIVITY_INTENT_FILTER_ACTION);
-        // Usa la misma clave definida en los recursos para el dato escaneado
-        intent.putExtra(getResources().getString(R.string.datawedge_intent_key_data), code);
-        // Llama al método que procesa el escaneo
-        displayScanResult(intent, "Simulated");
-    }
+//    // Método que simula el escaneo de una etiqueta
+//    private void simulateScan(String code) {
+//        // Crea un Intent con la acción esperada por el BroadcastReceiver
+//        Intent intent = new Intent(DataWedgeInterface.ACTIVITY_INTENT_FILTER_ACTION);
+//        // Usa la misma clave definida en los recursos para el dato escaneado
+//        intent.putExtra(getResources().getString(R.string.datawedge_intent_key_data), code);
+//        // Llama al método que procesa el escaneo
+//        displayScanResult(intent, "Simulated");
+//    }
 
     //Es necesario crear un hilo nuevo para la conexión TCP
     private void setLocateAndPrint() {
@@ -356,7 +356,6 @@ public class ShipmentActivity extends AppCompatActivity {
 
 //                        resultModel = new MaterialOutputModel();
                         resultModel = new MaterialOutputListModel();
-
                     }
                 }
             }
@@ -447,6 +446,7 @@ public class ShipmentActivity extends AppCompatActivity {
                 }
                 cleanControlsViews();
             }else{
+                Log.e("MainActivity", "Error en refreshUIaaa");
                 Toast.makeText(getBaseContext(), R.string.error_process, Toast.LENGTH_LONG).show();
             }
 

@@ -215,30 +215,30 @@ public class HospitalShipment extends AppCompatActivity {
         });
 
         // Obtener referencias al nuevo EditText y Button para simular el escaneo
-        EditText etSimulatedCode = findViewById(R.id.etSimulatedCode);
-        Button btnSimulateScan = findViewById(R.id.btnSimulateScan);
-        btnSimulateScan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String code = etSimulatedCode.getText().toString().trim();
-                if (code.isEmpty()) {
-                    Toast.makeText(HospitalShipment.this, "Ingrese un código simulado", Toast.LENGTH_SHORT).show();
-                } else {
-                    simulateScan(code);
-                }
-            }
-        });
+//        EditText etSimulatedCode = findViewById(R.id.etSimulatedCode);
+//        Button btnSimulateScan = findViewById(R.id.btnSimulateScan);
+//        btnSimulateScan.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                String code = etSimulatedCode.getText().toString().trim();
+//                if (code.isEmpty()) {
+//                    Toast.makeText(HospitalShipment.this, "Ingrese un código simulado", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    simulateScan(code);
+//                }
+//            }
+//        });
     }
 
-    // Método que simula el escaneo de una etiqueta
-    private void simulateScan(String code) {
-        // Crea un Intent con la acción esperada por el BroadcastReceiver
-        Intent intent = new Intent(DataWedgeInterface.ACTIVITY_INTENT_FILTER_ACTION);
-        // Usa la misma clave definida en los recursos para el dato escaneado
-        intent.putExtra(getResources().getString(R.string.datawedge_intent_key_data), code);
-        // Llama al método que procesa el escaneo
-        displayScanResult(intent, "Simulated");
-    }
+//    // Método que simula el escaneo de una etiqueta
+//    private void simulateScan(String code) {
+//        // Crea un Intent con la acción esperada por el BroadcastReceiver
+//        Intent intent = new Intent(DataWedgeInterface.ACTIVITY_INTENT_FILTER_ACTION);
+//        // Usa la misma clave definida en los recursos para el dato escaneado
+//        intent.putExtra(getResources().getString(R.string.datawedge_intent_key_data), code);
+//        // Llama al método que procesa el escaneo
+//        displayScanResult(intent, "Simulated");
+//    }
 
     //Es necesario crear un hilo nuevo para la conexión TCP
     private void setLocateAndPrint() {

@@ -204,36 +204,36 @@
 
     </LinearLayout>
 
-    <!-- Contenedor para simular el escaneo (EditText y Button) -->
-    <LinearLayout
-        android:id="@+id/layoutSimulate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomShipmentNavigationMenu"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+<!--    &lt;!&ndash; Contenedor para simular el escaneo (EditText y Button) &ndash;&gt;-->
+<!--    <LinearLayout-->
+<!--        android:id="@+id/layoutSimulate"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:padding="8dp"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/bottomShipmentNavigationMenu"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent">-->
 
-        <EditText
-            android:id="@+id/etSimulatedCode"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Código simulado"
-            android:padding="8dp"
-            android:background="@color/medium_grey" />
+<!--        <EditText-->
+<!--            android:id="@+id/etSimulatedCode"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:hint="Código simulado"-->
+<!--            android:padding="8dp"-->
+<!--            android:background="@color/medium_grey" />-->
 
-        <Button
-            android:id="@+id/btnSimulateScan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Simular"
-            android:layout_marginStart="8dp"
-            android:padding="8dp"
-            style="@style/Widget.AppCompat.Button.Colored" />
+<!--        <Button-->
+<!--            android:id="@+id/btnSimulateScan"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Simular"-->
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:padding="8dp"-->
+<!--            style="@style/Widget.AppCompat.Button.Colored" />-->
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomShipmentNavigationMenu"
