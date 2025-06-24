@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/go_back_hospital"
+        android:title="@string/go_back"
+        android:icon="@drawable/ic_arrow_back"
+        />
+    <item
+        android:id="@+id/set_rfid_code"
+        android:title="@string/set_rfid_menu"
+        android:icon="@drawable/ic_contactless_24"
+        />
+</menu>

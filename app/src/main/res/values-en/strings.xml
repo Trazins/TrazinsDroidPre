@@ -23,6 +23,10 @@
     <string name="list_hospitals_title">Select a hospital:</string>
     <string name="hospital_not_selected">Hospital not selected</string>
 
+    //Set RFID Code Activity
+    <string name="set_rfid_menu">Set RFID</string>
+    <string name="set_content">Content</string>
+
     //Main Activity
     <string name="app_name">Trazins DROID</string>
     <string name="welcome">Welcome to Trazins</string>
@@ -59,6 +63,7 @@
     <string name="trolley_hint">Scan trolley label</string>
     <string name="located_trolley">Selected trolley cannot be used because it is located</string>
     <string name="no_materials_found">No materials found</string>
+    <string name="steri_shipment">Sterilization shipment</string>
 
     //Hospital Shipment
     <string name="add_hospital_shipment">Shipment between hospitals</string>

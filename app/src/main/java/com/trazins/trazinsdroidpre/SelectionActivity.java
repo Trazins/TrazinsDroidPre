@@ -104,6 +104,10 @@ public class SelectionActivity extends AppCompatActivity {
             case R.id.buttonHospitalShipmentMenu:
                 i = new Intent(getApplicationContext(), HospitalShipment.class);
                 i.putExtra("toCentral", true);
+                break;
+            case R.id.buttonSetRFIDCodeMenu:
+                i = new Intent(getApplicationContext(), SetRFIDCodeActivity.class);
+                break;
             default:
                 break;
         }

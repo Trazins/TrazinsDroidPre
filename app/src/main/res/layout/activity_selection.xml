@@ -166,6 +166,18 @@
             android:textColor="@color/buttonTrazins"
             app:layout_columnWeight="1"
             android:tag="v1"/>
+        <Button
+            android:id="@+id/buttonSetRFIDCodeMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/white"
+            android:drawableTop="@drawable/ic_menu_settings_remote_48"
+            android:onClick="openSelectedActivity"
+            android:text="@string/set_rfid_menu"
+            android:textColor="@color/buttonTrazins"
+            app:layout_columnWeight="1"
+            android:tag="v2"/>
 
 
     </androidx.gridlayout.widget.GridLayout>

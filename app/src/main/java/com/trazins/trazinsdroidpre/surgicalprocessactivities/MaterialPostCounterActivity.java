@@ -365,8 +365,8 @@ public class MaterialPostCounterActivity extends AppCompatActivity  implements R
 
     private void addDistinctTags(String tagId) {
         for(SP_InstrumentOutputModel m : InstrumentList){
-            if(tagId!= "" && m.InstrumentCode != null){
-                if(m.InstrumentCode.equals(tagId)){
+            if(tagId!= "" && m.InstrumentDM != null){
+                if(m.InstrumentDM.equals(tagId)){
                     TotalCounterList.add(m);
                 }
             }

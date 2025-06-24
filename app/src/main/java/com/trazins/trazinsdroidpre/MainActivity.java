@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String PROFILE4 = "TrazinsMultiActivity_Profile4";
     private static final String PROFILE5 = "TrazinsMultiActivity_Profile5";
 
+    private static final String PROFILE6 = "TrazinsMultiActivity_Profile6";
+
     private static final int REQUEST_CODE = 77;
 
     private String activityName;
@@ -354,8 +356,11 @@ public class MainActivity extends AppCompatActivity {
         }
         else if(profileName.equals(PROFILE4)){
             activityName = SurgicalProcessActivity.class.getSimpleName();
-        }else{
+
+        }else if(profileName.equals(PROFILE5)){
             activityName = HospitalShipment.class.getSimpleName();
+        }else{
+            activityName = SetRFIDCodeActivity.class.getSimpleName();
         }
 
         String activityPackageName = getPackageName() + "." + activityName;

@@ -19,6 +19,9 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".SetRFIDCodeActivity"
+            android:exported="false" />
+        <activity
             android:name=".HospitalShipment"
             android:exported="false" />
         <activity android:name=".HospitalSelectionActivity" />
