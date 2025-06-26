@@ -72,8 +72,8 @@ public class SPMaterialCustomAdapter extends BaseAdapter {
             if (textViewChemicalControl != null) {
                 textViewChemicalControl.setText(c.ChemicalControl ? R.string.urgent_yes : R.string.no);
             }
-        } else {
-            switchChemicalControl = convertView.findViewById(R.id.switchMaterialListItem);
+        } /*else {
+            /*switchChemicalControl = convertView.findViewById(R.id.switchMaterialListItem);
             if (switchChemicalControl != null) {
                 switchChemicalControl.setOnCheckedChangeListener(null); // Evita callback al reciclar la vista
                 switchChemicalControl.setChecked(c.ChemicalControl);
@@ -81,7 +81,7 @@ public class SPMaterialCustomAdapter extends BaseAdapter {
                     c.ChemicalControl = isChecked;
                 });
             }
-        }
+        }*/
 
         return convertView;
     }

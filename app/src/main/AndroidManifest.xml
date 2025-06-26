@@ -19,6 +19,9 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".setrfidcodeactivities.InstrumentalDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".SetRFIDCodeActivity"
             android:exported="false" />
         <activity

@@ -12,7 +12,7 @@
         />
     <item
         android:id="@+id/add_surgical_process"
-        android:title="@string/add_surgical_process"
+        android:title="@string/save"
         android:icon="@drawable/ic_add_surgical_process"
         />
 </menu>

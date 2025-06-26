@@ -18,6 +18,7 @@
     <string name="urgent">Urgent:</string>
     <string name="selected">Selected</string>
     <string name="urgent_yes"><font fgcolor='#FFFF3B30'>Yes</font></string>
+    <string name="save">Save</string>
 
     //Hospital Selection Activity
     <string name="list_hospitals_title">Select a hospital:</string>
@@ -26,6 +27,9 @@
     //Set RFID Code Activity
     <string name="set_rfid_menu">Set RFID</string>
     <string name="set_content">Content</string>
+    <string name="instrument_description">Instrument</string>
+    <string name="instrument_dm">Datamatrix:</string>
+    <string name="instrument_dm_hint">Datamatrix value</string>
 
     //Main Activity
     <string name="app_name">Trazins DROID</string>
@@ -88,7 +92,6 @@
     <string name="delivery_note">Delivery note:</string>
     <string name="materials_surgical_process_title">Materials used</string>
     <string name="start_post_counter">Start post-counter</string>
-    <string name="add_surgical_process">Save</string>
     <string name="new_surgical_process">New</string>
     <string name="edit_surgical_process">Edit</string>
     <string name="operating_room">Operating room:</string>

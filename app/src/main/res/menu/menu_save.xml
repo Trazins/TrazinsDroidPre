@@ -4,5 +4,8 @@
         android:id="@+id/go_back"
         android:title="@string/go_back"
         android:icon="@drawable/ic_arrow_back"/>
-
+    <item
+        android:id="@+id/save"
+        android:title="@string/save"
+        android:icon="@drawable/ic_save_24"/>
 </menu>

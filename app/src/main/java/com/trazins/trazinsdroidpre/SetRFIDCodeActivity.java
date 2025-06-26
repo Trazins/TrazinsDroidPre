@@ -13,6 +13,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,10 +24,12 @@ import com.threepin.fireexit_wcf.Configurator;
 import com.threepin.fireexit_wcf.FireExitClient;
 import com.trazins.trazinsdroidpre.models.sp_intrumentmodel.SP_InstrumentInputModel;
 import com.trazins.trazinsdroidpre.models.sp_intrumentmodel.SP_InstrumentOutputModel;
+import com.trazins.trazinsdroidpre.models.sp_materialmodel.SP_MaterialOutputModel;
 import com.trazins.trazinsdroidpre.models.sp_setmodel.SP_SetInputModel;
 import com.trazins.trazinsdroidpre.models.sp_setmodel.SP_SetOutputModel;
 import com.trazins.trazinsdroidpre.models.usermodel.UserOutputModel;
 import com.trazins.trazinsdroidpre.scanner.DataWedgeInterface;
+import com.trazins.trazinsdroidpre.setrfidcodeactivities.InstrumentalDetailActivity;
 import com.trazins.trazinsdroidpre.utils.ConnectionParameters;
 import com.trazins.trazinsdroidpre.utils.ErrorLogWriter;
 import com.trazins.trazinsdroidpre.utils.InstrumentListCustomAdapter;
@@ -48,6 +52,8 @@ public class SetRFIDCodeActivity extends AppCompatActivity {
     String readCode;
     private List<SP_InstrumentOutputModel> InstrumentList = new ArrayList<>();
 
+    private SP_InstrumentOutputModel selectedInstrument;
+
     public UserOutputModel userLogged;
     TextView textViewRfidSetNameResult,textViewRfidMaterialCounter;
     BottomNavigationView bnv;
@@ -68,6 +74,15 @@ public class SetRFIDCodeActivity extends AppCompatActivity {
 
         listViewInstruments = findViewById(R.id.listViewRfidMaterials);
         listViewInstruments.setClickable(true);
+        listViewInstruments.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedInstrument = InstrumentList.get(i);
+                //Habilitamos el selector de item en el listado.
+                listViewInstruments.setSelector(R.color.selection);
+                listViewInstruments.requestLayout();
+            }
+        });
 
         TextView textViewUserName = findViewById(R.id.textViewRfidUserName);
         textViewUserName.setText(getString(R.string.identified_user) + " " + userLogged.UserName);
@@ -78,12 +93,10 @@ public class SetRFIDCodeActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if(item.getItemId()==R.id.set_rfid_code) {
-                    /*selectedSet.Remarks = editTextRemarks.getText().toString();
-                    selectedSet.TheoreticalCounter = InstrumentList.size();
-                    Intent i = new Intent(getApplicationContext(), SurgicalProcessActivity.class);
-                    i.putExtra("recoveredSet", selectedSet);
-                    setResult(RESULT_OK,i);
-                    finish();*/
+                    Intent i = new Intent(getApplicationContext(), InstrumentalDetailActivity.class);
+                    i.putExtra("instrument", selectedInstrument);
+                    startActivityForResult(i, REQUEST_CODE);
+
                 }else{
                     finish();
                 }
@@ -91,6 +104,19 @@ public class SetRFIDCodeActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE) {
+            if(resultCode == RESULT_OK){
+                new GetDataMyAsyncClass().execute();
+            }
+            if (resultCode == RESULT_CANCELED) {
+                // Write your code if there's no result
+            }
+        }
     }
 
     private List<SP_InstrumentOutputModel> convertList(List<SP_InstrumentOutputModel> instrumentList) {
@@ -134,6 +160,7 @@ public class SetRFIDCodeActivity extends AppCompatActivity {
         readCode = decodedData;
         new GetDataMyAsyncClass().execute();
     }
+
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);

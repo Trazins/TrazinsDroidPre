@@ -5,6 +5,7 @@ import android.os.Build;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.trazins.trazinsdroidpre.setrfidcodeactivities.InstrumentalDetailActivity;
 import com.trazins.trazinsdroidpre.surgicalprocessactivities.MaterialPostCounterActivity;
 import com.zebra.rfid.api3.ACCESS_OPERATION_CODE;
 import com.zebra.rfid.api3.ACCESS_OPERATION_STATUS;
@@ -32,7 +33,7 @@ import com.zebra.rfid.api3.TriggerInfo;
 import java.util.ArrayList;
 import java.util.Locale;
 
-class RFIDHandler implements Readers.RFIDReaderEventHandler {
+public class RFIDHandler implements Readers.RFIDReaderEventHandler {
 
     final static String TAG = "RFID_SAMPLE";
     // RFID Reader
@@ -44,6 +45,8 @@ class RFIDHandler implements Readers.RFIDReaderEventHandler {
     // UI and context
     TextView textView;
     private MaterialPostCounterActivity context;
+
+    private InstrumentalDetailActivity context1;
     // general
     private int MAX_POWER = 270;
     // In case of RFD8500 change reader name with intended device below from list of paired RFD8500
@@ -55,6 +58,13 @@ class RFIDHandler implements Readers.RFIDReaderEventHandler {
         // Status UI
         textView = activity.statusTextViewRFID;
         // SDK
+        InitSDK();
+    }
+
+    public void onCreate(InstrumentalDetailActivity activity){
+        context1 = activity;
+
+        textView = activity.statusTextViewRFID;
         InitSDK();
     }
 
@@ -142,15 +152,15 @@ class RFIDHandler implements Readers.RFIDReaderEventHandler {
     //  Activity life cycle behavior
     //
 
-    String onResume() {
+    public String onResume() {
         return connect();
     }
 
-    void onPause() {
+    public void onPause() {
         disconnect();
     }
 
-    void onDestroy() {
+    public void onDestroy() {
         dispose();
     }
 
@@ -181,9 +191,15 @@ class RFIDHandler implements Readers.RFIDReaderEventHandler {
             try {
                 String model = Build.MODEL;
                 if(model.toUpperCase()=="TC20")
-                    readers = new Readers(context, ENUM_TRANSPORT.SERVICE_SERIAL);
+                    if(context!= null)
+                        readers = new Readers(context, ENUM_TRANSPORT.SERVICE_SERIAL);
+                    else
+                        readers = new Readers(context1, ENUM_TRANSPORT.SERVICE_SERIAL);
                 else
-                    readers = new Readers(context, ENUM_TRANSPORT.ALL);
+                    if(context != null)
+                        readers = new Readers(context, ENUM_TRANSPORT.ALL);
+                    else
+                        readers = new Readers(context1, ENUM_TRANSPORT.ALL);
 
                 availableRFIDReaderList = readers.GetAvailableRFIDReaderList();
 
@@ -196,7 +212,10 @@ class RFIDHandler implements Readers.RFIDReaderEventHandler {
                 readers.Dispose();
                 readers = null;
                 if (readers == null) {
-                    readers = new Readers(context, ENUM_TRANSPORT.BLUETOOTH);
+                    if(context!= null)
+                        readers = new Readers(context, ENUM_TRANSPORT.BLUETOOTH);
+                    else
+                        readers = new Readers(context1, ENUM_TRANSPORT.BLUETOOTH);
                 }
             }
             return null;
@@ -343,12 +362,23 @@ class RFIDHandler implements Readers.RFIDReaderEventHandler {
             if (reader != null) {
                 reader.Events.removeEventsListener(eventHandler);
                 reader.disconnect();
-                context.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        textView.setText("Disconnected");
-                    }
-                });
+
+                if(context != null){
+                    context.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            textView.setText("Disconnected");
+                        }
+                    });
+                }else{
+                    context1.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            textView.setText("Disconnected");
+                        }
+                    });
+                }
+
             }
         } catch (InvalidUsageException e) {
             e.printStackTrace();
@@ -371,7 +401,7 @@ class RFIDHandler implements Readers.RFIDReaderEventHandler {
         }
     }
 
-    synchronized void performInventory() {
+    public synchronized void performInventory() {
         // check reader connection
         if (!isReaderConnected())
             return;
@@ -384,7 +414,7 @@ class RFIDHandler implements Readers.RFIDReaderEventHandler {
         }
     }
 
-    synchronized void stopInventory() {
+    public synchronized void stopInventory() {
         // check reader connection
         if (!isReaderConnected())
             return;
@@ -432,8 +462,14 @@ class RFIDHandler implements Readers.RFIDReaderEventHandler {
                     new AsyncTask<Void, Void, Void>() {
                         @Override
                         protected Void doInBackground(Void... voids) {
-                            context.handleTriggerPress(true);
-                            return null;
+                            if(context!= null){
+                                context.handleTriggerPress(true);
+                                return null;
+                            }else {
+                                context1.handleTriggerPress(true);
+                                return null;
+                            }
+
                         }
                     }.execute();
                 }
@@ -441,8 +477,14 @@ class RFIDHandler implements Readers.RFIDReaderEventHandler {
                     new AsyncTask<Void, Void, Void>() {
                         @Override
                         protected Void doInBackground(Void... voids) {
-                            context.handleTriggerPress(false);
-                            return null;
+                            if(context != null){
+                                context.handleTriggerPress(false);
+                                return null;
+                            }else {
+                                context1.handleTriggerPress(false);
+                                return null;
+                            }
+
                         }
                     }.execute();
                 }
@@ -453,12 +495,15 @@ class RFIDHandler implements Readers.RFIDReaderEventHandler {
     private class AsyncDataUpdate extends AsyncTask<TagData[], Void, Void> {
         @Override
         protected Void doInBackground(TagData[]... params) {
-            context.handleTagdata(params[0]);
+            if(context!= null)
+                context.handleTagdata(params[0]);
+            else
+                context1.handleTagdata(params[0]);
             return null;
         }
     }
 
-    interface ResponseHandlerInterface {
+    public interface ResponseHandlerInterface {
         void handleTagdata(TagData[] tagData);
 
         void handleTriggerPress(boolean pressed);

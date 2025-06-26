@@ -42,6 +42,7 @@ public class InstrumentListCustomAdapter extends BaseAdapter {
 
         TextView TextViewDescription;
         TextView TextViewId;
+        TextView TextViewDM;
 
         SP_InstrumentOutputModel c = lst.get(position);
         if(convertView == null)
@@ -49,9 +50,11 @@ public class InstrumentListCustomAdapter extends BaseAdapter {
 
         TextViewDescription = convertView.findViewById(R.id.textViewInstrumentDescription);
         TextViewId = convertView.findViewById(R.id.textViewInstrumentId);
+        TextViewDM = convertView.findViewById(R.id.textViewInstrumentDM);
 
         TextViewDescription.setText(c.MaterialDescription);
         TextViewId.setText(c.Id);
+        TextViewDM.setText(c.InstrumentDM);
 
         return convertView;
     }
