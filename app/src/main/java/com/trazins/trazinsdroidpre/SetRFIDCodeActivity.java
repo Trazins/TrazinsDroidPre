@@ -54,6 +54,8 @@ public class SetRFIDCodeActivity extends AppCompatActivity {
 
     private SP_InstrumentOutputModel selectedInstrument;
 
+    private String setId = "";
+
     public UserOutputModel userLogged;
     TextView textViewRfidSetNameResult,textViewRfidMaterialCounter;
     BottomNavigationView bnv;
@@ -78,6 +80,7 @@ public class SetRFIDCodeActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 selectedInstrument = InstrumentList.get(i);
+
                 //Habilitamos el selector de item en el listado.
                 listViewInstruments.setSelector(R.color.selection);
                 listViewInstruments.requestLayout();
@@ -95,6 +98,7 @@ public class SetRFIDCodeActivity extends AppCompatActivity {
                 if(item.getItemId()==R.id.set_rfid_code) {
                     Intent i = new Intent(getApplicationContext(), InstrumentalDetailActivity.class);
                     i.putExtra("instrument", selectedInstrument);
+                    i.putExtra("setId", setId);
                     startActivityForResult(i, REQUEST_CODE);
 
                 }else{
@@ -249,5 +253,6 @@ public class SetRFIDCodeActivity extends AppCompatActivity {
         InstrumentListCustomAdapter adapter = new InstrumentListCustomAdapter(this,
                 convertList(InstrumentList));
         listViewInstruments.setAdapter(adapter);
+        setId = readCode;
     }
 }

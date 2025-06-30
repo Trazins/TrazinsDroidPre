@@ -37,7 +37,10 @@ public class InstrumentalDetailActivity extends AppCompatActivity implements RFI
 
     String activityName;
 
+    String setId = "";
     SP_InstrumentOutputModel instrument = new SP_InstrumentOutputModel();
+
+    boolean Result;
 
     RFIDHandler rfidHandler;
     Handler handler;
@@ -51,6 +54,7 @@ public class InstrumentalDetailActivity extends AppCompatActivity implements RFI
         activityName = this.getClass().getSimpleName();
 
         this.instrument = (SP_InstrumentOutputModel)getIntent().getSerializableExtra("instrument");
+        this.setId = (String)getIntent().getSerializableExtra("setId");
         TextView textViewSetName = findViewById(R.id.textViewSetNameDetail);
         textViewSetName.setText(instrument.SetName);
 
@@ -68,14 +72,8 @@ public class InstrumentalDetailActivity extends AppCompatActivity implements RFI
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if(item.getItemId()==R.id.save) {
-                    new SetRFIDCodeAsyncClass().execute();
-                    
-                    if(instrument.Result){
-                        Intent i = new Intent(getApplicationContext(), SetRFIDCodeActivity.class);
-                        setResult(RESULT_OK,i);
-                        finish();
-                    }
 
+                    setRFIDCode();
                 }else{
                     finish();
                 }
@@ -96,6 +94,10 @@ public class InstrumentalDetailActivity extends AppCompatActivity implements RFI
         }
     }
 
+    private void setRFIDCode(){
+        new SetRFIDCodeAsyncClass().execute();
+    }
+
     class SetRFIDCodeAsyncClass extends AsyncTask {
         @Override
         protected Object doInBackground(Object[] objects) {
@@ -107,6 +109,7 @@ public class InstrumentalDetailActivity extends AppCompatActivity implements RFI
             SP_InstrumentInputModel instrumentInputModel = new SP_InstrumentInputModel();
             instrumentInputModel.InstrumentDM = instrument.InstrumentDM;
             instrumentInputModel.InstrumentId = instrument.Id;
+            instrumentInputModel.SetId = setId;
 
             //Desplegar el servicio:
             //Usamos la librería Fireexit para la gestión de la serialización.
@@ -150,6 +153,13 @@ public class InstrumentalDetailActivity extends AppCompatActivity implements RFI
     //Recuento de los intrumentos asociados a la caja desde Trazins
     private void processData(Object result){
         instrument.Result = ((SP_InstrumentOutputModel)result).Result;
+
+        if(instrument.Result){
+            Intent i = new Intent(getApplicationContext(), SetRFIDCodeActivity.class);
+            setResult(RESULT_OK,i);
+            finish();
+        }
+
     }
     protected void onPause() {
         super.onPause();
