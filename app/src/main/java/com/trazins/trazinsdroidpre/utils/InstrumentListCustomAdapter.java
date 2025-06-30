@@ -53,7 +53,7 @@ public class InstrumentListCustomAdapter extends BaseAdapter {
         TextViewDM = convertView.findViewById(R.id.textViewInstrumentDM);
 
         TextViewDescription.setText(c.MaterialDescription);
-        TextViewId.setText(c.Id);
+        TextViewId.setText(c.InstrumentCode);
         TextViewDM.setText(c.InstrumentDM);
 
         return convertView;
